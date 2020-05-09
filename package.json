@@ -1,0 +1,9 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "A react dashboard",
+  "main": "index.ts",
+  "repository": "https://github.com/turisap/dashboard",
+  "author": "turisap",
+  "license": "MIT"
+}
