@@ -59,6 +59,7 @@ module.exports = function ({ mode, preset }) {
         loader: require.resolve("css-loader"),
         options: {
           sourceMap,
+          modules: true,
         },
       },
 
