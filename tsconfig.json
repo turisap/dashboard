@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "module": "esnext",
     "target": "es6",
     "lib": ["es2015", "es2017", "dom"],
@@ -10,9 +10,12 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "strictNullChecks": true,
+    "typeRoots": ["./types", "node_modules/@types"],
+    "strict": true
   },
 
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["./types", "node_modules"]
 }

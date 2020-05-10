@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-const Home = lazy(() => import("routes/home"));
-const News = lazy(() => import("routes/news"));
-const RealTime = lazy(() => import("routes/realTime"));
+const Home = lazy(() => import("routes/home/index"));
+const News = lazy(() => import("routes/news/index"));
+const RealTime = lazy(() => import("routes/realTime/index"));
 
 import Menu from "components/Menu";
 
