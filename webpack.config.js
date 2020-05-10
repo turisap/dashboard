@@ -24,7 +24,7 @@ const cssRegex = /\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const imagesRegex = /\.(png|jpe?g|gif|svg)$/;
 const scriptsRegex = /\.(js|ts|tsx)$/;
-const fontRegex = /\.(woff|woff2|eot|ttf|otf)$/;
+const fontRegex = /\.(woff|woff2|eot|ttf)$/;
 
 // logging information
 const stats = {

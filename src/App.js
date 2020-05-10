@@ -1,8 +1,14 @@
 import { hot } from "react-hot-loader/root";
 import React from "react";
 
+import AppRouter from "./Router";
+
 const App = () => {
-  return <h1>app</h1>;
+  return (
+    <>
+      <AppRouter />
+    </>
+  );
 };
 
 export default hot(App);
