@@ -24,7 +24,7 @@ const cssRegex = /\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const imagesRegex = /\.(png|jpe?g|gif|svg)$/;
 const scriptsRegex = /\.(js|ts|tsx)$/;
-const fontRegex = /\.(woff|woff2|eot|ttf)$/;
+const fontRegex = /\.(woff|woff2|eot|ttf|otf)$/;
 
 // logging information
 const stats = {
@@ -255,9 +255,6 @@ module.exports = function ({ mode, preset }) {
               loader: "ts-loader",
               options: {
                 reportFiles: ROUTES.appTsReportFiles,
-                compilerOptions: {
-                  noUnusedLocals: PROD_MODE,
-                },
               },
             },
           ],
