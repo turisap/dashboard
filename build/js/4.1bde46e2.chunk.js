@@ -1,0 +1,1 @@
+(this.webpackJsonp=this.webpackJsonp||[]).push([[4],{26:function(e,n,t){"use strict";t.r(n);var a=t(0),s=t.n(a);n.default=function(){return s.a.createElement("h1",null,"RealTime")}}}]);

@@ -305,6 +305,7 @@ module.exports = function ({ mode, preset }) {
       extensions: [".ts", ".tsx", ".js"],
       alias: {
         components: path.resolve(__dirname, "src/components/"),
+        routes: path.resolve(__dirname, "src/routes/"),
         assets: path.resolve(__dirname, "assets"),
       },
     },
