@@ -59,7 +59,10 @@ module.exports = function ({ mode, preset }) {
         loader: require.resolve("css-loader"),
         options: {
           sourceMap,
-          modules: true,
+          modules: {
+            mode: "local",
+            localIdentName: "[local]--[hash:base64:18]",
+          },
         },
       },
 
@@ -185,13 +188,7 @@ module.exports = function ({ mode, preset }) {
             // to  add a favicon comment out the next line
             // favicon: "",
             title: "My app",
-            templateContent: `
-	        <html>
-		      <body>
-		          <div id="app"></div>
-		      </body>
-    		</html>
- 		 `,
+            template: "src/index.html",
           },
           PROD_MODE && {
             minify: {

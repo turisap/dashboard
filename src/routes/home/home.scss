@@ -1,0 +1,35 @@
+.homeGrid {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "main main main"
+    "small1 small2 small3"
+    "heatmap heatmap heatmap";
+  grid-gap: 32px;
+  padding: 0px 32px;
+}
+
+.chartCard {
+  background: #27293d;
+  border-radius: 4px;
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.mainChart {
+  grid-area: main;
+}
+
+.chartCardHead {
+  color: #fff;
+  font-weight: 300;
+  font-size: 25px;
+  margin-bottom: 12px;
+  margin-left: 20px;
+}
+
+.subhead {
+  color: #9a9a9a;
+  font-weight: 600;
+  font-size: 12px;
+  padding-top: 15px;
+  margin: 0px 0 6px 20px;
+}

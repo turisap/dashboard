@@ -12,6 +12,23 @@ const options = {
   chart: {
     height: 350,
     type: "line",
+    toolbar: {
+      show: false,
+    },
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "dark",
+      type: "vertical",
+      inverseColors: false,
+      opacityFrom: 0.8,
+      opacityTo: 0,
+      colorStops: [],
+    },
+  },
+  dataLabels: {
+    enabled: false,
   },
   colors: ["#1f8ef1"],
   stroke: {
@@ -32,6 +49,9 @@ const options = {
       lines: {
         show: false,
       },
+    },
+    padding: {
+      right: 20,
     },
     xaxis: {
       lines: {
@@ -98,7 +118,7 @@ const options = {
 };
 
 const MainExpensesGraph: React.FC = () => (
-  <Chart options={options} series={series} type="line" height={250} />
+  <Chart options={options} series={series} type="area" height={250} />
 );
 
 export { MainExpensesGraph };

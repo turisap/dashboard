@@ -6,7 +6,15 @@ import { MainExpensesGraph } from "components/home/ExpensesMain";
 import * as styles from "./home.scss";
 
 const Home: React.FC = () => {
-  return <MainExpensesGraph />;
+  return (
+    <div className={styles.homeGrid}>
+      <div className={`${styles.chartCard} ${styles.mainChart}`}>
+        <div className={styles.subhead}>Total per month</div>
+        <div className={styles.chartCardHead}>Expenses</div>
+        <MainExpensesGraph />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
