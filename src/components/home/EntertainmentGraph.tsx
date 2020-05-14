@@ -3,8 +3,8 @@ import Chart from "react-apexcharts";
 
 const series = [
   {
-    name: "Expenses",
-    data: [28, 56, 35, 105, 50, 70, 44],
+    name: "Leisure",
+    data: [35, 43, 3, 5, 7, 50, 30],
   },
 ];
 
@@ -30,17 +30,17 @@ const options = {
   dataLabels: {
     enabled: false,
   },
-  colors: ["#1f8ef1"],
+  colors: ["#e36f74"],
   stroke: {
     curve: "smooth",
     width: 2,
   },
   markers: {
     size: 3,
-    colors: "red",
+    colors: "#e36f74",
     strokeWidth: 0,
     hover: {
-      size: 1,
+      size: 4,
     },
   },
   grid: {
@@ -58,6 +58,9 @@ const options = {
         show: true,
       },
     },
+  },
+  tooltip: {
+    enabled: true,
   },
   xaxis: {
     crosshairs: {
@@ -96,8 +99,8 @@ const options = {
     },
   },
   yaxis: {
-    min: 20,
-    max: 120,
+    min: 0,
+    max: 80,
     labels: {
       formatter: function (value: number) {
         return value + "K";
@@ -115,8 +118,8 @@ const options = {
   },
 };
 
-const MainExpensesGraph: React.FC = () => (
+const EntertainmentGraph: React.FC = () => (
   <Chart options={options} series={series} type="area" height={250} />
 );
 
-export { MainExpensesGraph };
+export { EntertainmentGraph };

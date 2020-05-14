@@ -5,7 +5,7 @@
   grid-template-rows: 330px 370px 330px;
   grid-template-areas:
     "main main main"
-    "small1 pie small3"
+    "leisure pie basic"
     "heatmap heatmap heatmap";
   grid-gap: 32px;
 }
@@ -38,4 +38,12 @@
 
 .pieGroups {
   grid-area: pie;
+}
+
+.entertainment {
+  grid-area: leisure;
+}
+
+.basic {
+  grid-area: basic;
 }

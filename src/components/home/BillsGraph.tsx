@@ -3,10 +3,12 @@ import Chart from "react-apexcharts";
 
 const series = [
   {
-    name: "Expenses",
-    data: [28, 56, 35, 105, 50, 70, 44],
+    name: "Basic needs",
+    data: [28, 40, 45, 65, 35],
   },
 ];
+
+// TODO remove hard-coded months and add current 5 ones
 
 const options = {
   chart: {
@@ -30,17 +32,17 @@ const options = {
   dataLabels: {
     enabled: false,
   },
-  colors: ["#1f8ef1"],
+  colors: ["#6fe398"],
   stroke: {
     curve: "smooth",
     width: 2,
   },
   markers: {
     size: 3,
-    colors: "red",
+    colors: "#6fe398",
     strokeWidth: 0,
     hover: {
-      size: 1,
+      size: 4,
     },
   },
   grid: {
@@ -59,29 +61,19 @@ const options = {
       },
     },
   },
+  tooltip: {
+    enabled: true,
+  },
   xaxis: {
     crosshairs: {
       show: false,
     },
-    categories: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    axisBorder: {
-      show: false,
-    },
     tooltip: {
       enabled: false,
+    },
+    categories: ["Mar", "Apr", "May", "Jun", "Jul"],
+    axisBorder: {
+      show: false,
     },
     labels: {
       show: true,
@@ -96,8 +88,11 @@ const options = {
     },
   },
   yaxis: {
-    min: 20,
-    max: 120,
+    min: 0,
+    max: 80,
+    tooltip: {
+      enabled: false,
+    },
     labels: {
       formatter: function (value: number) {
         return value + "K";
@@ -115,8 +110,8 @@ const options = {
   },
 };
 
-const MainExpensesGraph: React.FC = () => (
+const BillsGraph: React.FC = () => (
   <Chart options={options} series={series} type="area" height={250} />
 );
 
-export { MainExpensesGraph };
+export { BillsGraph };
