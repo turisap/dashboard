@@ -162,6 +162,12 @@ module.exports = function ({ mode, preset }) {
             name: "react",
             chunks: "all",
           },
+          // Split code common to all chunks to its own chunk
+          commons: {
+            name: "commons", // The name of the chunk containing all common code
+            chunks: "initial",
+            minChunks: 2,
+          },
         },
       },
     },

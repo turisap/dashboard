@@ -1,6 +1,7 @@
 body {
   background: $main_background;
   font-family: "Open Sans", sans-serif;
+  height: 100%;
 }
 
 img,
@@ -15,7 +16,27 @@ img {
   height: 100vmax;
 }
 
-img {
-  width: 100vmin;
-  height: 100vmin;
+.test {
+  border: 1px solid red;
+}
+
+:global(#app) {
+  height: 100%;
+}
+
+:global(#main) {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  grid-template-rows: 30px 1fr;
+  grid-gap: 24px;
+  grid-template-areas:
+    "top top"
+    "menu page";
+
+  padding: 0 20px;
+}
+
+:global(.menu) {
+  grid-area: menu;
+  background: darken($main_background, 20%);
 }

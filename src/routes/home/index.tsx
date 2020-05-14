@@ -1,7 +1,6 @@
 import React from "react";
 import { MainExpensesGraph } from "components/home/ExpensesMain";
-
-// TODO add meta tag initial scale to html template from your gist
+import { ExpenseGroupsPie } from "components/home/ExpensesGroupsPie";
 
 import * as styles from "./home.scss";
 
@@ -12,6 +11,11 @@ const Home: React.FC = () => {
         <div className={styles.subhead}>Total per month</div>
         <div className={styles.chartCardHead}>Expenses</div>
         <MainExpensesGraph />
+      </div>
+      <div className={`${styles.chartCard} ${styles.pieGroups}`}>
+        <div className={styles.subhead}>By groups</div>
+        <div className={styles.chartCardHead}>This month</div>
+        <ExpenseGroupsPie />
       </div>
     </div>
   );

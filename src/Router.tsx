@@ -9,7 +9,7 @@ import Menu from "components/Menu";
 
 const Router: React.FC = () => {
   return (
-    <Suspense fallback={<div>...loading</div>}>
+    <Suspense fallback={<h1>...loading</h1>}>
       <BrowserRouter>
         <Menu />
         <Switch>

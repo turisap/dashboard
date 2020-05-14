@@ -1,21 +1,19 @@
 .homeGrid {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-area: page;
+  display: grid;
+  grid-template-columns: 1fr 350px 1fr;
+  grid-template-rows: 330px 370px 330px;
   grid-template-areas:
     "main main main"
-    "small1 small2 small3"
+    "small1 pie small3"
     "heatmap heatmap heatmap";
   grid-gap: 32px;
-  padding: 0px 32px;
 }
 
 .chartCard {
   background: #27293d;
   border-radius: 4px;
   box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
-}
-
-.mainChart {
-  grid-area: main;
 }
 
 .chartCardHead {
@@ -32,4 +30,12 @@
   font-size: 12px;
   padding-top: 15px;
   margin: 0px 0 6px 20px;
+}
+
+.mainChart {
+  grid-area: main;
+}
+
+.pieGroups {
+  grid-area: pie;
 }
