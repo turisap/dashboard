@@ -162,6 +162,11 @@ module.exports = function ({ mode, preset }) {
             name: "react",
             chunks: "all",
           },
+          charts: {
+            test: /[\\/]node_modules[\\/](apexcharts)[\\/]/,
+            name: "charts",
+            chunks: "all",
+          },
           // Split code common to all chunks to its own chunk
           commons: {
             name: "commons", // The name of the chunk containing all common code

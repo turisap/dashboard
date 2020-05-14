@@ -1,1 +1,0 @@
-(this.webpackJsonp=this.webpackJsonp||[]).push([[2],{24:function(e,t,n){"use strict";n.r(t);var s=n(0),u=n.n(s);t.default=function(){return u.a.createElement("h1",null,"sweet home")}}}]);
