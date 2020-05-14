@@ -3,8 +3,8 @@ import Chart from "react-apexcharts";
 
 const series = [
   {
-    name: "Expenses",
-    data: [28, 56, 35, 105, 50, 70, 44],
+    name: "Total expenses",
+    data: [28, 56, 35, 105, 50, 70, 44, 70, 89, 110, 80, 65],
   },
 ];
 
@@ -37,7 +37,7 @@ const options = {
   },
   markers: {
     size: 3,
-    colors: "red",
+    colors: "#1f8ef1",
     strokeWidth: 0,
     hover: {
       size: 1,

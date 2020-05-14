@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 const series = [
   {
     name: "Leisure",
-    data: [35, 43, 3, 5, 7, 50, 30],
+    data: [35, 43, 3, 5, 7],
   },
 ];
 

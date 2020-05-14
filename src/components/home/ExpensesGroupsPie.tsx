@@ -8,6 +8,9 @@ const options = {
     width: 150,
     type: "donut",
   },
+  fill: {
+    opacity: 0.7,
+  },
   labels: [
     "Savings",
     "Health",
