@@ -2,14 +2,16 @@ import React from "react";
 import { TiInfinityOutline } from "react-icons/ti";
 import { AiOutlineHome } from "react-icons/ai";
 import { AiFillAliwangwang } from "react-icons/ai";
-import { AiOutlinePercentage } from "react-icons/ai";
+import { AiOutlineCompass } from "react-icons/ai";
 import { AiOutlineDollarCircle } from "react-icons/ai";
+import { AiOutlineStop } from "react-icons/ai";
 
 import { MainExpensesGraph } from "components/home/ExpensesMain";
 import { ExpenseGroupsPie } from "components/home/ExpensesGroupsPie";
 import { EntertainmentGraph } from "components/home/EntertainmentGraph";
 import { BillsGraph } from "components/home/BillsGraph";
 import { LastWeekGraph } from "components/home/LastWeekGraph";
+import { OverBudgetGraph } from "components/home/OverBudget";
 
 import * as styles from "./home.scss";
 
@@ -51,7 +53,7 @@ const Home: React.FC = () => {
       <GraphGroup
         styleName={styles.pieGroups}
         graph={<ExpenseGroupsPie />}
-        icon={<AiOutlinePercentage color="#1f8ef1" />}
+        icon={<AiOutlineCompass color="#1f8ef1" />}
         text="This month"
         subtext="By group"
       />
@@ -83,6 +85,13 @@ const Home: React.FC = () => {
           icon={<AiOutlineDollarCircle color="#eefa87" />}
           text="Week"
           subtext="Last 7 days"
+        />
+        <GraphGroup
+          styleName={styles.overBudget}
+          graph={<OverBudgetGraph />}
+          icon={<AiOutlineStop color="#ff8286" />}
+          text="Overbudget"
+          subtext="Excessive spendings"
         />
       </div>
     </div>

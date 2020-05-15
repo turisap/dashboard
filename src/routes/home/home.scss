@@ -8,6 +8,8 @@
     "leisure pie basic"
     "bar bar bar";
   grid-gap: 32px;
+
+  margin-bottom: 32px;
 }
 
 .chartCard {
@@ -59,8 +61,13 @@
   grid-area: bar;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-gap: 32px;
 }
 
 .lastWeek {
   grid-column: 1 / span 2;
+}
+
+.overBudget {
+  grid-column: 3 / span 2;
 }

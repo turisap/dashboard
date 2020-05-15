@@ -8,3 +8,4 @@ export const entertainment: string;
 export const basic: string;
 export const barsContainer: string;
 export const lastWeek: string;
+export const overBudget: string;
