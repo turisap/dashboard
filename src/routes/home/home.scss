@@ -69,5 +69,6 @@
 }
 
 .overBudget {
+  @include with-hover-tilt;
   grid-column: 3 / span 2;
 }

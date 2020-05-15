@@ -102,6 +102,14 @@ module.exports = function ({ mode, preset }) {
       );
     }
 
+    // to make mixins and vars available globally in css modules
+    loaders.push({
+      loader: "sass-resources-loader",
+      options: {
+        resources: [resolveModule("src/styles/_mixins.scss")],
+      },
+    });
+
     return loaders;
   };
 
