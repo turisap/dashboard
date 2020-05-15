@@ -10,40 +10,62 @@ import { AiOutlinePercentage } from "react-icons/ai";
 
 import * as styles from "./home.scss";
 
+type GraphGroupProps = {
+  styleName: string;
+  text: string;
+  subtext: string;
+  icon: JSX.Element;
+  graph: JSX.Element;
+};
+
+const GraphGroup: React.FC<GraphGroupProps> = ({
+  styleName,
+  text,
+  icon,
+  subtext,
+  graph,
+}) => (
+  <div className={`${styles.chartCard} ${styleName}`}>
+    <div className={styles.subhead}>{subtext}</div>
+    <div className={styles.chartCardHead}>
+      {icon}
+      {text}
+    </div>
+    {graph}
+  </div>
+);
+
 const Home: React.FC = () => {
   return (
     <div className={styles.homeGrid}>
-      <div className={`${styles.chartCard} ${styles.mainChart}`}>
-        <div className={styles.subhead}>Total per month</div>
-        <div className={styles.chartCardHead}>
-          <TiInfinityOutline color="#1f8ef1" /> Expenses
-        </div>
-        <MainExpensesGraph />
-      </div>
-      <div className={`${styles.chartCard} ${styles.pieGroups}`}>
-        <div className={styles.subhead}>By group</div>
-        <div className={styles.chartCardHead}>
-          <AiOutlinePercentage color="#1f8ef1" />
-          This month
-        </div>
-        <ExpenseGroupsPie />
-      </div>
-      <div className={`${styles.chartCard} ${styles.entertainment}`}>
-        <div className={styles.subhead}>Non-essential spendings</div>
-        <div className={styles.chartCardHead}>
-          <AiFillAliwangwang color="#e36f74" />
-          Leisure
-        </div>
-        <EntertainmentGraph />
-      </div>
-      <div className={`${styles.chartCard} ${styles.basic}`}>
-        <div className={styles.subhead}>Housing, food, utilities</div>
-        <div className={styles.chartCardHead}>
-          <AiOutlineHome color="#6fe398" />
-          Monthly bills
-        </div>
-        <BillsGraph />
-      </div>
+      <GraphGroup
+        styleName={styles.mainChart}
+        graph={<MainExpensesGraph />}
+        icon={<TiInfinityOutline color="#1f8ef1" />}
+        text="Expenses"
+        subtext="Total per month"
+      />
+      <GraphGroup
+        styleName={styles.pieGroups}
+        graph={<ExpenseGroupsPie />}
+        icon={<AiOutlinePercentage color="#1f8ef1" />}
+        text="This month"
+        subtext="By group"
+      />
+      <GraphGroup
+        styleName={styles.entertainment}
+        graph={<EntertainmentGraph />}
+        icon={<AiFillAliwangwang color="#e36f74" />}
+        text="Leisure"
+        subtext="Non-essentianl spendings"
+      />
+      <GraphGroup
+        styleName={styles.basic}
+        graph={<BillsGraph />}
+        icon={<AiOutlineHome color="#6fe398" />}
+        text="Monthly bills"
+        subtext="Housing, food, utilities"
+      />
     </div>
   );
 };
