@@ -6,7 +6,7 @@
   grid-template-areas:
     "main main main"
     "leisure pie basic"
-    "heatmap heatmap heatmap";
+    "bar bar bar";
   grid-gap: 32px;
 }
 
@@ -53,4 +53,14 @@
 
 .basic {
   grid-area: basic;
+}
+
+.barsContainer {
+  grid-area: bar;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.lastWeek {
+  grid-column: 1 / span 2;
 }

@@ -1,12 +1,15 @@
 import React from "react";
-import { MainExpensesGraph } from "components/home/ExpensesMain";
-import { ExpenseGroupsPie } from "components/home/ExpensesGroupsPie";
-import { EntertainmentGraph } from "components/home/EntertainmentGraph";
-import { BillsGraph } from "components/home/BillsGraph";
 import { TiInfinityOutline } from "react-icons/ti";
 import { AiOutlineHome } from "react-icons/ai";
 import { AiFillAliwangwang } from "react-icons/ai";
 import { AiOutlinePercentage } from "react-icons/ai";
+import { AiOutlineDollarCircle } from "react-icons/ai";
+
+import { MainExpensesGraph } from "components/home/ExpensesMain";
+import { ExpenseGroupsPie } from "components/home/ExpensesGroupsPie";
+import { EntertainmentGraph } from "components/home/EntertainmentGraph";
+import { BillsGraph } from "components/home/BillsGraph";
+import { LastWeekGraph } from "components/home/LastWeekGraph";
 
 import * as styles from "./home.scss";
 
@@ -66,6 +69,22 @@ const Home: React.FC = () => {
         text="Monthly bills"
         subtext="Housing, food, utilities"
       />
+      <GraphGroup
+        styleName={styles.basic}
+        graph={<BillsGraph />}
+        icon={<AiOutlineHome color="#6fe398" />}
+        text="Monthly bills"
+        subtext="Housing, food, utilities"
+      />
+      <div className={styles.barsContainer}>
+        <GraphGroup
+          styleName={styles.lastWeek}
+          graph={<LastWeekGraph />}
+          icon={<AiOutlineDollarCircle color="#eefa87" />}
+          text="Week"
+          subtext="Last 7 days"
+        />
+      </div>
     </div>
   );
 };

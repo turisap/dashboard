@@ -6,3 +6,5 @@ export const mainChart: string;
 export const pieGroups: string;
 export const entertainment: string;
 export const basic: string;
+export const barsContainer: string;
+export const lastWeek: string;
