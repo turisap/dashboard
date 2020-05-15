@@ -1,3 +1,8 @@
 @mixin with-hover-tilt {
-  border: 1px solid red;
+  transform: translateY(0px);
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: all 0.15s ease-out;
+  }
 }

@@ -42,18 +42,22 @@
 }
 
 .mainChart {
+  @include with-hover-tilt;
   grid-area: main;
 }
 
 .pieGroups {
+  @include with-hover-tilt;
   grid-area: pie;
 }
 
 .entertainment {
+  @include with-hover-tilt;
   grid-area: leisure;
 }
 
 .basic {
+  @include with-hover-tilt;
   grid-area: basic;
 }
 
@@ -65,10 +69,12 @@
 }
 
 .lastWeek {
+  @include with-hover-tilt;
   grid-column: 1 / span 2;
 }
 
 .overBudget {
   @include with-hover-tilt;
+
   grid-column: 3 / span 2;
 }
