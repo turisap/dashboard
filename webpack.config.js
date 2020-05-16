@@ -106,7 +106,10 @@ module.exports = function ({ mode, preset }) {
     loaders.push({
       loader: "sass-resources-loader",
       options: {
-        resources: [resolveModule("src/styles/_mixins.scss")],
+        resources: [
+          resolveModule("src/styles/_mixins.scss"),
+          resolveModule("src/styles/_variables.scss"),
+        ],
       },
     });
 

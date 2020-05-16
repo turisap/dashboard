@@ -1,10 +1,12 @@
 import React from "react";
 import { TiInfinityOutline } from "react-icons/ti";
-import { AiOutlineHome } from "react-icons/ai";
-import { AiFillAliwangwang } from "react-icons/ai";
-import { AiOutlineCompass } from "react-icons/ai";
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import { AiOutlineStop } from "react-icons/ai";
+import {
+  AiOutlineDollarCircle,
+  AiFillAliwangwang,
+  AiOutlineHome,
+  AiOutlineCompass,
+  AiOutlineStop,
+} from "react-icons/ai";
 
 import { MainExpensesGraph } from "components/home/ExpensesMain";
 import { ExpenseGroupsPie } from "components/home/ExpensesGroupsPie";

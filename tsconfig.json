@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "noImplicitAny": true,
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es6",
@@ -14,7 +13,15 @@
     "outDir": "./dist",
     "strictNullChecks": true,
     "typeRoots": ["./types", "node_modules/@types"],
-    "strict": true
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "baseUrl": "./",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "routes/*": ["src/routes/*"]
+    }
   },
 
   "include": ["src/**/*"],
