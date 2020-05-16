@@ -205,7 +205,7 @@ module.exports = function ({ mode, preset }) {
           {},
           {
             // defer script loading
-            scriptLoading: "defer",
+            // scriptLoading: "defer",
 
             // to  add a favicon comment out the next line
             // favicon: "",

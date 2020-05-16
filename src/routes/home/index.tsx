@@ -1,103 +1,13 @@
-import React from "react";
-import { TiInfinityOutline } from "react-icons/ti";
-import {
-  AiOutlineDollarCircle,
-  AiFillAliwangwang,
-  AiOutlineHome,
-  AiOutlineCompass,
-  AiOutlineStop,
-} from "react-icons/ai";
+import React, { lazy } from "react";
 
-import { MainExpensesGraph } from "components/home/ExpensesMain";
-import { ExpenseGroupsPie } from "components/home/ExpensesGroupsPie";
-import { EntertainmentGraph } from "components/home/EntertainmentGraph";
-import { BillsGraph } from "components/home/BillsGraph";
-import { LastWeekGraph } from "components/home/LastWeekGraph";
-import { OverBudgetGraph } from "components/home/OverBudget";
+const homePromise = import("./lazyHome");
 
-import * as styles from "./home.scss";
+const HomeComponent = lazy(() => homePromise);
 
-type GraphGroupProps = {
-  styleName: string;
-  text: string;
-  subtext: string;
-  icon: JSX.Element;
-  graph: JSX.Element;
-};
-
-const GraphGroup: React.FC<GraphGroupProps> = ({
-  styleName,
-  text,
-  icon,
-  subtext,
-  graph,
-}) => (
-  <div className={`${styles.chartCard} ${styleName}`}>
-    <div className={styles.subhead}>{subtext}</div>
-    <div className={styles.chartCardHead}>
-      {icon}
-      {text}
-    </div>
-    {graph}
+const Home: React.FC = () => (
+  <div style={{ gridArea: "page" }}>
+    <HomeComponent />
   </div>
 );
-
-const Home: React.FC = () => {
-  return (
-    <div className={styles.homeGrid}>
-      <GraphGroup
-        styleName={styles.mainChart}
-        graph={<MainExpensesGraph />}
-        icon={<TiInfinityOutline color="#1f8ef1" />}
-        text="Expenses"
-        subtext="Total per month"
-      />
-      <GraphGroup
-        styleName={styles.pieGroups}
-        graph={<ExpenseGroupsPie />}
-        icon={<AiOutlineCompass color="#1f8ef1" />}
-        text="This month"
-        subtext="By group"
-      />
-      <GraphGroup
-        styleName={styles.entertainment}
-        graph={<EntertainmentGraph />}
-        icon={<AiFillAliwangwang color="#e36f74" />}
-        text="Leisure"
-        subtext="Non-essentianl spendings"
-      />
-      <GraphGroup
-        styleName={styles.basic}
-        graph={<BillsGraph />}
-        icon={<AiOutlineHome color="#6fe398" />}
-        text="Monthly bills"
-        subtext="Housing, food, utilities"
-      />
-      <GraphGroup
-        styleName={styles.basic}
-        graph={<BillsGraph />}
-        icon={<AiOutlineHome color="#6fe398" />}
-        text="Monthly bills"
-        subtext="Housing, food, utilities"
-      />
-      <div className={styles.barsContainer}>
-        <GraphGroup
-          styleName={styles.lastWeek}
-          graph={<LastWeekGraph />}
-          icon={<AiOutlineDollarCircle color="#eefa87" />}
-          text="Week"
-          subtext="Last 7 days"
-        />
-        <GraphGroup
-          styleName={styles.overBudget}
-          graph={<OverBudgetGraph />}
-          icon={<AiOutlineStop color="#ff8286" />}
-          text="Overbudget"
-          subtext="Excessive spendings"
-        />
-      </div>
-    </div>
-  );
-};
 
 export default Home;

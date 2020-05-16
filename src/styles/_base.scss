@@ -2,6 +2,7 @@ body {
   background: $main_background;
   font-family: "Open Sans", sans-serif;
   height: 100%;
+  box-sizing: border-box;
 }
 
 img,
@@ -9,11 +10,6 @@ embed,
 video,
 object {
   max-width: 100%;
-}
-
-img {
-  width: 100vmax;
-  height: 100vmax;
 }
 
 .test {
@@ -27,8 +23,8 @@ img {
 :global(#main) {
   display: grid;
   grid-template-columns: 230px 1fr;
-  grid-template-rows: 30px 1fr;
-  grid-gap: 24px;
+  grid-template-rows: 70px 1fr;
+  grid-column-gap: 24px;
   grid-template-areas:
     "top top"
     "menu page";

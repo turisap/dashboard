@@ -1,12 +1,10 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
 import Home from "routes/home";
-const newsPromise = import("routes/news");
-const realTimePromise = import("routes/realTime");
-const News = lazy(() => newsPromise);
-const RealTime = lazy(() => realTimePromise);
+import News from "routes/news";
+import RealTime from "routes/realTime";
 
 import Menu from "components/menu";
 import Nav from "components/nav";

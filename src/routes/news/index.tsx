@@ -1,7 +1,13 @@
-import React from "react";
+import React, { lazy } from "react";
 
-import styles from "./styles.scss";
+const newsPromise = import("./lazyNews");
 
-const News: React.FC = () => <h1 className={styles.newsPage}>News</h1>;
+const NewsComponent = lazy(() => newsPromise);
+
+const News: React.FC = () => (
+  <div style={{ gridArea: "page" }}>
+    <NewsComponent />
+  </div>
+);
 
 export default News;
