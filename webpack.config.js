@@ -317,6 +317,8 @@ module.exports = function ({ mode, preset }) {
         errors: true,
       },
 
+      historyApiFallback: true,
+
       // enables HMR
       hot: true,
     },
