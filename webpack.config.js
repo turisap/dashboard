@@ -275,6 +275,10 @@ module.exports = function ({ mode, preset }) {
               loader: "ts-loader",
               options: {
                 reportFiles: ROUTES.appTsReportFiles,
+                compilerOptions: {
+                  noUnusedLocals: PROD_MODE,
+                  noUnusedParameters: PROD_MODE,
+                },
               },
             },
           ],

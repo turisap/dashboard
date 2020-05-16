@@ -40,3 +40,29 @@ img {
   grid-area: menu;
   background: darken($main_background, 20%);
 }
+
+// routes mount animation
+:global(.route-enter) {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+:global(.route-enter-active) {
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+:global(.route-enter-done) {
+  transition: transform 2s ease-out;
+  tranform: translateY(0);
+}
+
+:global(.route-exit) {
+  opacity: 0;
+}
+
+:global(.route-exit-active) {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: all 1s ease-out;
+}

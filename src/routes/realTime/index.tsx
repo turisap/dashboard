@@ -1,5 +1,5 @@
 import React from "react";
 
-const RealTime: React.FC = () => <h1>RealTime</h1>;
+const RealTime: React.FC = () => <h1 style={{ gridArea: "page" }}>RealTime</h1>;
 
 export default RealTime;
