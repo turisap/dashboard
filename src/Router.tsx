@@ -1,12 +1,15 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter,  Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
-const Home = lazy(() => import("routes/home"));
-const News = lazy(() => import("routes/news"));
-const RealTime = lazy(() => import("routes/realTime"));
+import Home from "routes/home";
+const newsPromise = import("routes/news");
+const realTimePromise = import("routes/realTime");
+const News = lazy(() => newsPromise);
+const RealTime = lazy(() => realTimePromise);
 
 import Menu from "components/menu";
+import Nav from "components/nav";
 
 // TODO Error boundaries for the whole app and each route
 // TODO 404 page
@@ -22,6 +25,7 @@ const Router: React.FC = () => {
     <Suspense fallback={<h1>...loading</h1>}>
       <BrowserRouter>
         <Menu />
+        <Nav />
         {routes.map(({ path, Component }) => (
           <Route key={path} exact path={path}>
             {({ match }) => (

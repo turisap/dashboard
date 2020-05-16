@@ -165,7 +165,7 @@ module.exports = function ({ mode, preset }) {
       ],
 
       splitChunks: {
-        minSize: 20,
+        minSize: 0,
         cacheGroups: {
           // first cache group contains react and react dom (it will be a separate chunk)
           react: {
