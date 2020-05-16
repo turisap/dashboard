@@ -324,6 +324,7 @@ module.exports = function ({ mode, preset }) {
         components: path.resolve(__dirname, "src/components/"),
         routes: path.resolve(__dirname, "src/routes/"),
         assets: path.resolve(__dirname, "assets"),
+        styles: path.resolve(__dirname, "src/styles/"),
       },
     },
 

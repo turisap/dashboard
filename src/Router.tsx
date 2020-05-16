@@ -5,7 +5,7 @@ const Home = lazy(() => import("routes/home/index"));
 const News = lazy(() => import("routes/news/index"));
 const RealTime = lazy(() => import("routes/realTime/index"));
 
-import Menu from "components/Menu";
+import Menu from "components/menu";
 
 const Router: React.FC = () => {
   return (
