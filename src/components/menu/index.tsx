@@ -39,22 +39,29 @@ const links: Array<LinkShape> = [
 const Menu = () => {
   const { pathname } = useLocation();
 
+  const readableRoute = pathname.replace("/", "").split("_");
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.head}>
-        <FaBtc color="#ffffff" size="25px" style={{ marginRight: "12px" }} />
-        Expenses
-      </div>
-      <div className={styles.tabs}>
-        {links.map(({ path, text, icon }) => (
-          <div
-            className={cx({ tab: true, current: pathname === path })}
-            key={path}
-          >
-            <span className={styles.icon}>{icon}</span>
-            <Link to={path}>{text}</Link>
-          </div>
-        ))}
+      <div className={styles.menu}>
+        <h3 className={cx({ route: true })}>{readableRoute}</h3>
+        <div className={styles.head}>
+          <FaBtc color="#ffffff" size="25px" style={{ marginRight: "12px" }} />
+          Expenses
+        </div>
+        <div className={styles.tabs}>
+          {links.map(({ path, text, icon }) => (
+            <div
+              className={cx({ tab: true, current: pathname === path })}
+              key={path}
+            >
+              <span className={styles.icon}>{icon}</span>
+              <Link to={path} className={styles.link}>
+                {text}
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

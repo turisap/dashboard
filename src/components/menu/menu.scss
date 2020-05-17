@@ -1,4 +1,17 @@
 .wrapper {
+  position: relative;
+}
+
+.route {
+  color: #ffffff;
+  margin: 0 auto 0 0;
+  text-transform: capitalize;
+  position: absolute;
+  left: 20px;
+  top: -40px;
+}
+
+.menu {
   @include with-box-shadow;
 
   background: #2577f6;
@@ -64,6 +77,12 @@
     font-weight: 400;
     font-size: 10px;
   }
+}
+
+.link {
+  height: 50px;
+  line-height: 50px;
+  flex-grow: 1;
 }
 
 .icon {

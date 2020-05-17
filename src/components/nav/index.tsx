@@ -1,9 +1,8 @@
 import React, { useState, useRef } from "react";
 import { FiSettings, FiMessageCircle } from "react-icons/fi";
 import classNames from "classnames/bind";
-import { useLocation } from "react-router-dom";
 
-import { useClickAway } from "hooks";
+import { useClickAway } from "hooks/";
 import { fakeNotifications } from "../../mocks";
 
 import styles from "./styles.scss";
@@ -41,17 +40,14 @@ const FAKE_NOTIFICATIONS = fakeNotifications(5);
 
 const Nav: React.FC = () => {
   const [notifOpen, setNotifOpen] = useState<boolean>(false);
-  const { pathname } = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
 
   useClickAway(menuRef, () => setNotifOpen(false));
 
-  const readableRoute = pathname.replace("/", "").split("_");
   const toggleMenu = () => setNotifOpen(!notifOpen);
 
   return (
     <div className={styles.nav}>
-      <h3 className={styles.heading}>{readableRoute}</h3>
       <div
         className={cx({
           messages: true,
