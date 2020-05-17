@@ -1,8 +1,11 @@
-import React, { lazy } from "react";
+import React from "react";
+import loadable from "@loadable/component";
+import { timeout } from "promise-timeout";
 
-const homePromise = import("./lazyHome");
-
-const HomeComponent = lazy(() => homePromise);
+// TODO delay for flashing loader
+const HomeComponent = loadable(() => timeout(import("./lazyHome"), 7000), {
+  fallback: <div>...home loading</div>,
+});
 
 const Home: React.FC = () => (
   <div style={{ gridArea: "page" }}>

@@ -141,6 +141,9 @@ module.exports = function ({ mode, preset }) {
 
     optimization: {
       minimize: PROD_MODE,
+      runtimeChunk: "single",
+      // prevents changing vendor chunks on source code change
+      moduleIds: "hashed",
       minimizer: [
         new TerserPlugin({
           //  set it to true to extract all comments into a separate file
@@ -159,7 +162,7 @@ module.exports = function ({ mode, preset }) {
         new OptimizeCssAssetsPlugin({
           cssProcessor: require("cssnano"),
           cssProcessorPluginOptions: {
-            preset: ["default", { discardComments: { removeAll: true } }],
+            preset: ["default", { discardComments: { removeAll: false } }],
           },
         }),
       ],
@@ -214,7 +217,7 @@ module.exports = function ({ mode, preset }) {
           },
           PROD_MODE && {
             minify: {
-              removeComments: true,
+              removeComments: false,
               collapseWhitespace: true,
               removeRedundantAttributes: true,
               useShortDoctype: true,
@@ -268,7 +271,9 @@ module.exports = function ({ mode, preset }) {
                 plugins: [
                   "react-hot-loader/babel",
                   "@babel/plugin-proposal-object-rest-spread",
+                  "@loadable/babel-plugin",
                 ],
+                comments: true,
               },
             },
             {

@@ -5,7 +5,6 @@
     "moduleResolution": "node",
     "target": "es6",
     "lib": ["es2015", "es2017", "dom"],
-    "removeComments": true,
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,

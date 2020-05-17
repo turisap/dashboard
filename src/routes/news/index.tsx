@@ -1,8 +1,14 @@
-import React, { lazy } from "react";
+import React from "react";
+import loadable from "@loadable/component";
+import { timeout } from "promise-timeout";
 
-const newsPromise = import("./lazyNews");
-
-const NewsComponent = lazy(() => newsPromise);
+// TODO delay for flashing loader
+const NewsComponent = loadable(
+  () => timeout(import(/* webpackPreload: true */ "./lazyNews"), 7000),
+  {
+    fallback: <div>...news loading hey</div>,
+  }
+);
 
 const News: React.FC = () => (
   <div style={{ gridArea: "page" }}>
