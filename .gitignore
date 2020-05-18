@@ -9,3 +9,7 @@ yarn-error.log
 
 # build dir
 build/
+
+# ENV
+.env
+

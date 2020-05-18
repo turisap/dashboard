@@ -1,15 +1,35 @@
 .homeGrid {
   grid-area: page;
-  display: grid;
-  grid-template-columns: 1fr 350px 1fr;
-  grid-template-rows: 330px 370px 330px;
-  grid-template-areas:
-    "main main main"
-    "leisure pie basic"
-    "bar bar bar";
-  grid-gap: 32px;
-
   margin-bottom: 32px;
+
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    margin-top: 32px;
+  }
+
+  & > div:first-child {
+    margin-top: 0px;
+  }
+
+  @include from($tablet) {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) minmax(200px, 300px) minmax(
+        200px,
+        1fr
+      );
+    grid-template-rows: 330px 370px 330px;
+    grid-template-areas:
+      "main main main"
+      "leisure pie basic"
+      "bar bar bar";
+    grid-gap: 32px;
+
+    & > div {
+      margin-top: 0px;
+    }
+  }
 }
 
 .chartCard {
@@ -47,8 +67,10 @@
 }
 
 .pieGroups {
-  @include with-hover-tilt;
   grid-area: pie;
+  order: 5;
+
+  @include with-hover-tilt;
 }
 
 .entertainment {
@@ -62,19 +84,27 @@
 }
 
 .barsContainer {
-  grid-area: bar;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 32px;
-}
+  display: block;
 
-.lastWeek {
-  @include with-hover-tilt;
-  grid-column: 1 / span 2;
-}
+  .lastWeek {
+    @include with-hover-tilt;
+  }
 
-.overBudget {
-  @include with-hover-tilt;
+  .overBudget {
+    @include with-hover-tilt;
 
-  grid-column: 3 / span 2;
+    margin-top: 32px;
+  }
+
+  @include from(600) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 32px;
+    grid-area: bar;
+    grid-template-columns: repeat(2, 1fr);
+
+    .overBudget {
+      margin-top: 0px;
+    }
+  }
 }

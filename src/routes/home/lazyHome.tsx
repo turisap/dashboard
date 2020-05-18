@@ -73,13 +73,6 @@ const Home: React.FC = () => {
         text="Monthly bills"
         subtext="Housing, food, utilities"
       />
-      <GraphGroup
-        styleName={styles.basic}
-        graph={<BillsGraph />}
-        icon={<AiOutlineHome color="#6fe398" />}
-        text="Monthly bills"
-        subtext="Housing, food, utilities"
-      />
       <div className={styles.barsContainer}>
         <GraphGroup
           styleName={styles.lastWeek}

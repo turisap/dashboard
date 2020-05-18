@@ -8,6 +8,36 @@ const options = {
     width: 150,
     type: "donut",
   },
+  responsive: [
+    {
+      breakpoint: 801,
+      options: {
+        chart: {
+          width: 400,
+        },
+        legend: {
+          show: true,
+          position: "right",
+        },
+      },
+    },
+    {
+      breakpoint: 450,
+      options: {
+        chart: {
+          width: 200,
+        },
+        legend: {
+          show: false,
+        },
+        dataLabels: {
+          style: {
+            fontSize: "10px",
+          },
+        },
+      },
+    },
+  ],
   fill: {
     opacity: 0.7,
   },

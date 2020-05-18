@@ -10,3 +10,10 @@
 @mixin with-box-shadow {
   box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
 }
+
+// media queries
+@mixin from($breakpoint) {
+  @media (min-width: #{$breakpoint}px) {
+    @content;
+  }
+}

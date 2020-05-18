@@ -44,8 +44,8 @@
   @include with-box-shadow;
 
   position: absolute;
-  right: 0;
-  width: 322px;
+  right: -50%;
+  width: 122px;
   height: auto;
   background: $main_white;
   padding: 8px 0;
@@ -64,6 +64,10 @@
     border-right: 5px solid transparent;
     border-bottom: 5px solid $main_white;
     clear: both;
+  }
+
+  @include from($tablet) {
+    width: 322px;
   }
 }
 

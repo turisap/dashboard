@@ -22,15 +22,21 @@ object {
 
 :global(#main) {
   display: grid;
-  grid-template-columns: 230px minmax(300px, 1300px);
+  grid-template-columns: 1fr;
   grid-template-rows: 70px 1fr;
-  grid-column-gap: 24px;
+  justify-content: center;
   grid-template-areas:
     "top top"
-    "menu page";
-  justify-content: center;
-
+    "page page";
   padding: 0 20px;
+
+  @include from($desktop_big) {
+    grid-template-columns: 230px minmax(300px, 1300px);
+    grid-column-gap: 24px;
+    grid-template-areas:
+      "top top"
+      "menu page";
+  }
 }
 
 :global(.menu) {
@@ -51,7 +57,7 @@ object {
 
 :global(.route-enter-done) {
   transition: transform 2s ease-out;
-  tranform: translateY(0);
+  transform: translateY(0);
 }
 
 :global(.route-exit) {
