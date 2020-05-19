@@ -66,6 +66,10 @@
     clear: both;
   }
 
+  @include from($mobile_big) {
+    width: 222px;
+  }
+
   @include from($tablet) {
     width: 322px;
   }

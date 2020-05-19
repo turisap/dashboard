@@ -1,12 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, RefObject } from "react";
 
-// THIS HOOK HAS BEEN INSPIRED BY https://usehooks.com/useOnClickOutside/JJ:W
+// THIS HOOK HAS BEEN INSPIRED BY https://usehooks.com/useOnClickOutside
 
-const useClickAway = (ref: any, handler: Function) => {
+type UseClickAwayHook = (ref: RefObject<any>, handler: Function) => void;
+
+const useClickAway: UseClickAwayHook = (ref, handler) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
-      // Do nothing if clicking ref's element or descendent elements
-
       if (!ref.current || ref.current.contains(event.target)) {
         return;
       }
