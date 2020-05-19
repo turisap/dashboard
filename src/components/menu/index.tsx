@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   AiOutlineDashboard,
   AiOutlineExperiment,
   AiOutlineAim,
+  AiOutlineVerticalLeft,
 } from "react-icons/ai";
 import { FaBtc } from "react-icons/fa";
 import classNames from "classnames/bind";
+
+import { useClickAway } from "hooks/";
 
 import styles from "./menu.scss";
 
@@ -38,12 +41,19 @@ const links: Array<LinkShape> = [
 
 const Menu = () => {
   const { pathname } = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
   const readableRoute = pathname.replace("/", "").split("_");
 
+  useClickAway(menuRef, () => {
+    if (menuOpen) setMenuOpen(false);
+  });
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.menu}>
+    <div className={styles.wrapper} ref={menuRef}>
+      <div className={cx({ menu: true, menuOpen })}>
         <h3 className={cx({ route: true })}>{readableRoute}</h3>
         <div className={styles.head}>
           <FaBtc color="#ffffff" size="25px" style={{ marginRight: "12px" }} />
@@ -61,6 +71,9 @@ const Menu = () => {
               </Link>
             </div>
           ))}
+        </div>
+        <div className={styles.opener} onClick={toggleMenu}>
+          <AiOutlineVerticalLeft color="#fefefe" size="35" />
         </div>
       </div>
     </div>

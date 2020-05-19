@@ -22,11 +22,20 @@
   bottom: 24px;
   width: 230px;
   flex-direction: column;
-  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -230px;
+  z-index: 50;
+  transition: left 0.3s ease-out;
 
   @include from($desktop_big) {
     display: flex;
   }
+}
+
+.menuOpen {
+  left: 0px;
 }
 
 .head {
@@ -90,4 +99,10 @@
 
 .icon {
   margin-right: 12px;
+}
+
+.opener {
+  position: absolute;
+  right: -40px;
+  top: 10px;
 }
