@@ -10,10 +10,6 @@ const NewsComponent = loadable(
   }
 );
 
-const News: React.FC = () => (
-  <div style={{ gridArea: "page" }}>
-    <NewsComponent />
-  </div>
-);
+const News: React.FC = () => <NewsComponent />;
 
 export default News;

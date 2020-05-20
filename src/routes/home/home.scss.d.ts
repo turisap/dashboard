@@ -1,11 +1,22 @@
-export const homeGrid: string;
-export const chartCard: string;
-export const chartCardHead: string;
-export const subhead: string;
-export const mainChart: string;
-export const pieGroups: string;
-export const entertainment: string;
-export const basic: string;
-export const barsContainer: string;
-export const lastWeek: string;
-export const overBudget: string;
+declare namespace HomeScssNamespace {
+  export interface IHomeScss {
+    barsContainer: string;
+    basic: string;
+    chartCard: string;
+    chartCardHead: string;
+    entertainment: string;
+    homeGrid: string;
+    lastWeek: string;
+    mainChart: string;
+    overBudget: string;
+    pieGroups: string;
+    subhead: string;
+  }
+}
+
+declare const HomeScssModule: HomeScssNamespace.IHomeScss & {
+  /** WARNING: Only available when `css-loader` is used without `style-loader` or `mini-css-extract-plugin` */
+  locals: HomeScssNamespace.IHomeScss;
+};
+
+export = HomeScssModule;

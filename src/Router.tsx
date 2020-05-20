@@ -38,7 +38,7 @@ const Router: React.FC = () => {
             )}
           </Route>
         ))}
-        <Redirect from="/" to="/dashboard" />
+        {/* <Redirect from="/" to="/dashboard" /> */}
       </BrowserRouter>
     </Suspense>
   );

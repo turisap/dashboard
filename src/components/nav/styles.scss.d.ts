@@ -1,5 +1,19 @@
-export const nav: string;
-export const image: string;
-export const settings: string;
-export const messages: string;
-export const heading: string;
+declare namespace StylesScssNamespace {
+  export interface IStylesScss {
+    hasMessages: string;
+    image: string;
+    messages: string;
+    nav: string;
+    notification: string;
+    notificationsContainer: string;
+    open: string;
+    settings: string;
+  }
+}
+
+declare const StylesScssModule: StylesScssNamespace.IStylesScss & {
+  /** WARNING: Only available when `css-loader` is used without `style-loader` or `mini-css-extract-plugin` */
+  locals: StylesScssNamespace.IStylesScss;
+};
+
+export = StylesScssModule;

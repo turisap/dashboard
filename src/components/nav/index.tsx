@@ -17,7 +17,7 @@ type MenuProps = {
   notifications: Array<Notification>;
 };
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind((styles as unknown) as Record<string, string>);
 
 const NotificationsPopup: React.FC<MenuProps> = ({ open, notifications }) => (
   <div

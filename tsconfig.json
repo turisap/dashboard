@@ -22,7 +22,8 @@
     "paths": {
       "components/*": ["src/components/*"],
       "routes/*": ["src/routes/*"],
-      "hooks/*": ["src/hooks/index"]
+      "hooks/*": ["src/hooks/index"],
+      "types/*": ["src/types/index"]
     }
   },
 

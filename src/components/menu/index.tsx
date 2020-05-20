@@ -13,7 +13,7 @@ import { useClickAway } from "hooks/";
 
 import styles from "./menu.scss";
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind((styles as unknown) as Record<string, string>);
 
 type LinkShape = {
   path: string;

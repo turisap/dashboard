@@ -39,7 +39,7 @@ const stats = {
   source: true,
 };
 
-module.exports = function ({ mode, preset }) {
+module.exports = function({ mode, preset }) {
   const DEV_MODE = mode === "development";
   const PROD_MODE = mode === "production";
   const ANALIZE_MODE = preset === "analize";
@@ -52,6 +52,13 @@ module.exports = function ({ mode, preset }) {
         options: {
           hmr: DEV_MODE,
           reloadAll: true,
+        },
+      },
+
+      {
+        loader: "@teamsupercell/typings-for-css-modules-loader",
+        options: {
+          formatter: "prettier",
         },
       },
 
@@ -340,6 +347,7 @@ module.exports = function ({ mode, preset }) {
         assets: path.resolve(__dirname, "assets"),
         styles: path.resolve(__dirname, "src/styles/"),
         hooks: path.resolve(__dirname, "src/hooks/"),
+        types: path.resolve(__dirname, "src/types/"),
       },
     },
 
@@ -348,7 +356,7 @@ module.exports = function ({ mode, preset }) {
       hints: "warning",
       maxAssetSize: 550000,
       // filter out all source maps files from assesment
-      assetFilter: function (assetFilename) {
+      assetFilter: function(assetFilename) {
         return !/\.map$/.test(assetFilename);
       },
     },

@@ -1,0 +1,22 @@
+.container {
+  @include card;
+
+  overflow-y: scroll;
+}
+
+.table {
+  margin-top: 20px;
+  padding: 0 20px 20px 20px;
+}
+
+.expenseHeaders {
+  @include table-head;
+}
+
+.expenseRow {
+  @include table-row;
+}
+
+.iconContainer {
+  @include icons-container;
+}

@@ -7,13 +7,116 @@
   }
 }
 
-@mixin with-box-shadow {
-  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+@mixin with-box-shadow($color: rgba(0, 0, 0, 0.1)) {
+  box-shadow: 0 1px 20px 0 $color;
+}
+
+@mixin card-background {
+  background: #27293d;
+  border-radius: 8px;
 }
 
 // media queries
 @mixin from($breakpoint) {
   @media (min-width: #{$breakpoint}px) {
     @content;
+  }
+}
+
+@mixin card {
+  @include with-box-shadow;
+  @include card-background;
+
+  border-radius: 4px;
+
+  h3 {
+    color: $text_white;
+    font-weight: 300;
+    font-size: 25px;
+    margin-bottom: 12px;
+    margin-left: 20px;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+
+  h4 {
+    color: $text_offwhite;
+    font-weight: 600;
+    font-size: 12px;
+    padding-top: 15px;
+    margin: 0px 0 6px 20px;
+  }
+}
+
+@mixin table-row {
+  height: 46px;
+  display: grid;
+  grid-template-columns: 5fr 2fr 2fr 1fr 1fr;
+  align-items: center;
+  color: $text_offwhite;
+  border-bottom: 1px solid $border_card;
+  text-transform: capitalize;
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+    line-height: 25px;
+  }
+
+  svg {
+    opacity: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: $main_background;
+  }
+
+  &:hover svg {
+    opacity: 1;
+  }
+}
+
+@mixin table-head {
+  @include table-row;
+
+  color: $text_white;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+@mixin icons-container {
+  position: relative;
+
+  svg {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% - 10px);
+  }
+
+  svg:first-child {
+    opacity: 1;
+  }
+
+  svg:nth-child(2) {
+    opacity: 0;
+  }
+
+  &:hover {
+    svg:first-child {
+      opacity: 0;
+    }
+
+    svg:nth-child(2) {
+      opacity: 1;
+    }
   }
 }
