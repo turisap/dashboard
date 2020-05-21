@@ -4,6 +4,7 @@ declare namespace DeductionsScssNamespace {
     expenseHeaders: string;
     expenseRow: string;
     iconContainer: string;
+    starIcon: string;
     table: string;
   }
 }

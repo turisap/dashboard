@@ -35,7 +35,8 @@ export const fakeExpenses = (n: number) => {
       description: faker.lorem.sentence(),
       category,
       type,
-      total: faker.random.number()
+      total: faker.random.number(),
+      starred: faker.random.boolean()
     };
   }, n);
 };

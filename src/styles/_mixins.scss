@@ -56,7 +56,7 @@
 @mixin table-row {
   height: 46px;
   display: grid;
-  grid-template-columns: 5fr 2fr 2fr 1fr 1fr;
+  grid-template-columns: 0.5fr 4fr 2fr 2fr 1.5fr 1fr;
   align-items: center;
   color: $text_offwhite;
   border-bottom: 1px solid $border_card;
@@ -70,7 +70,11 @@
     line-height: 25px;
   }
 
-  svg {
+  svg:first-child {
+    justify-self: center;
+  }
+
+  :global(.row-svg) {
     opacity: 0;
   }
 
@@ -79,7 +83,7 @@
     background: $main_background;
   }
 
-  &:hover svg {
+  &:hover :global(.row-svg) {
     opacity: 1;
   }
 }
@@ -94,6 +98,8 @@
 }
 
 @mixin icons-container {
+  display: flex;
+  justify-content: center;
   position: relative;
 
   svg {
