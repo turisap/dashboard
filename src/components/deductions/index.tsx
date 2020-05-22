@@ -21,6 +21,12 @@ type IconsContainerProps = {
   id: number;
 };
 
+type ExpenseComponentProps = {
+  index: number;
+  style: React.CSSProperties;
+  data: Expense[];
+};
+
 const tableHeaders = ["", "title", "category", "type", "total"];
 
 const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
@@ -35,26 +41,28 @@ const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
     </div>
   );
 };
-const Expense: React.FC<Expense> = ({
-  id,
-  description,
-  category,
-  type,
-  total,
-  starred
-}) => (
-  <div className={styles.expenseRow}>
-    <AiFillStar id={styles.starIcon} color={starred ? "#f8b704" : "#ffffff"} />
-    <p>{description}</p>
-    <p>{category}</p>
-    <p>{type}</p>
-    <p>${total}</p>
-    <DeleteContainer status="idle" id={id} />
-  </div>
-);
+
+const Expense: React.FC<ExpenseComponentProps> = ({ index, style, data }) => {
+  const { id, description, category, type, total, starred } = data[index];
+
+  return (
+    <div className={styles.expenseRow} key={index} style={style}>
+      <AiFillStar
+        id={styles.starIcon}
+        color={starred ? "#f8b704" : "#ffffff"}
+      />
+      <p>{description}</p>
+      <p>{category}</p>
+      <p>{type}</p>
+      <p>${total}</p>
+      <DeleteContainer status="idle" id={id} />
+    </div>
+  );
+};
 
 const Expenses: React.FC = () => {
-  const expenses = fakeExpenses(100);
+  const ITEMS_COUNT = 10000;
+  const expenses = fakeExpenses(ITEMS_COUNT);
 
   return (
     <div className={styles.container}>
@@ -67,16 +75,19 @@ const Expenses: React.FC = () => {
           {tableHeaders.map(header => (
             <p key={header}>{header}</p>
           ))}
-          <List height={500} itemsCount={500} itemSize={35} width={300}>
-            {Expense}
-          </List>
         </div>
+        <List
+          height={365}
+          itemCount={ITEMS_COUNT}
+          itemData={expenses}
+          itemSize={50}
+          width={"calc(100% + 20px)"}
+        >
+          {Expense}
+        </List>
       </div>
     </div>
   );
 };
-// {expenses.map((expense: Expense) => (
-//   <Expense key={expense.id} {...expense} />
-// ))}
 
 export default Expenses;

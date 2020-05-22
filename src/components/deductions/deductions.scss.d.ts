@@ -6,6 +6,7 @@ declare namespace DeductionsScssNamespace {
     iconContainer: string;
     starIcon: string;
     table: string;
+    virListContainer: string;
   }
 }
 

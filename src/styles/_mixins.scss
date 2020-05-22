@@ -59,8 +59,8 @@
   grid-template-columns: 0.5fr 4fr 2fr 2fr 1.5fr 1fr;
   align-items: center;
   color: $text_offwhite;
-  border-bottom: 1px solid $border_card;
   text-transform: capitalize;
+  position: relative;
 
   p {
     white-space: nowrap;
@@ -86,6 +86,16 @@
   &:hover :global(.row-svg) {
     opacity: 1;
   }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 20px;
+    height: 1px;
+    background: $border_card;
+  }
 }
 
 @mixin table-head {
@@ -95,6 +105,10 @@
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 600;
+
+  &::after {
+    right: 3px;
+  }
 }
 
 @mixin icons-container {
