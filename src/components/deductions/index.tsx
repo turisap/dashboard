@@ -3,7 +3,8 @@ import { AiFillDownCircle, AiOutlineDelete, AiFillStar } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
 import { fakeExpenses } from "../../mocks";
-import { LoadingStatus } from "types/";
+
+import { VirtualRowProps, IconsContainerProps } from "../additions";
 
 import styles from "./deductions.scss";
 
@@ -14,17 +15,6 @@ type Expense = {
   type: string;
   total: number;
   starred: boolean;
-};
-
-type IconsContainerProps = {
-  status: LoadingStatus;
-  id: number;
-};
-
-type ExpenseComponentProps = {
-  index: number;
-  style: React.CSSProperties;
-  data: Expense[];
 };
 
 const tableHeaders = ["", "title", "category", "type", "total"];
@@ -42,7 +32,11 @@ const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
   );
 };
 
-const Expense: React.FC<ExpenseComponentProps> = ({ index, style, data }) => {
+const Expense: React.FC<VirtualRowProps<Expense>> = ({
+  index,
+  style,
+  data,
+}) => {
   const { id, description, category, type, total, starred } = data[index];
 
   return (
@@ -72,7 +66,7 @@ const Expenses: React.FC = () => {
       </h3>
       <div className={styles.table}>
         <div className={styles.expenseHeaders}>
-          {tableHeaders.map(header => (
+          {tableHeaders.map((header) => (
             <p key={header}>{header}</p>
           ))}
         </div>

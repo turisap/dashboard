@@ -11,11 +11,12 @@ import Nav from "components/nav";
 
 // TODO Error boundaries for the whole app and each route
 // TODO 404 page
+// TODO add scrollTo top on route change to rescue the animation
 
 const routes = [
   { path: "/dashboard", Component: Home },
   { path: "/feed", Component: News },
-  { path: "/real_time", Component: RealTime },
+  { path: "/real_time", Component: RealTime }
 ];
 
 const Router: React.FC = () => {

@@ -109,6 +109,16 @@
   &::after {
     right: 3px;
   }
+
+  p:nth-child(5) {
+    margin-left: 13px;
+  }
+  p:nth-child(4) {
+    margin-left: 10px;
+  }
+  p:nth-child(3) {
+    margin-left: 5px;
+  }
 }
 
 @mixin icons-container {
