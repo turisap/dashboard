@@ -19,6 +19,7 @@ module.exports = {
   },
   rules: {
     "no-unused-vars": "off",
+    "no-undef": "off",
     "react/jsx-uses-react": "error",
     "no-duplicate-imports": "error",
     "react/jsx-uses-vars": "error",
