@@ -2,6 +2,9 @@ import React from "react";
 import { AiFillUpCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
+import { Modal } from "components/modal";
+import { useModal } from "hooks/";
+
 import { fakeIncomings } from "../../mocks";
 import { Row } from "./Row";
 
@@ -13,6 +16,8 @@ const Expenses: React.FC = () => {
   const ITEMS_COUNT = 10000;
   const incomes = fakeIncomings(ITEMS_COUNT);
 
+  const [showModal, toggleModal] = useModal();
+
   return (
     <div className={styles.container}>
       <h4>List of incomings</h4>
@@ -21,7 +26,7 @@ const Expenses: React.FC = () => {
       </h3>
       <div className={styles.table}>
         <div className={styles.expenseHeaders}>
-          {tableHeaders.map((header) => (
+          {tableHeaders.map(header => (
             <p key={header}>{header}</p>
           ))}
         </div>
@@ -35,6 +40,11 @@ const Expenses: React.FC = () => {
           {Row}
         </List>
       </div>
+      <Modal
+        onConfirm={() => console.log()}
+        showModal={showModal}
+        toggleModal={toggleModal}
+      />
     </div>
   );
 };

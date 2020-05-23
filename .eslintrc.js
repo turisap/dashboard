@@ -22,6 +22,7 @@ module.exports = {
     "no-undef": "off",
     "react/jsx-uses-react": "error",
     "no-duplicate-imports": "error",
+    "newline-before-return": "error",
     "react/jsx-uses-vars": "error",
     "react/prop-types": "off",
     "@typescript-eslint/explicit-function-return-type": "off",

@@ -5,7 +5,7 @@ import {
   IconsContainerProps,
   VirtualRowProps,
   RowInfo,
-  isExpense,
+  isExpense
 } from "types/";
 
 import styles from "./additions.scss";

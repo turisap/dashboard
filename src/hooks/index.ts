@@ -1,3 +1,4 @@
 import { useClickAway } from "./useClickAway";
+import { useModal } from "./useModal";
 
-export { useClickAway };
+export { useClickAway, useModal };
