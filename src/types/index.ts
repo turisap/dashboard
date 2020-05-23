@@ -30,8 +30,8 @@ type IconsContainerProps = {
 };
 
 // custom type guard
-function isExpense(row: Expense | Incoming): row is Expense {
-  return typeof (row as Expense).type !== "undefined";
+function isExpense(row: RowInfo): row is Expense {
+  return (row as Expense).type !== undefined;
 }
 
 export {

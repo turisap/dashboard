@@ -24,14 +24,15 @@ const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
 };
 
 const Row: React.FC<VirtualRowProps<RowInfo>> = ({ index, style, data }) => {
-  const { id, description, category, total, starred } = data[index];
-  let saved = null;
-  let type = null;
+  const row = data[index];
+  const { id, description, category, total, starred } = row;
+  let saved = "";
+  let type = "";
 
-  if (isExpense(data[index])) {
-    saved = data[index]["saved"];
+  if (isExpense(row)) {
+    type = row.type;
   } else {
-    type = data[index]["type"];
+    saved = row.saved;
   }
 
   return (
@@ -42,7 +43,7 @@ const Row: React.FC<VirtualRowProps<RowInfo>> = ({ index, style, data }) => {
       />
       <p>{description}</p>
       <p>{category}</p>
-      <p>${saved ? saved : type}</p>
+      <p>{saved ? `$${saved}` : type}</p>
       <p>${total}</p>
       <DeleteContainer status="idle" id={id} />
     </div>
