@@ -1,7 +1,12 @@
 import React from "react";
 import { AiOutlineDelete, AiFillStar } from "react-icons/ai";
 
-import { IconsContainerProps, VirtualRowProps, RowInfo, UTILS } from "types/";
+import {
+  IconsContainerProps,
+  VirtualRowProps,
+  RowInfoInner,
+  UTILS,
+} from "types/";
 
 import styles from "./additions.scss";
 
@@ -18,7 +23,11 @@ const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
   );
 };
 
-const Row: React.FC<VirtualRowProps<RowInfo>> = ({ index, style, data }) => {
+const Row: React.FC<VirtualRowProps<RowInfoInner>> = ({
+  index,
+  style,
+  data,
+}) => {
   const row = data[index];
   const { id, description, category, total, starred } = row;
   let saved = "";
@@ -31,7 +40,12 @@ const Row: React.FC<VirtualRowProps<RowInfo>> = ({ index, style, data }) => {
   }
 
   return (
-    <div className={styles.expenseRow} key={index} style={style}>
+    <div
+      className={styles.expenseRow}
+      key={index}
+      style={style}
+      onClick={row.openModal}
+    >
       <AiFillStar
         id={styles.starIcon}
         color={starred ? "#f8b704" : "#ffffff"}

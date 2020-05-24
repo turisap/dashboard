@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   AiOutlineDashboard,
   AiOutlineExperiment,
-  AiOutlineAim,
+  AiFillThunderbolt,
   AiOutlineVerticalLeft,
 } from "react-icons/ai";
 import { FaBtc } from "react-icons/fa";
@@ -35,7 +35,7 @@ const links: Array<LinkShape> = [
   {
     path: "/real_time",
     text: "Real Time stuff",
-    icon: <AiOutlineAim color="#ffffff" size="25px" />,
+    icon: <AiFillThunderbolt color="#ffffff" size="25px" />,
   },
 ];
 

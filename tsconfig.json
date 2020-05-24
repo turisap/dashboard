@@ -24,7 +24,8 @@
       "routes/*": ["src/routes/*"],
       "hooks/*": ["src/hooks/index"],
       "types/*": ["src/types/index"],
-      "ducks/*": ["src/redux/ducks*"]
+      "ducks/*": ["src/redux/ducks/*"],
+      "utils/*": ["src/utils.ts"]
     }
   },
 

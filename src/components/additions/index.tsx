@@ -1,12 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { AiFillUpCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
 import { Modal } from "components/modal";
-import { useModal } from "hooks/";
 import { REDUCERS } from "types/";
+
+import { toggleModal } from "ducks/lists";
 
 import { Row } from "./Row";
 
@@ -19,9 +20,15 @@ const getIncomings = createSelector(
   (lists) => lists.incomings
 );
 
-const Expenses: React.FC = () => {
-  const [showModal, toggleModal] = useModal();
+const getShowModal = (state: REDUCERS.RootState) => state.lists.modalOpen;
+
+const Incomings: React.FC = () => {
   const incomings = useSelector(getIncomings);
+  const showModal = useSelector(getShowModal);
+  const dispatch = useDispatch();
+
+  const openModal = () => dispatch(toggleModal());
+  const withDisp = incomings.map((inc) => ({ ...inc, openModal }));
 
   return (
     <div className={styles.container}>
@@ -38,7 +45,7 @@ const Expenses: React.FC = () => {
         <List
           height={365}
           itemCount={incomings.length}
-          itemData={incomings}
+          itemData={withDisp}
           itemSize={50}
           width={"calc(100% + 20px)"}
         >
@@ -48,10 +55,10 @@ const Expenses: React.FC = () => {
       <Modal
         onConfirm={() => console.log()}
         showModal={showModal}
-        toggleModal={toggleModal}
+        toggleModal={() => console.log("j")}
       />
     </div>
   );
 };
 
-export default Expenses;
+export default Incomings;

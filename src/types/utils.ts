@@ -1,8 +1,8 @@
-import { RowInfo, Expense } from "./index";
+import { RowInfoInner, ExpenseProps } from "./index";
 
 // custom type guards
-function isExpense(row: RowInfo): row is Expense {
-  return (row as Expense).type !== undefined;
+function isExpense(row: RowInfoInner): row is ExpenseProps {
+  return (row as ExpenseProps).type !== undefined;
 }
 
 export { isExpense };

@@ -25,6 +25,7 @@ module.exports = {
     "newline-before-return": "warn",
     "react/jsx-uses-vars": "error",
     "react/prop-types": "off",
+    "react/display-name": "warn",
     "@typescript-eslint/explicit-function-return-type": "off",
   },
   settings: {

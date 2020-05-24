@@ -1,5 +1,6 @@
 import * as UTILS from "./utils";
 import * as REDUCERS from "./reducers";
+import * as API from "./api";
 
 type VirtualRowProps<T> = {
   index: number;
@@ -7,23 +8,15 @@ type VirtualRowProps<T> = {
   data: T[];
 };
 
-type CommonRowFields = {
-  id: number;
-  description: string;
-  category: string;
-  total: number;
-  starred: boolean;
-};
-
-interface Incoming extends CommonRowFields {
-  saved: string;
+interface CommonRowInnerProps extends API.CommonRowFields {
+  openModal: () => void;
 }
 
-interface Expense extends CommonRowFields {
-  type: string;
-}
+type ExpenseProps = API.Expense & CommonRowInnerProps;
 
-type RowInfo = Expense | Incoming;
+type IncomingProps = API.Incoming & CommonRowInnerProps;
+
+type RowInfoInner = IncomingProps | ExpenseProps;
 
 type LoadingStatus = "loading" | "success" | "fail" | "idle";
 
@@ -36,9 +29,9 @@ export {
   UTILS,
   REDUCERS,
   VirtualRowProps,
-  Incoming,
-  Expense,
-  RowInfo,
+  IncomingProps,
+  ExpenseProps,
+  RowInfoInner,
   LoadingStatus,
   IconsContainerProps,
 };

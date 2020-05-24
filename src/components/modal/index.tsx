@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
+
+import { useClickAway } from "hooks/";
+import { toggleModal } from "ducks/lists";
 
 import styles from "./styles.scss";
 
@@ -11,13 +15,20 @@ type ModalProps = {
 
 type InnerProps = ModalProps;
 
-const ModalWindow: React.FC<InnerProps> = () => (
-  <div className={styles.overlay}>
-    <div className={styles.wrapper}>
-      <p>modal</p>
+const ModalWindow: React.FC<InnerProps> = () => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+
+  useClickAway(modalRef, () => dispatch(toggleModal()));
+
+  return (
+    <div className={styles.overlay}>
+      <div className={styles.wrapper} ref={modalRef}>
+        <p>modal</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Modal: React.FC<ModalProps> = ({ onConfirm, showModal, toggleModal }) => {
   const root = document.getElementById("modal-root");
