@@ -20,7 +20,7 @@ const listsReducer = createReducer(DEFAULT).handleAction(
   toggleModal,
   (state) => ({
     ...state,
-    toggleModal: !state.toggleModal,
+    modalOpen: !state.modalOpen,
   })
 );
 

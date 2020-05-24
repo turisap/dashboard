@@ -1,17 +1,23 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import { AiFillDownCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
 import { Row } from "../additions/Row";
-import { fakeExpenses } from "../../mocks";
+import { REDUCERS } from "types/";
 
 import styles from "./deductions.scss";
 
 const tableHeaders = ["", "title", "category", "type", "total"];
 
+const getExpenses = createSelector(
+  (state: REDUCERS.RootState) => state.lists,
+  (lists) => lists.expenses
+);
+
 const Expenses: React.FC = () => {
-  const ITEMS_COUNT = 10000;
-  const expenses = fakeExpenses(ITEMS_COUNT);
+  const expenses = useSelector(getExpenses);
 
   return (
     <div className={styles.container}>
@@ -27,7 +33,7 @@ const Expenses: React.FC = () => {
         </div>
         <List
           height={365}
-          itemCount={ITEMS_COUNT}
+          itemCount={expenses.length}
           itemData={expenses}
           itemSize={50}
           width={"calc(100% + 20px)"}

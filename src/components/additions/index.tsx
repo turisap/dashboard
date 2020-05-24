@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import { AiFillUpCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
@@ -13,11 +14,14 @@ import styles from "./additions.scss";
 
 const tableHeaders = ["", "title", "category", "saved", "total"];
 
+const getIncomings = createSelector(
+  (state: REDUCERS.RootState) => state.lists,
+  (lists) => lists.incomings
+);
+
 const Expenses: React.FC = () => {
   const [showModal, toggleModal] = useModal();
-  const incomings = useSelector(
-    (state: REDUCERS.RootState) => state.lists.incomings
-  );
+  const incomings = useSelector(getIncomings);
 
   return (
     <div className={styles.container}>
