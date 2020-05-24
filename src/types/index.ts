@@ -1,3 +1,6 @@
+import * as UTILS from "./utils";
+import * as REDUCERS from "./reducers";
+
 type VirtualRowProps<T> = {
   index: number;
   style: React.CSSProperties;
@@ -29,17 +32,13 @@ type IconsContainerProps = {
   id: number;
 };
 
-// custom type guard
-function isExpense(row: RowInfo): row is Expense {
-  return (row as Expense).type !== undefined;
-}
-
 export {
+  UTILS,
+  REDUCERS,
   VirtualRowProps,
   Incoming,
   Expense,
   RowInfo,
   LoadingStatus,
   IconsContainerProps,
-  isExpense,
 };

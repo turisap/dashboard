@@ -1,12 +1,7 @@
 import React from "react";
 import { AiOutlineDelete, AiFillStar } from "react-icons/ai";
 
-import {
-  IconsContainerProps,
-  VirtualRowProps,
-  RowInfo,
-  isExpense
-} from "types/";
+import { IconsContainerProps, VirtualRowProps, RowInfo, UTILS } from "types/";
 
 import styles from "./additions.scss";
 
@@ -29,7 +24,7 @@ const Row: React.FC<VirtualRowProps<RowInfo>> = ({ index, style, data }) => {
   let saved = "";
   let type = "";
 
-  if (isExpense(row)) {
+  if (UTILS.isExpense(row)) {
     type = row.type;
   } else {
     saved = row.saved;

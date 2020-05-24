@@ -348,6 +348,7 @@ module.exports = function({ mode, preset }) {
         styles: path.resolve(__dirname, "src/styles/"),
         hooks: path.resolve(__dirname, "src/hooks/"),
         types: path.resolve(__dirname, "src/types/"),
+        ducks: path.resolve(__dirname, "src/redux/ducks/"),
       },
     },
 

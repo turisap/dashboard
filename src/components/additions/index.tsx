@@ -1,11 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { AiFillUpCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
 import { Modal } from "components/modal";
 import { useModal } from "hooks/";
+import { REDUCERS } from "types/";
 
-import { fakeIncomings } from "../../mocks";
 import { Row } from "./Row";
 
 import styles from "./additions.scss";
@@ -13,10 +14,10 @@ import styles from "./additions.scss";
 const tableHeaders = ["", "title", "category", "saved", "total"];
 
 const Expenses: React.FC = () => {
-  const ITEMS_COUNT = 10000;
-  const incomes = fakeIncomings(ITEMS_COUNT);
-
   const [showModal, toggleModal] = useModal();
+  const incomings = useSelector(
+    (state: REDUCERS.RootState) => state.lists.incomings
+  );
 
   return (
     <div className={styles.container}>
@@ -26,14 +27,14 @@ const Expenses: React.FC = () => {
       </h3>
       <div className={styles.table}>
         <div className={styles.expenseHeaders}>
-          {tableHeaders.map(header => (
+          {tableHeaders.map((header) => (
             <p key={header}>{header}</p>
           ))}
         </div>
         <List
           height={365}
-          itemCount={ITEMS_COUNT}
-          itemData={incomes}
+          itemCount={incomings.length}
+          itemData={incomings}
           itemSize={50}
           width={"calc(100% + 20px)"}
         >

@@ -13,3 +13,5 @@ build/
 # ENV
 .env
 
+# type annotations for css-modules
+*.scss.d.ts

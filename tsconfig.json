@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
     "strictNullChecks": true,
-    "strict": false,
+    "strict": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -23,7 +23,8 @@
       "components/*": ["src/components/*"],
       "routes/*": ["src/routes/*"],
       "hooks/*": ["src/hooks/index"],
-      "types/*": ["src/types/index"]
+      "types/*": ["src/types/index"],
+      "ducks/*": ["src/redux/ducks*"]
     }
   },
 
