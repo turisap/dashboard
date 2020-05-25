@@ -8,29 +8,34 @@ import { toggleModal } from "ducks/lists";
 import styles from "./styles.scss";
 
 type ModalProps = {
-  onConfirm: (...args: any) => void;
+  onConfirm: (...args: string[] | number[]) => void;
   showModal: boolean;
   toggleModal: () => void;
 };
 
 type InnerProps = ModalProps;
 
-const ModalWindow: React.FC<InnerProps> = () => {
+const ModalWindow: React.FC<InnerProps> = ({ children }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
-  useClickAway(modalRef, () => dispatch(toggleModal()));
+  useClickAway(modalRef, () => dispatch(toggleModal(0)));
 
   return (
     <div className={styles.overlay}>
       <div className={styles.wrapper} ref={modalRef}>
-        <p>modal</p>
+        {children}
       </div>
     </div>
   );
 };
 
-const Modal: React.FC<ModalProps> = ({ onConfirm, showModal, toggleModal }) => {
+const Modal: React.FC<ModalProps> = ({
+  onConfirm,
+  showModal,
+  toggleModal,
+  children,
+}) => {
   const root = document.getElementById("modal-root");
 
   if (!root) return null;
@@ -42,7 +47,9 @@ const Modal: React.FC<ModalProps> = ({ onConfirm, showModal, toggleModal }) => {
       onConfirm={onConfirm}
       showModal={showModal}
       toggleModal={toggleModal}
-    />,
+    >
+      {children}
+    </ModalWindow>,
     root
   );
 };

@@ -4,6 +4,12 @@ declare namespace AdditionsScssNamespace {
     expenseHeaders: string;
     expenseRow: string;
     iconContainer: string;
+    modalBtn: string;
+    modalControls: string;
+    modalHead: string;
+    modalSubhead: string;
+    modalSummAdd: string;
+    modalWrapper: string;
     starIcon: string;
     table: string;
     virListContainer: string;

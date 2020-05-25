@@ -5,7 +5,7 @@ import {
   IconsContainerProps,
   VirtualRowProps,
   RowInfoInner,
-  UTILS,
+  UTILS
 } from "types/";
 
 import styles from "./additions.scss";
@@ -26,7 +26,7 @@ const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
 const Row: React.FC<VirtualRowProps<RowInfoInner>> = ({
   index,
   style,
-  data,
+  data
 }) => {
   const row = data[index];
   const { id, description, category, total, starred } = row;
@@ -44,7 +44,7 @@ const Row: React.FC<VirtualRowProps<RowInfoInner>> = ({
       className={styles.expenseRow}
       key={index}
       style={style}
-      onClick={row.openModal}
+      onClick={row.openModal(row.id)}
     >
       <AiFillStar
         id={styles.starIcon}

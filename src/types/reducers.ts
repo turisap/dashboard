@@ -6,6 +6,7 @@ type RootState = {
 
 interface CommonState {
   modalOpen: boolean;
+  selectedId: number;
 }
 
 // EXPENSES AND INCOMINGS PAGE STATE

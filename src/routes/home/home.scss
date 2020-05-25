@@ -39,12 +39,10 @@
 }
 
 .chartCardHead {
-  color: #fff;
-  font-weight: 300;
-  font-size: 25px;
+  @include text-head;
+
   margin-bottom: 12px;
   margin-left: 20px;
-
   display: flex;
   align-items: center;
 
@@ -54,9 +52,8 @@
 }
 
 .subhead {
-  color: #9a9a9a;
-  font-weight: 600;
-  font-size: 12px;
+  @include text-subhead;
+
   padding-top: 15px;
   margin: 0px 0 6px 20px;
 }

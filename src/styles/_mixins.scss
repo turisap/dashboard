@@ -150,3 +150,21 @@
     }
   }
 }
+
+@mixin text-head {
+  color: #fff;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+@mixin text-subhead {
+  color: #9a9a9a;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+@mixin text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

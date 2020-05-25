@@ -18,6 +18,10 @@ const getExpenses = createSelector(
 
 const Expenses: React.FC = () => {
   const expenses = useSelector(getExpenses);
+  const withDisp = expenses.map((exp) => ({
+    ...exp,
+    openModal: (id: number) => () => console.log(id),
+  }));
 
   return (
     <div className={styles.container}>
@@ -34,7 +38,7 @@ const Expenses: React.FC = () => {
         <List
           height={365}
           itemCount={expenses.length}
-          itemData={expenses}
+          itemData={withDisp}
           itemSize={50}
           width={"calc(100% + 20px)"}
         >

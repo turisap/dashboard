@@ -9,7 +9,7 @@ type VirtualRowProps<T> = {
 };
 
 interface CommonRowInnerProps extends API.CommonRowFields {
-  openModal: () => void;
+  openModal: (id: number) => () => void;
 }
 
 type ExpenseProps = API.Expense & CommonRowInnerProps;
@@ -26,6 +26,7 @@ type IconsContainerProps = {
 };
 
 export {
+  API,
   UTILS,
   REDUCERS,
   VirtualRowProps,

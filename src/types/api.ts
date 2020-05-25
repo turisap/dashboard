@@ -4,6 +4,7 @@ type CommonRowFields = {
   category: string;
   total: number;
   starred: boolean;
+  flagged: boolean;
 };
 
 interface Incoming extends CommonRowFields {

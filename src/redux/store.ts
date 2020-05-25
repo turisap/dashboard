@@ -16,9 +16,13 @@ const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
+const composeEnhancers = composeWithDevTools({
+  name: "Expense Dashboard"
+});
+
 export const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(exampleSaga);

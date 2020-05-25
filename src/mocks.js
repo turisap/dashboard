@@ -37,7 +37,8 @@ const getRandomIncomeCategory = () => {
 const commonFields = () => ({
   total: faker.random.number(),
   starred: faker.random.boolean(),
-  description: faker.lorem.sentence(),
+  flagged: faker.random.boolean(),
+  description: faker.lorem.paragraph(),
 });
 
 export const fakeExpenses = (n) => {
