@@ -18,6 +18,8 @@ type IncomingProps = API.Incoming & CommonRowInnerProps;
 
 type RowInfoInner = IncomingProps | ExpenseProps;
 
+type RowInfo = API.Incoming | API.Expense;
+
 type LoadingStatus = "loading" | "success" | "fail" | "idle";
 
 type IconsContainerProps = {
@@ -33,6 +35,7 @@ export {
   IncomingProps,
   ExpenseProps,
   RowInfoInner,
+  RowInfo,
   LoadingStatus,
   IconsContainerProps,
 };
