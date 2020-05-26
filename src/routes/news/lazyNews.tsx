@@ -53,7 +53,12 @@ const News: React.FC = () => {
     <div className={styles.newsPage}>
       <Expenses />
       <Additions />
-      <ModalRow show={showModal} row={row} closeModal={closeModal} />
+      <ModalRow
+        show={showModal}
+        row={row}
+        closeModal={closeModal}
+        expense={expenseOpen}
+      />
     </div>
   );
 };

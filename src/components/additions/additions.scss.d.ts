@@ -1,6 +1,7 @@
 declare namespace AdditionsScssNamespace {
   export interface IAdditionsScss {
     container: string;
+    expense: string;
     expenseHeaders: string;
     expenseRow: string;
     iconContainer: string;

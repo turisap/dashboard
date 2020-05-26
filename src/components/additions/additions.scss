@@ -43,6 +43,10 @@
   }
 }
 
+.expense {
+  color: $text_expense;
+}
+
 .modalWrapper {
   display: grid;
   grid-template-columns: 1fr;

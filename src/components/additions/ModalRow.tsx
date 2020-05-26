@@ -1,6 +1,8 @@
 import React from "react";
+import classNames from "classnames/bind";
 import {
   AiFillUpCircle,
+  AiFillDownCircle,
   AiFillStar,
   AiOutlineFlag,
   AiOutlineWarning,
@@ -12,14 +14,28 @@ import { RowInfo } from "types/*";
 
 import styles from "./additions.scss";
 
+const cx = classNames.bind((styles as unknown) as Record<string, string>);
+
 type ModalRowProps = {
   show: boolean;
+  expense: boolean;
   row: RowInfo;
   closeModal: () => void;
 };
 
-const ModalRow: React.FC<ModalRowProps> = ({ show, row, closeModal }) => {
+const ModalRow: React.FC<ModalRowProps> = ({
+  show,
+  row,
+  closeModal,
+  expense,
+}) => {
   const { category, total, description, flagged, starred } = row;
+
+  const icon = expense ? (
+    <AiFillDownCircle color="#e36f74" size="25" />
+  ) : (
+    <AiFillUpCircle color="#6fe398" size="25" />
+  );
 
   return (
     <Modal
@@ -28,8 +44,9 @@ const ModalRow: React.FC<ModalRowProps> = ({ show, row, closeModal }) => {
       closeModal={closeModal}
     >
       <div className={styles.modalWrapper}>
-        <p className={styles.modalHead}>
-          <AiFillUpCircle color="#6fe398" size="25" /> {category}
+        <p className={cx({ modalHead: true, expense })}>
+          {icon}
+          {category}
           <span className={styles.modalSummAdd}>${total}</span>
         </p>
         <p className={styles.modalSubhead}>{description}</p>
