@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
 
 import { useClickAway } from "hooks/";
@@ -9,16 +8,15 @@ import styles from "./styles.scss";
 type ModalProps = {
   onConfirm: (...args: string[] | number[]) => void;
   showModal: boolean;
-  toggleModal: (id: number) => void;
+  closeModal: () => void;
 };
 
 type InnerProps = ModalProps;
 
-const ModalWindow: React.FC<InnerProps> = ({ children, toggleModal }) => {
+const ModalWindow: React.FC<InnerProps> = ({ children, closeModal }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch();
 
-  useClickAway(modalRef, () => dispatch(toggleModal(0)));
+  useClickAway(modalRef, closeModal);
 
   return (
     <div className={styles.overlay}>
@@ -32,7 +30,7 @@ const ModalWindow: React.FC<InnerProps> = ({ children, toggleModal }) => {
 const Modal: React.FC<ModalProps> = ({
   onConfirm,
   showModal,
-  toggleModal,
+  closeModal,
   children,
 }) => {
   const root = document.getElementById("modal-root");
@@ -45,7 +43,7 @@ const Modal: React.FC<ModalProps> = ({
     <ModalWindow
       onConfirm={onConfirm}
       showModal={showModal}
-      toggleModal={toggleModal}
+      closeModal={closeModal}
     >
       {children}
     </ModalWindow>,

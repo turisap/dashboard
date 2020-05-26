@@ -15,17 +15,17 @@ import styles from "./additions.scss";
 type ModalRowProps = {
   show: boolean;
   row: RowInfo;
-  toggleModal: (id: number) => void;
+  closeModal: () => void;
 };
 
-const ModalRow: React.FC<ModalRowProps> = ({ show, row, toggleModal }) => {
+const ModalRow: React.FC<ModalRowProps> = ({ show, row, closeModal }) => {
   const { category, total, description, flagged, starred } = row;
 
   return (
     <Modal
       onConfirm={() => console.log()}
       showModal={show}
-      toggleModal={toggleModal}
+      closeModal={closeModal}
     >
       <div className={styles.modalWrapper}>
         <p className={styles.modalHead}>

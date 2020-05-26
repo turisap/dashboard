@@ -7,7 +7,8 @@ type RootState = {
 interface CommonState {
   expenseModalOpen: boolean;
   incomingModalOpen: boolean;
-  selectedId: number;
+  selectedIncomeId: number;
+  selectedExpenseId: number;
 }
 
 // EXPENSES AND INCOMINGS PAGE STATE

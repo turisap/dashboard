@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createSelector } from "reselect";
 import { AiFillUpCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
@@ -8,33 +7,15 @@ import { REDUCERS, API } from "types/";
 import { toggleIncomingModal } from "ducks/lists";
 
 import { Row } from "./Row";
-import { ModalRow } from "./ModalRow";
 
 import styles from "./additions.scss";
-import { toggleExpenseModal } from "ducks//lists";
 
 const tableHeaders = ["", "title", "category", "saved", "total"];
 
-const getClickedId = (state: REDUCERS.RootState) => state.lists.selectedId;
-
-const getIncomings = createSelector(
-  (state: REDUCERS.RootState) => state.lists,
-  (lists) => lists.incomings
-);
-
-const getClickedRowInfo = createSelector(
-  [getIncomings, getClickedId],
-  (incomings, selectedId) =>
-    incomings.find((item) => item.id === selectedId) as API.Incoming
-);
-
-const getShowModal = (state: REDUCERS.RootState) =>
-  state.lists.incomingModalOpen;
+const getIncomings = (state: REDUCERS.RootState) => state.lists.incomings;
 
 const Incomings: React.FC = () => {
   const incomings = useSelector(getIncomings);
-  const showModal = useSelector(getShowModal);
-  const row = useSelector(getClickedRowInfo);
   const dispatch = useDispatch();
 
   const openModal = (id: number) => () => dispatch(toggleIncomingModal(id));
@@ -65,7 +46,6 @@ const Incomings: React.FC = () => {
           {Row}
         </List>
       </div>
-      <ModalRow show={showModal} row={row} toggleModal={toggleExpenseModal} />
     </div>
   );
 };
