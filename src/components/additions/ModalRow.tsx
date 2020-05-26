@@ -12,14 +12,20 @@ import { RowInfo } from "types/*";
 
 import styles from "./additions.scss";
 
-const ModalRow: React.FC<{ show: boolean; row: RowInfo }> = ({ show, row }) => {
+type ModalRowProps = {
+  show: boolean;
+  row: RowInfo;
+  toggleModal: (id: number) => void;
+};
+
+const ModalRow: React.FC<ModalRowProps> = ({ show, row, toggleModal }) => {
   const { category, total, description, flagged, starred } = row;
 
   return (
     <Modal
       onConfirm={() => console.log()}
       showModal={show}
-      toggleModal={() => console.log("j")}
+      toggleModal={toggleModal}
     >
       <div className={styles.modalWrapper}>
         <p className={styles.modalHead}>

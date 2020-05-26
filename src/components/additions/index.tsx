@@ -5,12 +5,13 @@ import { AiFillUpCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
 import { REDUCERS, API } from "types/";
-import { toggleModal } from "ducks/lists";
+import { toggleIncomingModal } from "ducks/lists";
 
 import { Row } from "./Row";
 import { ModalRow } from "./ModalRow";
 
 import styles from "./additions.scss";
+import { toggleExpenseModal } from "ducks//lists";
 
 const tableHeaders = ["", "title", "category", "saved", "total"];
 
@@ -27,7 +28,8 @@ const getClickedRowInfo = createSelector(
     incomings.find((item) => item.id === selectedId) as API.Incoming
 );
 
-const getShowModal = (state: REDUCERS.RootState) => state.lists.modalOpen;
+const getShowModal = (state: REDUCERS.RootState) =>
+  state.lists.incomingModalOpen;
 
 const Incomings: React.FC = () => {
   const incomings = useSelector(getIncomings);
@@ -35,7 +37,7 @@ const Incomings: React.FC = () => {
   const row = useSelector(getClickedRowInfo);
   const dispatch = useDispatch();
 
-  const openModal = (id: number) => () => dispatch(toggleModal(id));
+  const openModal = (id: number) => () => dispatch(toggleIncomingModal(id));
   const withDisp = incomings.map((inc) => ({
     ...inc,
     openModal,
@@ -63,7 +65,7 @@ const Incomings: React.FC = () => {
           {Row}
         </List>
       </div>
-      <ModalRow show={showModal} row={row} />
+      <ModalRow show={showModal} row={row} toggleModal={toggleExpenseModal} />
     </div>
   );
 };

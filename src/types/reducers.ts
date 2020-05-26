@@ -5,7 +5,8 @@ type RootState = {
 };
 
 interface CommonState {
-  modalOpen: boolean;
+  expenseModalOpen: boolean;
+  incomingModalOpen: boolean;
   selectedId: number;
 }
 

@@ -4,29 +4,38 @@ import { REDUCERS } from "types/";
 import { actionPrefixer } from "utils";
 import { fakeIncomings, fakeExpenses } from "../../mocks";
 
-const listsActions = actionPrefixer("lists");
+const la = actionPrefixer("lists");
 
 // app state
-export const toggleModal = createAction(listsActions("ToggleModal"))<number>();
+export const toggleExpenseModal = createAction(la("toggleExpenseModal"))<
+  number
+>();
+export const toggleIncomingModal = createAction(la("toggleIncomingModal"))<
+  number
+>();
 
 const FAKE_ITEMS_COUNT = 10000;
 const incomings = fakeIncomings(FAKE_ITEMS_COUNT);
 const expenses = fakeExpenses(FAKE_ITEMS_COUNT);
 
 const DEFAULT: REDUCERS.ListsState = {
-  modalOpen: false,
+  expenseModalOpen: false,
+  incomingModalOpen: false,
   expenses,
   incomings,
   selectedId: 0,
 };
 
-const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT).handleAction(
-  toggleModal,
-  (state: REDUCERS.ListsState, action) => ({
+const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
+  .handleAction(toggleExpenseModal, (state: REDUCERS.ListsState, action) => ({
     ...state,
-    modalOpen: !state.modalOpen,
+    expenseModalOpen: !state.expenseModalOpen,
     selectedId: action.payload,
-  })
-);
+  }))
+  .handleAction(toggleIncomingModal, (state: REDUCERS.ListsState, action) => ({
+    ...state,
+    incomingModalOpen: !state.incomingModalOpen,
+    selectedId: action.payload,
+  }));
 
 export default listsReducer;

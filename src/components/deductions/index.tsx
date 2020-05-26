@@ -1,26 +1,37 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { AiFillDownCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
-import { Row } from "../additions/Row";
-import { REDUCERS } from "types/";
+import { REDUCERS, API } from "types/";
+import { toggleExpenseModal } from "ducks/lists";
 
+import { Row } from "../additions/Row";
+import { ModalRow } from "../additions/ModalRow";
 import styles from "./deductions.scss";
 
 const tableHeaders = ["", "title", "category", "type", "total"];
 
-const getExpenses = createSelector(
-  (state: REDUCERS.RootState) => state.lists,
-  (lists) => lists.expenses
+const getExpenses = (state: REDUCERS.RootState) => state.lists.expenses;
+const getModalOpen = (state: REDUCERS.RootState) =>
+  state.lists.expenseModalOpen;
+const getClickedId = (state: REDUCERS.RootState) => state.lists.selectedId;
+const getClickedRowInfo = createSelector(
+  [getExpenses, getClickedId],
+  (expenses, clickedId) =>
+    expenses.find((expense) => expense.id === clickedId) as API.Expense
 );
 
 const Expenses: React.FC = () => {
   const expenses = useSelector(getExpenses);
+  const modalOpen = useSelector(getModalOpen);
+  const row = useSelector(getClickedRowInfo);
+  const dispatch = useDispatch();
+
   const withDisp = expenses.map((exp) => ({
     ...exp,
-    openModal: (id: number) => () => console.log(id),
+    openModal: (id: number) => () => dispatch(toggleExpenseModal(id)),
   }));
 
   return (
@@ -45,6 +56,7 @@ const Expenses: React.FC = () => {
           {Row}
         </List>
       </div>
+      <ModalRow show={modalOpen} row={row} toggleModal={toggleExpenseModal} />
     </div>
   );
 };

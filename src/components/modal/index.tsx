@@ -3,19 +3,18 @@ import { useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
 
 import { useClickAway } from "hooks/";
-import { toggleModal } from "ducks/lists";
 
 import styles from "./styles.scss";
 
 type ModalProps = {
   onConfirm: (...args: string[] | number[]) => void;
   showModal: boolean;
-  toggleModal: () => void;
+  toggleModal: (id: number) => void;
 };
 
 type InnerProps = ModalProps;
 
-const ModalWindow: React.FC<InnerProps> = ({ children }) => {
+const ModalWindow: React.FC<InnerProps> = ({ children, toggleModal }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
