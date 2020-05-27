@@ -354,6 +354,12 @@ module.exports = function({ mode, preset }) {
       },
     },
 
+    node: {
+      fs: "empty",
+      net: "empty",
+      tls: "empty",
+    },
+
     // gives performace hints during build
     performance: {
       hints: "warning",
