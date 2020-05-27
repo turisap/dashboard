@@ -350,6 +350,7 @@ module.exports = function({ mode, preset }) {
         types: path.resolve(__dirname, "src/types/"),
         ducks: path.resolve(__dirname, "src/redux/ducks/"),
         utils: path.resolve(__dirname, "src/utils"),
+        request: path.resolve(__dirname, "./request"),
       },
     },
 
