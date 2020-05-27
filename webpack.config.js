@@ -263,7 +263,7 @@ module.exports = function({ mode, preset }) {
         {
           test: scriptsRegex,
           enforce: "pre",
-          exclude: /node_modules/,
+          exclude: [/node_modules/],
           loader: "eslint-loader",
         },
         {
@@ -350,7 +350,7 @@ module.exports = function({ mode, preset }) {
         types: path.resolve(__dirname, "src/types/"),
         ducks: path.resolve(__dirname, "src/redux/ducks/"),
         utils: path.resolve(__dirname, "src/utils"),
-        request: path.resolve(__dirname, "./request"),
+        requestBuilder: path.resolve(__dirname, "./request"),
       },
     },
 

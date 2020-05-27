@@ -10,7 +10,7 @@ import AppRouter from "./Router";
 
 const App = () => {
   useEffect(() => {
-    get("https://jsonplaceholder.typicode.com/posts");
+    get("http://localhost:3000/expenses");
   }, []);
 
   return (

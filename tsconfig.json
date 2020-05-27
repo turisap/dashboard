@@ -26,10 +26,10 @@
       "types/*": ["src/types/index"],
       "ducks/*": ["src/redux/ducks/*"],
       "utils/*": ["src/utils.ts"],
-      "request": ["./request.ts"]
+      "requestBuilder/*": ["./request.ts"]
     }
   },
 
   "include": ["src/**/*"],
-  "exclude": ["./types", "node_modules"]
+  "exclude": ["./types", "./backend", "node_modules"]
 }
