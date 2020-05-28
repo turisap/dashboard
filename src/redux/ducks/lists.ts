@@ -1,7 +1,8 @@
 import { createAction, createReducer } from "typesafe-actions";
+import produce from "immer";
 
 import { REDUCERS } from "types/";
-import { actionPrefixer } from "utils";
+import { actionPrefixer } from "utils/";
 import { fakeIncomings, fakeExpenses } from "../../mocks";
 
 const la = actionPrefixer("lists");
@@ -25,23 +26,26 @@ const DEFAULT: REDUCERS.ListsState = {
 };
 
 const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
-  .handleAction(toggleExpenseModal, (state: REDUCERS.ListsState, action) => ({
-    ...state,
-    expenseModalOpen: !state.expenseModalOpen,
-    selectedExpenseId: action.payload,
-  }))
-  .handleAction(toggleIncomingModal, (state: REDUCERS.ListsState, action) => ({
-    ...state,
-    incomingModalOpen: !state.incomingModalOpen,
-    selectedIncomeId: action.payload,
-  }))
-  .handleAction(closeAllModals, (state: REDUCERS.ListsState) => ({
-    ...state,
-    incomingModalOpen: false,
-    expenseModalOpen: false,
-    selectedExpenseId: 0,
-    selectedIncomeId: 0,
-  }));
+  .handleAction(toggleExpenseModal, (state: REDUCERS.ListsState, action) =>
+    produce(state, (draftState) => {
+      draftState.expenseModalOpen = !state.expenseModalOpen;
+      draftState.selectedExpenseId = action.payload;
+    })
+  )
+  .handleAction(toggleIncomingModal, (state: REDUCERS.ListsState, action) =>
+    produce(state, (draftState) => {
+      draftState.incomingModalOpen = !state.incomingModalOpen;
+      draftState.selectedIncomeId = action.payload;
+    })
+  )
+  .handleAction(closeAllModals, (state: REDUCERS.ListsState) =>
+    produce(state, (draftState) => {
+      draftState.incomingModalOpen = false;
+      draftState.expenseModalOpen = false;
+      draftState.selectedExpenseId = 0;
+      draftState.selectedIncomeId = 0;
+    })
+  );
 
 export default listsReducer;
 export { toggleExpenseModal, toggleIncomingModal, closeAllModals };

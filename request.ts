@@ -1,8 +1,6 @@
 // fetch polyfill
 import "whatwg-fetch";
 
-const ABORT_TIMEOUT = 4000;
-
 type QueryParams = {
   [key: string]: string | number;
 };
@@ -19,8 +17,9 @@ type RequestOptions = {
   body?: any;
 };
 
-const requestBuilder = async <K>(url: URL, body?: any): Promise<K> => {
+const requestBuilder = async <T>(url: URL, body?: any): Promise<T> => {
   const controller = new AbortController();
+  const timeout = parseInt(process.env.ABORT_TIMEOUT);
   let options: RequestOptions = { signal: controller.signal };
 
   if (body) {
@@ -34,7 +33,7 @@ const requestBuilder = async <K>(url: URL, body?: any): Promise<K> => {
     };
   }
 
-  setTimeout(() => controller.abort(), ABORT_TIMEOUT);
+  setTimeout(() => controller.abort(), timeout);
 
   try {
     const res = await window.fetch(url, options);
@@ -69,16 +68,16 @@ const constructUrl = ({ url, params }: URLData) => {
   return urlObj;
 };
 
-const get = async <K>(url: string, params?: QueryParams): Promise<K> => {
+const get = async <T>(url: string, params?: QueryParams): Promise<T> => {
   const urlWithParams = constructUrl({ url, params });
 
-  return await requestBuilder<K>(urlWithParams);
+  return await requestBuilder<T>(urlWithParams);
 };
 
-const post = async <K>(url: string, body: any): Promise<K> => {
+const post = async <T>(url: string, body: any): Promise<T> => {
   const urlWithParams = constructUrl({ url });
 
-  return requestBuilder<K>(urlWithParams, body);
+  return requestBuilder<T>(urlWithParams, body);
 };
 
 export { get, post };
