@@ -17,6 +17,11 @@ const appRouter = function(app) {
     const data = mocks.fakeIncomings(500);
     res.status(200).json(data);
   });
+
+  app.post("/test", function(req, res) {
+    res.status(200);
+    res.send();
+  });
 };
 
 module.exports = appRouter;

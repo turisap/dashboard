@@ -3,18 +3,41 @@ import "whatwg-fetch";
 
 const ABORT_TIMEOUT = 4000;
 
-async function get<T>(url): Promise<T> {
-  const controller = new AbortController();
-  const options = { signal: controller.signal };
+type QueryParams = {
+  [key: string]: string | number;
+};
 
-  const urlWithParams = new URL(url, process.env.DEV_HOST);
+type URLData = {
+  url: string;
+  params?: QueryParams;
+};
+
+type RequestOptions = {
+  signal: AbortController["signal"];
+  headers?: Headers;
+  method?: "POST" | "GET";
+  body?: any;
+};
+
+const requestBuilder = async <K>(url: URL, body?: any): Promise<K> => {
+  const controller = new AbortController();
+  let options: RequestOptions = { signal: controller.signal };
+
+  if (body) {
+    options = {
+      ...options,
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify(body),
+    };
+  }
 
   setTimeout(() => controller.abort(), ABORT_TIMEOUT);
 
-  // search params
-
   try {
-    const res = await window.fetch(urlWithParams, options);
+    const res = await window.fetch(url, options);
 
     const contentType = res.headers.get("content-type");
 
@@ -32,6 +55,30 @@ async function get<T>(url): Promise<T> {
 
     throw err;
   }
-}
+};
 
-export { get };
+const constructUrl = ({ url, params }: URLData) => {
+  const urlObj = new URL(url, process.env.DEV_HOST);
+
+  if (params) {
+    Object.entries(params).forEach(([key, val]) =>
+      urlObj.searchParams.set(key, val.toString())
+    );
+  }
+
+  return urlObj;
+};
+
+const get = async <K>(url: string, params?: QueryParams): Promise<K> => {
+  const urlWithParams = constructUrl({ url, params });
+
+  return await requestBuilder<K>(urlWithParams);
+};
+
+const post = async <K>(url: string, body: any): Promise<K> => {
+  const urlWithParams = constructUrl({ url });
+
+  return requestBuilder<K>(urlWithParams, body);
+};
+
+export { get, post };
