@@ -1,32 +1,37 @@
 // fetch polyfill
 import "whatwg-fetch";
 
-function get<T>(url): Promise<T> {
+const ABORT_TIMEOUT = 4000;
+
+async function get<T>(url): Promise<T> {
   const controller = new AbortController();
   const options = { signal: controller.signal };
 
-  setTimeout(() => controller.abort(), 4000);
+  const urlWithParams = new URL(url, process.env.DEV_HOST);
 
-  return window
-    .fetch(url, options)
-    .then((res) => {
-      const contentType = res.headers.get("content-type");
+  setTimeout(() => controller.abort(), ABORT_TIMEOUT);
 
-      if (!res.ok) throw Error(res.statusText || "Request failed");
+  // search params
 
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new TypeError("wrong response format supplied");
-      }
+  try {
+    const res = await window.fetch(urlWithParams, options);
 
-      return res.json();
-    })
-    .catch((err) => {
-      if (err.name === "AbortError") {
-        throw Error("Fetch aborted. Timeout exceeded");
-      }
+    const contentType = res.headers.get("content-type");
 
-      throw Error(err);
-    });
+    if (!res.ok) throw Error(res.statusText || "Request failed");
+
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new TypeError("wrong response format supplied");
+    }
+
+    return res.json();
+  } catch (err) {
+    if (err.name === "AbortError") {
+      throw Error("Fetch aborted. Timeout exceeded");
+    }
+
+    throw err;
+  }
 }
 
 export { get };
