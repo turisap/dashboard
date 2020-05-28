@@ -19,8 +19,7 @@ const appRouter = function(app) {
   });
 
   app.post("/test", function(req, res) {
-    res.status(200);
-    res.send();
+    res.status(200).json("success");
   });
 };
 
