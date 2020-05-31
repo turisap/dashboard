@@ -29,6 +29,8 @@ const ModalRow: React.FC<ModalRowProps> = ({
   closeModal,
   expense,
 }) => {
+  if (!row) return null;
+
   const { category, total, description, flagged, starred } = row;
 
   const icon = expense ? (

@@ -28,7 +28,7 @@ const Incomings: React.FC = () => {
     <div className={styles.container}>
       <h4>List of incomings</h4>
       <h3>
-        <AiFillUpCircle color="#6fe398" size="25" /> Income
+        <AiFillUpCircle color="#6fe398" size="25" /> Incomings
       </h3>
       <div className={styles.table}>
         <div className={styles.expenseHeaders}>

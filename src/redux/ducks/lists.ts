@@ -10,7 +10,6 @@ import produce from "immer";
 import { REDUCERS, API } from "types/";
 import { actionPrefixer } from "utils/";
 import { get } from "requestBuilder";
-import { fakeIncomings, fakeExpenses } from "../../mocks";
 
 const la = actionPrefixer("lists");
 
@@ -19,15 +18,18 @@ const toggleExpenseModal = createAction(la("toggleExpenseModal"))<number>();
 const toggleIncomingModal = createAction(la("toggleIncomingModal"))<number>();
 const closeAllModals = createAction(la("closeAllModals"))<void>();
 
-// fetch data
+// data fetching
 const fetchAllExpenses = createAsyncAction(
   la("fetchExpensesRequest"),
   la("fetchExpensesSuccess"),
   la("fetchExpensesFail")
-)<void, API.Expense[], Error>();
+)<void, API.Expense[], string>();
 
-const FAKE_ITEMS_COUNT = 10000;
-const incomings = fakeIncomings(FAKE_ITEMS_COUNT);
+const fetchAllIncomings = createAsyncAction(
+  la("fetchIncomingsRequest"),
+  la("fetchIncomingsSuccess"),
+  la("fetchIncomingsFail")
+)<void, API.Incoming, string>();
 
 const DEFAULT: REDUCERS.ListsState = {
   expenseModalOpen: false,
@@ -35,21 +37,23 @@ const DEFAULT: REDUCERS.ListsState = {
   selectedExpenseId: 0,
   selectedIncomeId: 0,
   expenses: [],
-  incomings,
+  incomings: [],
 };
 
 const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
-  .handleAction(toggleExpenseModal, (state: REDUCERS.ListsState, action) =>
+  .handleAction(toggleExpenseModal, (state: REDUCERS.ListsState, { payload }) =>
     produce(state, (draftState) => {
       draftState.expenseModalOpen = !state.expenseModalOpen;
-      draftState.selectedExpenseId = action.payload;
+      draftState.selectedExpenseId = payload;
     })
   )
-  .handleAction(toggleIncomingModal, (state: REDUCERS.ListsState, action) =>
-    produce(state, (draftState) => {
-      draftState.incomingModalOpen = !state.incomingModalOpen;
-      draftState.selectedIncomeId = action.payload;
-    })
+  .handleAction(
+    toggleIncomingModal,
+    (state: REDUCERS.ListsState, { payload }) =>
+      produce(state, (draftState) => {
+        draftState.incomingModalOpen = !state.incomingModalOpen;
+        draftState.selectedIncomeId = payload;
+      })
   )
   .handleAction(closeAllModals, (state: REDUCERS.ListsState) =>
     produce(state, (draftState) => {
@@ -65,20 +69,34 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
       produce(state, (draftState) => {
         draftState.expenses = payload;
       })
+  )
+  .handleAction(
+    fetchAllIncomings.success,
+    (state: REDUCERS.ListsState, { payload }) =>
+      produce(state, (draftState) => {
+        draftState.incomings = payload;
+      })
   );
+
+// TODO add typings to sagas
+// TODO add skeletons to row in the table
 
 // worker sagas
 function* getExpenses() {
   try {
     const result = yield call(get, "/expenses");
     yield put(fetchAllExpenses.success(result));
-  } catch (e) {
-    console.log(e);
-    // yield put(
-    //   actions.usersError({
-    //     error: "An error occurred when trying to get the users",
-    //   })
-    // );
+  } catch (error) {
+    yield put(fetchAllExpenses.failure("fetching expenses failed"));
+  }
+}
+
+function* getIncomings() {
+  try {
+    const result = yield call(get, "/incomings");
+    yield put(fetchAllIncomings.success(result));
+  } catch (error) {
+    yield put(fetchAllIncomings.failure("fetching incomings failed"));
   }
 }
 
@@ -87,7 +105,11 @@ function* watchFetchExpenses() {
   yield takeLatest(getType(fetchAllExpenses.request), getExpenses);
 }
 
-const listsSagas = [fork(watchFetchExpenses)];
+function* watchFetchIncomings() {
+  yield takeLatest(getType(fetchAllIncomings.request), getIncomings);
+}
+
+const listsSagas = [fork(watchFetchExpenses), fork(watchFetchIncomings)];
 
 export default listsReducer;
 
@@ -96,5 +118,6 @@ export {
   toggleIncomingModal,
   closeAllModals,
   fetchAllExpenses,
+  fetchAllIncomings,
   listsSagas,
 };
