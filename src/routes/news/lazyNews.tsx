@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 
@@ -7,7 +7,7 @@ import Additions from "components/additions";
 import { ModalRow } from "components/additions/ModalRow";
 
 import { REDUCERS, API } from "types/";
-import { closeAllModals } from "ducks/lists";
+import { closeAllModals, fetchAllExpenses } from "ducks/lists";
 
 import styles from "./styles.scss";
 
@@ -48,6 +48,10 @@ const News: React.FC = () => {
 
   const row = expenseOpen ? expense : incoming;
   const showModal = expenseOpen || incomeOpen;
+
+  useEffect(() => {
+    dispatch(fetchAllExpenses.request());
+  }, []);
 
   return (
     <div className={styles.newsPage}>

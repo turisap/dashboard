@@ -1,15 +1,15 @@
 import { createStore, applyMiddleware, combineReducers, Store } from "redux";
 import createSagaMiddleware from "redux-saga";
+import { all } from "redux-saga/effects";
 import { composeWithDevTools } from "redux-devtools-extension";
 import "regenerator-runtime/runtime";
 
-import lists from "./ducks/lists";
+import lists, { listsSagas } from "./ducks/lists";
 
 let store: Store;
 
-function* exampleSaga() {
-  console.log("Example saga reached");
-  yield 1;
+export default function* rootSaga() {
+  yield all([...listsSagas]);
 }
 
 const rootReducer = combineReducers({
@@ -33,6 +33,6 @@ if (process.env.NODE_ENV === "development") {
   store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 }
 
-sagaMiddleware.run(exampleSaga);
+sagaMiddleware.run(rootSaga);
 
 export { store };
