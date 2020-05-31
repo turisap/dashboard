@@ -8,28 +8,30 @@ import { takeLatest, call, put, fork } from "redux-saga/effects";
 import produce from "immer";
 
 import { REDUCERS, API } from "types/";
-import { actionPrefixer } from "utils/";
+import { actionPrefixer, asyncActionPrefixer } from "utils/";
 import { get } from "requestBuilder";
 
-const la = actionPrefixer("lists");
+const DUCK_PREFIX = "lists";
+
+const prs = actionPrefixer(DUCK_PREFIX);
+const pra = asyncActionPrefixer(DUCK_PREFIX);
 
 // app state
-const toggleExpenseModal = createAction(la("toggleExpenseModal"))<number>();
-const toggleIncomingModal = createAction(la("toggleIncomingModal"))<number>();
-const closeAllModals = createAction(la("closeAllModals"))<void>();
+const toggleExpenseModal = createAction(prs("toggleExpenseModal"))<number>();
+const toggleIncomingModal = createAction(prs("toggleIncomingModal"))<number>();
+const closeAllModals = createAction(prs("closeAllModals"))<void>();
 
 // data fetching
-const fetchAllExpenses = createAsyncAction(
-  la("fetchExpensesRequest"),
-  la("fetchExpensesSuccess"),
-  la("fetchExpensesFail")
-)<void, API.Expense[], string>();
-
-const fetchAllIncomings = createAsyncAction(
-  la("fetchIncomingsRequest"),
-  la("fetchIncomingsSuccess"),
-  la("fetchIncomingsFail")
-)<void, API.Incoming, string>();
+const fetchAllExpenses = createAsyncAction(...pra("fetchExpenses"))<
+  void,
+  API.Expense[],
+  string
+>();
+const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
+  void,
+  API.Incoming,
+  string
+>();
 
 const DEFAULT: REDUCERS.ListsState = {
   expenseModalOpen: false,
