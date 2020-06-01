@@ -1,18 +1,40 @@
-type CommonRowFields = {
-  id: number;
-  description: string;
-  category: string;
-  total: number;
-  starred: boolean;
-  flagged: boolean;
-};
+import * as t from "io-ts";
 
-interface Incoming extends CommonRowFields {
-  saved: string;
-}
+const CommonRowFields = t.type({
+  id: t.number,
+  description: t.string,
+  category: t.string,
+  total: t.number,
+  starred: t.boolean,
+  flagged: t.boolean,
+});
 
-interface Expense extends CommonRowFields {
-  type: string;
-}
+const Incoming = t.intersection([
+  CommonRowFields,
+  t.type({
+    saved: t.string,
+  }),
+]);
 
-export { CommonRowFields, Incoming, Expense };
+const Expense = t.intersection([
+  CommonRowFields,
+  t.type({
+    type: t.string,
+  }),
+]);
+
+const ExpensesList = t.array(Expense);
+
+const IncomingsList = t.array(Incoming);
+
+type CommonRowFields = t.TypeOf<typeof CommonRowFields>;
+
+type Incoming = t.TypeOf<typeof Incoming>;
+
+type Expense = t.TypeOf<typeof Expense>;
+
+type ExpensesList = t.TypeOf<typeof ExpensesList>;
+
+type IncomingsList = t.TypeOf<typeof IncomingsList>;
+
+export { CommonRowFields, Incoming, Expense, ExpensesList, IncomingsList };

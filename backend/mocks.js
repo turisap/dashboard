@@ -1,11 +1,11 @@
 const faker = require("faker");
 const times = require("ramda").times;
 
-const fakeNotifications = n =>
+const fakeNotifications = (n) =>
   times(
-    id => ({
+    (id) => ({
       id,
-      text: faker.lorem.sentence()
+      text: faker.lorem.sentence(),
     }),
     n
   );
@@ -15,7 +15,7 @@ const getRandomExpenseCategory = () => {
     housing: ["bills", "homeware", "pets"],
     food: ["food"],
     leisure: ["eating out", "nights out", "shopping", "travel"],
-    health: ["checkups", "medicines"]
+    health: ["checkups", "medicines"],
   };
 
   const sets = Object.keys(categories);
@@ -38,24 +38,24 @@ const commonFields = () => ({
   total: faker.random.number(),
   starred: faker.random.boolean(),
   flagged: faker.random.boolean(),
-  description: faker.lorem.paragraph()
+  description: faker.lorem.paragraph(),
 });
 
-const fakeExpenses = n => {
-  return times(id => {
+const fakeExpenses = (n) => {
+  return times((id) => {
     const [category, type] = getRandomExpenseCategory();
 
     return {
       id,
       category,
       type,
-      ...commonFields()
+      ...commonFields(),
     };
   }, n);
 };
 
-const fakeIncomings = n => {
-  return times(id => {
+const fakeIncomings = (n) => {
+  return times((id) => {
     const category = getRandomIncomeCategory();
     const saved = faker.finance.amount();
     const total = parseInt((saved * (Math.random() + 1)).toFixed(2));
@@ -65,12 +65,12 @@ const fakeIncomings = n => {
       category,
       id,
       saved,
-      total
+      total,
     };
   }, n);
 };
 
 module.exports = {
   fakeIncomings,
-  fakeExpenses
-}
+  fakeExpenses,
+};

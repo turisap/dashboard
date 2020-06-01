@@ -11,6 +11,8 @@ import { REDUCERS, API } from "types/";
 import { actionPrefixer, asyncActionPrefixer } from "utils/";
 import { get } from "requestBuilder";
 
+import { ioTSLogger } from "../../utils";
+
 const DUCK_PREFIX = "lists";
 
 const prs = actionPrefixer(DUCK_PREFIX);
@@ -87,6 +89,8 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
 function* getExpenses() {
   try {
     const result = yield call(get, "/expenses");
+    ioTSLogger(API.ExpensesList, result, "fetch expenses");
+
     yield put(fetchAllExpenses.success(result));
   } catch (error) {
     yield put(fetchAllExpenses.failure("fetching expenses failed"));
@@ -96,6 +100,8 @@ function* getExpenses() {
 function* getIncomings() {
   try {
     const result = yield call(get, "/incomings");
+    ioTSLogger(API.IncomingsList, result, "fetch incomings");
+
     yield put(fetchAllIncomings.success(result));
   } catch (error) {
     yield put(fetchAllIncomings.failure("fetching incomings failed"));
