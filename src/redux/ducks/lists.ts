@@ -34,11 +34,17 @@ const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
   API.Incoming,
   string
 >();
+const toggleExpenseStar = createAsyncAction(...pra("toggleExpenseStar"))<
+  number,
+  boolean,
+  number
+>();
 
 const DEFAULT: REDUCERS.ListsState = {
   expenseModalOpen: false,
   incomingModalOpen: false,
   incomingsStatus: "prestine",
+  expensesStatus: "prestine",
   selectedExpenseId: 0,
   selectedIncomeId: 0,
   expenses: [],
@@ -81,6 +87,17 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
       produce(state, (draftState) => {
         draftState.incomings = payload;
         draftState.incomingsStatus = "success";
+      })
+  )
+  .handleAction(
+    toggleExpenseStar.failure,
+    (state: REDUCERS.ListsState, { payload }) =>
+      produce(state, (draftState) => {
+        draftState.expenses = state.expenses.map((exp) => {
+          if ((exp.id = payload)) return { ...exp, starred: false };
+
+          return exp;
+        });
       })
   );
 

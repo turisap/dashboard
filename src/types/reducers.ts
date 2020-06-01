@@ -18,6 +18,7 @@ interface ListsState extends CommonState {
   selectedIncomeId: number;
   selectedExpenseId: number;
   incomingsStatus: LoadingStatus;
+  expensesStatus: LoadingStatus;
 }
 
 export { RootState, ListsState };

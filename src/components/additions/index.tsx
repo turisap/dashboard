@@ -25,14 +25,13 @@ const Incomings: React.FC = () => {
   const stubLength = 20;
 
   const openModal = (id: number) => () => dispatch(toggleIncomingModal(id));
-  const withDisp =
-    incomings.length > 1
-      ? incomings.map((inc) => ({
-          ...inc,
-          openModal,
-          loading,
-        }))
-      : new Array(stubLength).fill({ loading, openModal });
+  const withDisp = incomings.length
+    ? incomings.map((inc) => ({
+        ...inc,
+        openModal,
+        loading,
+      }))
+    : new Array(stubLength).fill({ loading, openModal });
 
   return (
     <div className={styles.container}>

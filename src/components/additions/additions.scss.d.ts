@@ -4,6 +4,7 @@ declare namespace AdditionsScssNamespace {
     expense: string;
     expenseHeaders: string;
     expenseRow: string;
+    expenseRowLoading: string;
     iconContainer: string;
     modalBtn: string;
     modalControls: string;

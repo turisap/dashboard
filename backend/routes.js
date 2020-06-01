@@ -1,6 +1,7 @@
 const mocks = require("./mocks.js");
 
 // expensese and incomings
+// TODO remove delays
 const appRouter = function(app) {
   app.get("/expenses", function(req, res) {
     const data = mocks.fakeExpenses(500);

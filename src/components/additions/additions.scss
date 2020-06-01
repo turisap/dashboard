@@ -18,12 +18,12 @@
   @include table-row;
 }
 
-// :local(div.expenseRowLoading) {
-//   &:hover {
-//     background: $card_background;
-//     cursor: default;
-//   }
-// }
+:local(div.expenseRowLoading) {
+  &:hover {
+    background: $card_background;
+    cursor: default;
+  }
+}
 
 .iconContainer {
   @include icons-container;

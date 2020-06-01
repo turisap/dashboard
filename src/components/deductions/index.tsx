@@ -4,6 +4,7 @@ import { AiFillDownCircle } from "react-icons/ai";
 import { FixedSizeList as List } from "react-window";
 
 import { REDUCERS } from "types/";
+import { useDelayedLoading } from "hooks/";
 import { toggleExpenseModal } from "ducks/lists";
 
 import { Row } from "../additions/Row";
@@ -12,15 +13,23 @@ import styles from "./deductions.scss";
 const tableHeaders = ["", "title", "category", "type", "total"];
 
 const getExpenses = (state: REDUCERS.RootState) => state.lists.expenses;
+const getStatus = (state: REDUCERS.RootState) => state.lists.expensesStatus;
 
 const Expenses: React.FC = () => {
   const expenses = useSelector(getExpenses);
+  const status = useSelector(getStatus);
   const dispatch = useDispatch();
+  const loading = useDelayedLoading(200, status);
 
-  const withDisp = expenses.map((exp) => ({
-    ...exp,
-    openModal: (id: number) => () => dispatch(toggleExpenseModal(id)),
-  }));
+  const stubLength = 20;
+  const openModal = (id: number) => () => dispatch(toggleExpenseModal(id));
+
+  const withDisp = expenses.length
+    ? expenses.map((exp) => ({
+        ...exp,
+        openModal,
+      }))
+    : new Array(stubLength).fill({ loading, openModal });
 
   return (
     <div className={styles.container}>
@@ -36,7 +45,7 @@ const Expenses: React.FC = () => {
         </div>
         <List
           height={365}
-          itemCount={expenses.length}
+          itemCount={expenses.length || stubLength}
           itemData={withDisp}
           itemSize={50}
           width={"calc(100% + 20px)"}
