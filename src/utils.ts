@@ -1,6 +1,7 @@
 import { PathReporter } from "io-ts/lib/PathReporter";
 import { Decoder } from "io-ts";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // prefixers for typesafe actions
 export const actionPrefixer = (prefix: string) => (type: string) =>
   `${prefix}/${type}`;

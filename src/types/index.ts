@@ -10,17 +10,18 @@ type VirtualRowProps<T> = {
 
 interface CommonRowInnerProps extends API.CommonRowFields {
   openModal: (id: number) => () => void;
+  loading: boolean;
 }
 
 type ExpenseProps = API.Expense & CommonRowInnerProps;
 
 type IncomingProps = API.Incoming & CommonRowInnerProps;
 
-type RowInfoInner = IncomingProps | ExpenseProps;
+type RowInfoInner = (IncomingProps | ExpenseProps) & CommonRowInnerProps;
 
 type RowInfo = API.Incoming | API.Expense;
 
-type LoadingStatus = "loading" | "success" | "fail" | "idle";
+type LoadingStatus = "prestine" | "loading" | "success" | "fail";
 
 type IconsContainerProps = {
   status: LoadingStatus;

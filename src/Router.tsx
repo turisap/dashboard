@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
 import Home from "routes/home";
@@ -16,7 +16,7 @@ import Nav from "components/nav";
 const routes = [
   { path: "/dashboard", Component: Home },
   { path: "/feed", Component: News },
-  { path: "/real_time", Component: RealTime }
+  { path: "/real_time", Component: RealTime },
 ];
 
 const Router: React.FC = () => {

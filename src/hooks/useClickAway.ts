@@ -2,6 +2,7 @@ import { useEffect, RefObject } from "react";
 
 // THIS HOOK HAS BEEN INSPIRED BY https://usehooks.com/useOnClickOutside
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type UseClickAwayHook = (ref: RefObject<any>, handler: Function) => void;
 
 const useClickAway: UseClickAwayHook = (ref, handler) => {

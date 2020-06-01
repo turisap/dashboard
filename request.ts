@@ -1,6 +1,7 @@
 // fetch polyfill
 import "whatwg-fetch";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type QueryParams = {
   [key: string]: string | number;
 };

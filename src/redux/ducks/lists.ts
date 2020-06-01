@@ -38,6 +38,7 @@ const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
 const DEFAULT: REDUCERS.ListsState = {
   expenseModalOpen: false,
   incomingModalOpen: false,
+  incomingsStatus: "prestine",
   selectedExpenseId: 0,
   selectedIncomeId: 0,
   expenses: [],
@@ -79,11 +80,11 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
     (state: REDUCERS.ListsState, { payload }) =>
       produce(state, (draftState) => {
         draftState.incomings = payload;
+        draftState.incomingsStatus = "success";
       })
   );
 
 // TODO add typings to sagas
-// TODO add skeletons to row in the table
 
 // worker sagas
 function* getExpenses() {
