@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import classNames from "classnames/bind";
 import {
   AiFillUpCircle,
@@ -11,6 +12,7 @@ import {
 
 import { Modal } from "components/modal";
 import { RowInfo } from "types/*";
+import { toggleModalButton, TableTypes, ButtonTypes } from "ducks/lists";
 
 import styles from "./additions.scss";
 
@@ -31,6 +33,8 @@ const ModalRow: React.FC<ModalRowProps> = ({
 }) => {
   if (!row) return null;
 
+  const dispatch = useDispatch();
+
   const { category, total, description, flagged, starred } = row;
 
   const icon = expense ? (
@@ -38,6 +42,14 @@ const ModalRow: React.FC<ModalRowProps> = ({
   ) : (
     <AiFillUpCircle color="#6fe398" size="25" />
   );
+
+  const partialPayload = {
+    id: row.id,
+    type: expense ? "expense" : ("incoming" as TableTypes),
+  };
+
+  const toggleItem = (item: ButtonTypes) => () =>
+    dispatch(toggleModalButton.request({ ...partialPayload, item }));
 
   return (
     <Modal
@@ -54,7 +66,7 @@ const ModalRow: React.FC<ModalRowProps> = ({
         <p className={styles.modalSubhead}>{description}</p>
 
         <div className={styles.modalControls}>
-          <div className={styles.modalBtn}>
+          <div className={styles.modalBtn} onClick={toggleItem("star")}>
             <AiFillStar
               id={styles.starIcon}
               size="30px"

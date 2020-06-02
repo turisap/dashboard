@@ -4,12 +4,12 @@ import {
   getType,
   createReducer,
 } from "typesafe-actions";
-import { takeLatest, call, put, fork } from "redux-saga/effects";
+import { takeLatest, call, put, fork, take } from "redux-saga/effects";
 import produce from "immer";
 
 import { REDUCERS, API } from "types/";
 import { actionPrefixer, asyncActionPrefixer } from "utils/";
-import { get } from "requestBuilder";
+import { get, post } from "requestBuilder";
 
 import { ioTSLogger } from "../../utils";
 
@@ -17,6 +17,16 @@ const DUCK_PREFIX = "lists";
 
 const prs = actionPrefixer(DUCK_PREFIX);
 const pra = asyncActionPrefixer(DUCK_PREFIX);
+
+type ButtonTypes = "star" | "mark" | "sync" | "flag";
+
+type TableTypes = "expense" | "incoming";
+
+type ToggleButtonPayload = {
+  id: number;
+  item: ButtonTypes;
+  type: TableTypes;
+};
 
 // app state
 const toggleExpenseModal = createAction(prs("toggleExpenseModal"))<number>();
@@ -34,10 +44,10 @@ const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
   API.Incoming,
   string
 >();
-const toggleExpenseStar = createAsyncAction(...pra("toggleExpenseStar"))<
-  number,
-  boolean,
-  number
+const toggleModalButton = createAsyncAction(...pra("toggleModalButton"))<
+  ToggleButtonPayload,
+  void,
+  void
 >();
 
 const DEFAULT: REDUCERS.ListsState = {
@@ -88,18 +98,16 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
         draftState.incomings = payload;
         draftState.incomingsStatus = "success";
       })
-  )
-  .handleAction(
-    toggleExpenseStar.failure,
-    (state: REDUCERS.ListsState, { payload }) =>
-      produce(state, (draftState) => {
-        draftState.expenses = state.expenses.map((exp) => {
-          if ((exp.id = payload)) return { ...exp, starred: false };
-
-          return exp;
-        });
-      })
   );
+// .handleAction(toggleModalButton.failure, (state: REDUCERS.ListsState, { payload }) =>
+//   produce(state, (draftState) => {
+//     draftState.expenses = state.expenses.map((exp) => {
+//       if ((exp.id = payload)) return { ...exp, starred: false };
+
+//       return exp;
+//     });
+//   })
+// );
 
 // TODO add typings to sagas
 
@@ -126,6 +134,16 @@ function* getIncomings() {
   }
 }
 
+function* starExpense(payload: ToggleButtonPayload) {
+  try {
+    yield call(post, "/star", payload);
+
+    yield put(toggleModalButton.success());
+  } catch (err) {
+    yield put(toggleModalButton.failure());
+  }
+}
+
 // watcher sagas
 function* watchFetchExpenses() {
   yield takeLatest(getType(fetchAllExpenses.request), getExpenses);
@@ -135,7 +153,18 @@ function* watchFetchIncomings() {
   yield takeLatest(getType(fetchAllIncomings.request), getIncomings);
 }
 
-const listsSagas = [fork(watchFetchExpenses), fork(watchFetchIncomings)];
+function* watchtoggleModalButton() {
+  while (true) {
+    const { payload } = yield take(getType(toggleModalButton.request));
+    yield call(starExpense, payload);
+  }
+}
+
+const listsSagas = [
+  fork(watchFetchExpenses),
+  fork(watchFetchIncomings),
+  fork(watchtoggleModalButton),
+];
 
 export default listsReducer;
 
@@ -145,5 +174,9 @@ export {
   closeAllModals,
   fetchAllExpenses,
   fetchAllIncomings,
+  toggleModalButton,
   listsSagas,
+  ToggleButtonPayload,
+  ButtonTypes,
+  TableTypes,
 };

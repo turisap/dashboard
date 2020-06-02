@@ -23,6 +23,17 @@ type RowInfo = API.Incoming | API.Expense;
 
 type LoadingStatus = "prestine" | "loading" | "success" | "fail";
 
+enum NotificationTypes {
+  success = "success",
+  failure = "failure",
+}
+
+type Notification = {
+  id: number;
+  time: number;
+  type: NotificationTypes;
+};
+
 type IconsContainerProps = {
   status: LoadingStatus;
   id: number;
@@ -39,4 +50,5 @@ export {
   RowInfo,
   LoadingStatus,
   IconsContainerProps,
+  Notification,
 };
