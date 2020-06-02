@@ -11,4 +11,6 @@ const enqueueNotification = createAction(prs("enqueueNotification"))<
   Notification
 >();
 
+// TODO use RxJS here
+
 export { enqueueNotification };

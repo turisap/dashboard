@@ -18,13 +18,16 @@ const appRouter = function(app) {
     setTimeout(() => res.status(200).json(data), 0);
   });
 
-  app.post("/star", function(req, res) {
-    if (randomBool()) {
-      repsonseWithTimeout(res, 200, "success", 2000);
-    } else {
-      repsonseWithTimeout(res, 418, "no way", 2000);
+  app.post(
+    ["/lists/starred", "/lists/flagged", "/lists/synced", "/lists/marked"],
+    function(req, res) {
+      if (randomBool()) {
+        repsonseWithTimeout(res, 200, "success", 2000);
+      } else {
+        repsonseWithTimeout(res, 418, "no way", 2000);
+      }
     }
-  });
+  );
 };
 
 module.exports = appRouter;

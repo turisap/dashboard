@@ -1,5 +1,5 @@
 import { Expense, Incoming } from "./api";
-import { LoadingStatus } from "./index";
+import { LoadingStatus, BasicLoadingStatus } from "./index";
 
 type RootState = {
   lists: ListsState;
@@ -17,6 +17,7 @@ interface ListsState extends CommonState {
   incomingModalOpen: boolean;
   selectedIncomeId: number;
   selectedExpenseId: number;
+  modalUpdatingState: BasicLoadingStatus;
   incomingsStatus: LoadingStatus;
   expensesStatus: LoadingStatus;
 }

@@ -93,7 +93,7 @@ const ModalRow: React.FC<ModalRowProps> = ({
             <AiOutlineSync
               id={styles.starIcon}
               size="30px"
-              color={synced ? "#f8b704" : "#ffffff"}
+              color={synced ? "#7aeb92" : "#ffffff"}
             />
           </div>
           <div className={styles.modalBtn} onClick={toggleItem("flagged")}>

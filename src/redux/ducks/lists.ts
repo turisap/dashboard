@@ -57,6 +57,7 @@ const DEFAULT: REDUCERS.ListsState = {
   expensesStatus: "prestine",
   selectedExpenseId: 0,
   selectedIncomeId: 0,
+  modalUpdatingState: "idle",
   expenses: [],
   incomings: [],
 };
@@ -105,15 +106,25 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
     toggleModalButton.request,
     (state: REDUCERS.ListsState, { payload }) => {
       const { id, item, type } = payload;
+      const notPending = state.modalUpdatingState !== "loading";
 
       return produce(state, (draftState) => {
-        draftState[type].forEach((row) => {
-          if (row.id === id) {
-            row[item] = !row[item];
-          }
-        });
+        if (notPending) {
+          draftState[type].forEach((row) => {
+            if (row.id === id) {
+              row[item] = !row[item];
+            }
+          });
+        }
+
+        draftState.modalUpdatingState = "loading";
       });
     }
+  )
+  .handleAction(toggleModalButton.success, (state: REDUCERS.ListsState) =>
+    produce(state, (draftState) => {
+      draftState.modalUpdatingState = "idle";
+    })
   )
   .handleAction(
     toggleModalButton.failure,
@@ -126,6 +137,7 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
             row[item] = !row[item];
           }
         });
+        draftState.modalUpdatingState = "idle";
       });
     }
   );
@@ -155,9 +167,9 @@ function* getIncomings() {
   }
 }
 
-function* starExpense(payload: ToggleButtonPayload) {
+function* toggleButtonState(payload: ToggleButtonPayload) {
   try {
-    yield call(post, "/star", payload);
+    yield call(post, `/lists/${payload.item}`, payload);
 
     yield put(toggleModalButton.success());
   } catch (err) {
@@ -177,7 +189,7 @@ function* watchFetchIncomings() {
 function* watchtoggleModalButton() {
   while (true) {
     const { payload } = yield take(getType(toggleModalButton.request));
-    yield call(starExpense, payload);
+    yield call(toggleButtonState, payload);
   }
 }
 

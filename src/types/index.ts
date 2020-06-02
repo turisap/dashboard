@@ -21,7 +21,9 @@ type RowInfoInner = (IncomingProps | ExpenseProps) & CommonRowInnerProps;
 
 type RowInfo = API.Incoming | API.Expense;
 
-type LoadingStatus = "prestine" | "loading" | "success" | "fail";
+type LoadingStatus = "prestine" | "success" | "fail" | "loading" | "idle";
+
+type BasicLoadingStatus = "loading" | "idle";
 
 enum NotificationTypes {
   success = "success",
@@ -49,6 +51,7 @@ export {
   RowInfoInner,
   RowInfo,
   LoadingStatus,
+  BasicLoadingStatus,
   IconsContainerProps,
   Notification,
 };
