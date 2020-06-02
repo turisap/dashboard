@@ -18,7 +18,7 @@ const DUCK_PREFIX = "lists";
 const prs = actionPrefixer(DUCK_PREFIX);
 const pra = asyncActionPrefixer(DUCK_PREFIX);
 
-type ButtonTypes = "star" | "mark" | "sync" | "flag";
+type ButtonTypes = keyof API.ButtonFields;
 
 type TableTypes = "expenses" | "incomings";
 
@@ -47,7 +47,7 @@ const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
 const toggleModalButton = createAsyncAction(...pra("toggleModalButton"))<
   ToggleButtonPayload,
   void,
-  void
+  ToggleButtonPayload
 >();
 
 const DEFAULT: REDUCERS.ListsState = {
@@ -99,6 +99,8 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
         draftState.incomingsStatus = "success";
       })
   )
+  // this is an optimistic update
+  // consistency is ensured by the next failure handler
   .handleAction(
     toggleModalButton.request,
     (state: REDUCERS.ListsState, { payload }) => {
@@ -107,22 +109,26 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
       return produce(state, (draftState) => {
         draftState[type].forEach((row) => {
           if (row.id === id) {
-            console.log(row.starred, item);
-            //row[item] = !row[item];
+            row[item] = !row[item];
+          }
+        });
+      });
+    }
+  )
+  .handleAction(
+    toggleModalButton.failure,
+    (state: REDUCERS.ListsState, { payload }) => {
+      const { id, item, type } = payload;
+
+      return produce(state, (draftState) => {
+        draftState[type].forEach((row) => {
+          if (row.id === id) {
+            row[item] = !row[item];
           }
         });
       });
     }
   );
-// .handleAction(toggleModalButton.failure, (state: REDUCERS.ListsState, { payload }) =>
-//   produce(state, (draftState) => {
-//     draftState.expenses = state.expenses.map((exp) => {
-//       if ((exp.id = payload)) return { ...exp, starred: false };
-
-//       return exp;
-//     });
-//   })
-// );
 
 // TODO add typings to sagas
 
@@ -155,7 +161,7 @@ function* starExpense(payload: ToggleButtonPayload) {
 
     yield put(toggleModalButton.success());
   } catch (err) {
-    yield put(toggleModalButton.failure());
+    yield put(toggleModalButton.failure(payload));
   }
 }
 

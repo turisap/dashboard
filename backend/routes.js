@@ -20,9 +20,9 @@ const appRouter = function(app) {
 
   app.post("/star", function(req, res) {
     if (randomBool()) {
-      repsonseWithTimeout(res, 200, "success", 300);
+      repsonseWithTimeout(res, 200, "success", 2000);
     } else {
-      repsonseWithTimeout(res, 418, "no way", 100);
+      repsonseWithTimeout(res, 418, "no way", 2000);
     }
   });
 };

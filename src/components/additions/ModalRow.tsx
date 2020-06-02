@@ -35,7 +35,15 @@ const ModalRow: React.FC<ModalRowProps> = ({
 
   const dispatch = useDispatch();
 
-  const { category, total, description, flagged, starred } = row;
+  const {
+    category,
+    total,
+    description,
+    flagged,
+    starred,
+    synced,
+    marked,
+  } = row;
 
   const icon = expense ? (
     <AiFillDownCircle color="#e36f74" size="25" />
@@ -66,7 +74,7 @@ const ModalRow: React.FC<ModalRowProps> = ({
         <p className={styles.modalSubhead}>{description}</p>
 
         <div className={styles.modalControls}>
-          <div className={styles.modalBtn} onClick={toggleItem("star")}>
+          <div className={styles.modalBtn} onClick={toggleItem("starred")}>
             <AiFillStar
               id={styles.starIcon}
               size="30px"
@@ -74,21 +82,25 @@ const ModalRow: React.FC<ModalRowProps> = ({
             />
           </div>
 
-          <div className={styles.modalBtn} onClick={toggleItem("mark")}>
+          <div className={styles.modalBtn} onClick={toggleItem("marked")}>
             <AiOutlineWarning
               id={styles.starIcon}
               size="30px"
-              color="#d92929"
+              color={marked ? "#d92929" : "#ffffff"}
             />
           </div>
-          <div className={styles.modalBtn} onClick={toggleItem("sync")}>
-            <AiOutlineSync id={styles.starIcon} size="30px" color="#6fe398" />
+          <div className={styles.modalBtn} onClick={toggleItem("synced")}>
+            <AiOutlineSync
+              id={styles.starIcon}
+              size="30px"
+              color={synced ? "#f8b704" : "#ffffff"}
+            />
           </div>
-          <div className={styles.modalBtn} onClick={toggleItem("flag")}>
+          <div className={styles.modalBtn} onClick={toggleItem("flagged")}>
             <AiOutlineFlag
               id={styles.starIcon}
               size="30px"
-              color={flagged ? "#f8b704" : "#ffffff"}
+              color={flagged ? "#6bc1f2" : "#ffffff"}
             />
           </div>
         </div>
