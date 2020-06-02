@@ -20,7 +20,7 @@ const pra = asyncActionPrefixer(DUCK_PREFIX);
 
 type ButtonTypes = "star" | "mark" | "sync" | "flag";
 
-type TableTypes = "expense" | "incoming";
+type TableTypes = "expenses" | "incomings";
 
 type ToggleButtonPayload = {
   id: number;
@@ -98,6 +98,21 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
         draftState.incomings = payload;
         draftState.incomingsStatus = "success";
       })
+  )
+  .handleAction(
+    toggleModalButton.request,
+    (state: REDUCERS.ListsState, { payload }) => {
+      const { id, item, type } = payload;
+
+      return produce(state, (draftState) => {
+        draftState[type].forEach((row) => {
+          if (row.id === id) {
+            console.log(row.starred, item);
+            //row[item] = !row[item];
+          }
+        });
+      });
+    }
   );
 // .handleAction(toggleModalButton.failure, (state: REDUCERS.ListsState, { payload }) =>
 //   produce(state, (draftState) => {

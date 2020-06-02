@@ -45,7 +45,7 @@ const ModalRow: React.FC<ModalRowProps> = ({
 
   const partialPayload = {
     id: row.id,
-    type: expense ? "expense" : ("incoming" as TableTypes),
+    type: (expense ? "expenses" : "incomings") as TableTypes,
   };
 
   const toggleItem = (item: ButtonTypes) => () =>
@@ -74,17 +74,17 @@ const ModalRow: React.FC<ModalRowProps> = ({
             />
           </div>
 
-          <div className={styles.modalBtn}>
+          <div className={styles.modalBtn} onClick={toggleItem("mark")}>
             <AiOutlineWarning
               id={styles.starIcon}
               size="30px"
               color="#d92929"
             />
           </div>
-          <div className={styles.modalBtn}>
+          <div className={styles.modalBtn} onClick={toggleItem("sync")}>
             <AiOutlineSync id={styles.starIcon} size="30px" color="#6fe398" />
           </div>
-          <div className={styles.modalBtn}>
+          <div className={styles.modalBtn} onClick={toggleItem("flag")}>
             <AiOutlineFlag
               id={styles.starIcon}
               size="30px"
