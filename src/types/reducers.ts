@@ -5,6 +5,7 @@ type RootState = {
   lists: ListsState;
 };
 
+// TODO remove or refactor this into real common state
 interface CommonState {
   test?: boolean;
 }
@@ -17,7 +18,12 @@ interface ListsState extends CommonState {
   incomingModalOpen: boolean;
   selectedIncomeId: number;
   selectedExpenseId: number;
-  modalUpdatingState: BasicLoadingStatus;
+  modalUpdatingState: {
+    starred: BasicLoadingStatus;
+    marked: BasicLoadingStatus;
+    synced: BasicLoadingStatus;
+    flagged: BasicLoadingStatus;
+  };
   incomingsStatus: LoadingStatus;
   expensesStatus: LoadingStatus;
 }

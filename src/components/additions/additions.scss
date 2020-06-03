@@ -116,3 +116,7 @@
     z-index: 1;
   }
 }
+
+.modalBtnDisabled {
+  pointer-events: none;
+}

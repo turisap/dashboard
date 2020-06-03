@@ -25,15 +25,13 @@ type LoadingStatus = "prestine" | "success" | "fail" | "loading" | "idle";
 
 type BasicLoadingStatus = "loading" | "idle";
 
-enum NotificationTypes {
-  success = "success",
-  failure = "failure",
-}
+type NotificationTypes = "success" | "failure";
 
 type Notification = {
   id: number;
   time: number;
   type: NotificationTypes;
+  text: string;
 };
 
 type IconsContainerProps = {

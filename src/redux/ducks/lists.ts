@@ -12,6 +12,7 @@ import { actionPrefixer, asyncActionPrefixer } from "utils/";
 import { get, post } from "requestBuilder";
 
 import { ioTSLogger } from "../../utils";
+import { enqueueNotification } from "./notifications";
 
 const DUCK_PREFIX = "lists";
 
@@ -46,7 +47,7 @@ const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
 >();
 const toggleModalButton = createAsyncAction(...pra("toggleModalButton"))<
   ToggleButtonPayload,
-  void,
+  ToggleButtonPayload,
   ToggleButtonPayload
 >();
 
@@ -57,7 +58,12 @@ const DEFAULT: REDUCERS.ListsState = {
   expensesStatus: "prestine",
   selectedExpenseId: 0,
   selectedIncomeId: 0,
-  modalUpdatingState: "idle",
+  modalUpdatingState: {
+    starred: "idle",
+    marked: "idle",
+    synced: "idle",
+    flagged: "idle",
+  },
   expenses: [],
   incomings: [],
 };
@@ -106,7 +112,7 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
     toggleModalButton.request,
     (state: REDUCERS.ListsState, { payload }) => {
       const { id, item, type } = payload;
-      const notPending = state.modalUpdatingState !== "loading";
+      const notPending = state.modalUpdatingState[item] !== "loading";
 
       return produce(state, (draftState) => {
         if (notPending) {
@@ -117,14 +123,19 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
           });
         }
 
-        draftState.modalUpdatingState = "loading";
+        draftState.modalUpdatingState[item] = "loading";
       });
     }
   )
-  .handleAction(toggleModalButton.success, (state: REDUCERS.ListsState) =>
-    produce(state, (draftState) => {
-      draftState.modalUpdatingState = "idle";
-    })
+  .handleAction(
+    toggleModalButton.success,
+    (state: REDUCERS.ListsState, { payload }) => {
+      const { item } = payload;
+
+      return produce(state, (draftState) => {
+        draftState.modalUpdatingState[item] = "idle";
+      });
+    }
   )
   .handleAction(
     toggleModalButton.failure,
@@ -137,7 +148,7 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
             row[item] = !row[item];
           }
         });
-        draftState.modalUpdatingState = "idle";
+        draftState.modalUpdatingState[item] = "idle";
       });
     }
   );
@@ -167,26 +178,32 @@ function* getIncomings() {
   }
 }
 
-function* toggleButtonState(payload: ToggleButtonPayload) {
+function* toggleButtonUpdate(payload: ToggleButtonPayload) {
   for (let i = 0; i <= 10; i++) {
     try {
       const success = yield call(post, `/lists/${payload.item}`, payload);
 
       return success;
     } catch (err) {
-      yield delay(500);
+      yield delay(1500);
     }
   }
 
-  throw new Error("Retry attempts exceeded");
+  throw new Error("Retry attempts limit exceeded");
 }
 
 function* retryButton(payload: ToggleButtonPayload) {
   try {
-    yield call(toggleButtonState, payload);
-    yield put(toggleModalButton.success());
+    yield call(toggleButtonUpdate, payload);
+    yield put(toggleModalButton.success(payload));
   } catch (err) {
     yield put(toggleModalButton.failure(payload));
+    yield put(
+      enqueueNotification({
+        text: `Entry hasn't been updated`,
+        type: "failure",
+      })
+    );
   }
 }
 

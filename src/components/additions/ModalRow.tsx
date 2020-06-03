@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import classNames from "classnames/bind";
 import {
   AiFillUpCircle,
@@ -11,12 +11,10 @@ import {
 } from "react-icons/ai";
 
 import { Modal } from "components/modal";
-import { RowInfo } from "types/*";
+import { RowInfo, REDUCERS } from "types/*";
 import { toggleModalButton, TableTypes, ButtonTypes } from "ducks/lists";
 
 import styles from "./additions.scss";
-
-const cx = classNames.bind((styles as unknown) as Record<string, string>);
 
 type ModalRowProps = {
   show: boolean;
@@ -24,6 +22,11 @@ type ModalRowProps = {
   row: RowInfo;
   closeModal: () => void;
 };
+
+const cx = classNames.bind((styles as unknown) as Record<string, string>);
+
+const getUpdatingStates = (state: REDUCERS.RootState) =>
+  state.lists.modalUpdatingState;
 
 const ModalRow: React.FC<ModalRowProps> = ({
   show,
@@ -34,6 +37,7 @@ const ModalRow: React.FC<ModalRowProps> = ({
   if (!row) return null;
 
   const dispatch = useDispatch();
+  const updatingStates = useSelector(getUpdatingStates, shallowEqual);
 
   const {
     category,
@@ -74,7 +78,13 @@ const ModalRow: React.FC<ModalRowProps> = ({
         <p className={styles.modalSubhead}>{description}</p>
 
         <div className={styles.modalControls}>
-          <div className={styles.modalBtn} onClick={toggleItem("starred")}>
+          <div
+            className={cx({
+              modalBtn: true,
+              modalBtnDisabled: updatingStates.starred !== "idle",
+            })}
+            onClick={toggleItem("starred")}
+          >
             <AiFillStar
               id={styles.starIcon}
               size="30px"
@@ -82,21 +92,39 @@ const ModalRow: React.FC<ModalRowProps> = ({
             />
           </div>
 
-          <div className={styles.modalBtn} onClick={toggleItem("marked")}>
+          <div
+            className={cx({
+              modalBtn: true,
+              modalBtnDisabled: updatingStates.marked !== "idle",
+            })}
+            onClick={toggleItem("marked")}
+          >
             <AiOutlineWarning
               id={styles.starIcon}
               size="30px"
               color={marked ? "#d92929" : "#ffffff"}
             />
           </div>
-          <div className={styles.modalBtn} onClick={toggleItem("synced")}>
+          <div
+            className={cx({
+              modalBtn: true,
+              modalBtnDisabled: updatingStates.synced !== "idle",
+            })}
+            onClick={toggleItem("synced")}
+          >
             <AiOutlineSync
               id={styles.starIcon}
               size="30px"
               color={synced ? "#7aeb92" : "#ffffff"}
             />
           </div>
-          <div className={styles.modalBtn} onClick={toggleItem("flagged")}>
+          <div
+            className={cx({
+              modalBtn: true,
+              modalBtnDisabled: updatingStates.flagged !== "idle",
+            })}
+            onClick={toggleItem("flagged")}
+          >
             <AiOutlineFlag
               id={styles.starIcon}
               size="30px"
