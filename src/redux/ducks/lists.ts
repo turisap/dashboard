@@ -4,7 +4,15 @@ import {
   getType,
   createReducer,
 } from "typesafe-actions";
-import { takeLatest, call, put, fork, take } from "redux-saga/effects";
+import {
+  takeLatest,
+  call,
+  put,
+  fork,
+  take,
+  race,
+  delay,
+} from "redux-saga/effects";
 import produce from "immer";
 
 import { REDUCERS, API } from "types/";
@@ -168,13 +176,17 @@ function* getIncomings() {
 }
 
 function* toggleButtonState(payload: ToggleButtonPayload) {
-  try {
-    yield call(post, `/lists/${payload.item}`, payload);
+  for (let i = 0; i <= 10; i++) {
+    try {
+      const success = yield call(post, `/lists/${payload.item}`, payload);
 
-    yield put(toggleModalButton.success());
-  } catch (err) {
-    yield put(toggleModalButton.failure(payload));
+      return success;
+    } catch (err) {
+      yield delay(500);
+    }
   }
+
+  throw new Error("Retry attempts exceeded");
 }
 
 // watcher sagas
@@ -189,7 +201,13 @@ function* watchFetchIncomings() {
 function* watchtoggleModalButton() {
   while (true) {
     const { payload } = yield take(getType(toggleModalButton.request));
-    yield call(toggleButtonState, payload);
+
+    try {
+      yield call(toggleButtonState, payload);
+      yield put(toggleModalButton.success());
+    } catch (err) {
+      yield put(toggleModalButton.failure(payload));
+    }
   }
 }
 

@@ -21,10 +21,10 @@ const appRouter = function(app) {
   app.post(
     ["/lists/starred", "/lists/flagged", "/lists/synced", "/lists/marked"],
     function(req, res) {
-      if (randomBool()) {
-        repsonseWithTimeout(res, 200, "success", 2000);
+      if (Math.random() > 0.8) {
+        repsonseWithTimeout(res, 200, "success", 200);
       } else {
-        repsonseWithTimeout(res, 418, "no way", 2000);
+        repsonseWithTimeout(res, 418, "no way", 200);
       }
     }
   );
