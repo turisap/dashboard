@@ -4,15 +4,7 @@ import {
   getType,
   createReducer,
 } from "typesafe-actions";
-import {
-  takeLatest,
-  call,
-  put,
-  fork,
-  take,
-  race,
-  delay,
-} from "redux-saga/effects";
+import { takeLatest, call, put, fork, take, delay } from "redux-saga/effects";
 import produce from "immer";
 
 import { REDUCERS, API } from "types/";
@@ -189,6 +181,15 @@ function* toggleButtonState(payload: ToggleButtonPayload) {
   throw new Error("Retry attempts exceeded");
 }
 
+function* retryButton(payload: ToggleButtonPayload) {
+  try {
+    yield call(toggleButtonState, payload);
+    yield put(toggleModalButton.success());
+  } catch (err) {
+    yield put(toggleModalButton.failure(payload));
+  }
+}
+
 // watcher sagas
 function* watchFetchExpenses() {
   yield takeLatest(getType(fetchAllExpenses.request), getExpenses);
@@ -198,23 +199,17 @@ function* watchFetchIncomings() {
   yield takeLatest(getType(fetchAllIncomings.request), getIncomings);
 }
 
-function* watchtoggleModalButton() {
+function* watchToggleButton() {
   while (true) {
     const { payload } = yield take(getType(toggleModalButton.request));
-
-    try {
-      yield call(toggleButtonState, payload);
-      yield put(toggleModalButton.success());
-    } catch (err) {
-      yield put(toggleModalButton.failure(payload));
-    }
+    yield fork(retryButton, payload);
   }
 }
 
 const listsSagas = [
   fork(watchFetchExpenses),
   fork(watchFetchIncomings),
-  fork(watchtoggleModalButton),
+  fork(watchToggleButton),
 ];
 
 export default listsReducer;
