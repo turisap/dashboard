@@ -1,8 +1,8 @@
-import { createAction, getType } from "typesafe-actions";
-import { takeEvery, fork } from "redux-saga/effects";
+import { createReducer, createAction, getType } from "typesafe-actions";
+import { takeEvery, fork, select } from "redux-saga/effects";
 
 import { actionPrefixer } from "utils/";
-import { Notification } from "types/";
+import { Notification, REDUCERS } from "types/";
 
 const DUCK_PREFIX = "notifications";
 
@@ -12,10 +12,12 @@ const enqueueNotification = createAction(prs("enqueueNotification"))<
   Pick<Notification, "text" | "type">
 >();
 
-// TODO use RxJS here OR OR OR saga
+const DEFAULT: REDUCERS.NotificationState = [];
+
+const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT);
 
 function* dequeueNotifications() {
-  yield 1;
+  const state = yield select((state: REDUCERS.RootState) => state);
 }
 
 function* watchNotificationQueue() {
@@ -23,4 +25,5 @@ function* watchNotificationQueue() {
 }
 const notificationSagas = [fork(watchNotificationQueue)];
 
+export default notificationsReducer;
 export { enqueueNotification, notificationSagas };

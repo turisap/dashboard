@@ -1,14 +1,20 @@
 import { Expense, Incoming } from "./api";
-import { LoadingStatus, BasicLoadingStatus } from "./index";
+import { LoadingStatus, BasicLoadingStatus, Notification } from "./index";
 
 type RootState = {
   lists: ListsState;
+};
+
+type NotificationRootState = {
+  notifications: NotificationState;
 };
 
 // TODO remove or refactor this into real common state
 interface CommonState {
   test?: boolean;
 }
+
+type NotificationState = Array<Notification>;
 
 // EXPENSES AND INCOMINGS PAGE STATE
 interface ListsState extends CommonState {
@@ -28,4 +34,4 @@ interface ListsState extends CommonState {
   expensesStatus: LoadingStatus;
 }
 
-export { RootState, ListsState };
+export { RootState, NotificationRootState, ListsState, NotificationState };
