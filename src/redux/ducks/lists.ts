@@ -12,7 +12,7 @@ import { actionPrefixer, asyncActionPrefixer } from "utils/";
 import { get, post } from "requestBuilder";
 
 import { ioTSLogger } from "../../utils";
-import { sendNotification } from "../../notifications/notifications";
+import { sendNotification } from "../../notifications/reducer";
 
 const DUCK_PREFIX = "lists";
 

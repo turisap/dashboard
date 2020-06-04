@@ -1,12 +1,16 @@
+import { createStore, applyMiddleware, combineReducers, Store } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { composeWithDevTools } from "redux-devtools-extension";
+import "regenerator-runtime/runtime";
 import { createReducer, createAction, getType } from "typesafe-actions";
-import { takeEvery, fork, select, put } from "redux-saga/effects";
+import { takeEvery, fork, select, put, all } from "redux-saga/effects";
 import produce from "immer";
 import { v4 as uuidv4 } from "uuid";
 
 import { actionPrefixer } from "utils/";
 import { Notification, REDUCERS } from "types/";
 
-import { notificationStore } from "./notificationStore";
+import { notificationStore } from "./reducer";
 
 type NotificationData = Pick<Notification, "text" | "type">;
 
@@ -52,6 +56,30 @@ function* watchNotificationQueue() {
 
 const notificationSagas = [fork(watchNotificationQueue)];
 
-export default notificationsReducer;
+/**
+ * Store creating
+ */
+export default function* rootSaga() {
+  yield all([...notificationSagas]);
+}
 
-export { notificationsReducer, sendNotification, notificationSagas };
+const rootReducer = combineReducers({
+  notifications: notificationsReducer,
+});
+
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = composeWithDevTools({
+  name: "Notifications",
+});
+
+// TODO check it might be a problem for prod
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(sagaMiddleware))
+);
+
+sagaMiddleware.run(rootSaga);
+
+export { store as notificationStore, sendNotification };
