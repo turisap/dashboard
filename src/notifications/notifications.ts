@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { actionPrefixer } from "utils/";
 import { Notification, REDUCERS } from "types/";
 
-import { notificationStore } from "../notificationStore";
+import { notificationStore } from "./notificationStore";
 
 type NotificationData = Pick<Notification, "text" | "type">;
 

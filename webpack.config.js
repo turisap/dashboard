@@ -13,7 +13,10 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 const resolveModule = (relPath) => path.resolve(process.cwd(), relPath);
 
 const ROUTES = {
-  appEntry: resolveModule("src/index.tsx"),
+  appEntry: {
+    main: resolveModule("src/index.tsx"),
+    notifications: resolveModule("src/notifications/index.tsx"),
+  },
   appBuilt: resolveModule("build"),
   appPublic: resolveModule("public"),
   appTsConfig: resolveModule("tsconfig.json"),
@@ -31,7 +34,7 @@ const stats = {
   moduleAssets: false,
   children: false,
   colors: true,
-  entrypoints: false,
+  entrypoints: true,
   modules: false,
   moduleTrace: false,
   outputPath: false,
@@ -131,7 +134,7 @@ module.exports = function({ mode, preset }) {
 
     devtool: PROD_MODE ? "none" : "cheap-module-source-map",
 
-    entry: ["react-hot-loader/patch", ROUTES.appEntry],
+    entry: ROUTES.appEntry,
 
     output: {
       path: PROD_MODE ? ROUTES.appBuilt : undefined,
@@ -276,7 +279,6 @@ module.exports = function({ mode, preset }) {
               options: {
                 presets: ["@babel/preset-env", "@babel/preset-react"],
                 plugins: [
-                  "react-hot-loader/babel",
                   "@babel/plugin-proposal-object-rest-spread",
                   "@loadable/babel-plugin",
                 ],

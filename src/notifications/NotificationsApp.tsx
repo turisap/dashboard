@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 
-import { notificationStore } from "../redux/notificationStore";
+import { notificationStore } from "./notificationStore";
 
 const App: React.FC = () => (
   <Provider store={notificationStore}>
