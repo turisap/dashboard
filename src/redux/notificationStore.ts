@@ -4,16 +4,19 @@ import { all } from "redux-saga/effects";
 import { composeWithDevTools } from "redux-devtools-extension";
 import "regenerator-runtime/runtime";
 
-import notifications, { notificationSagas } from "./ducks/notifications";
+import notificationsReducer, { notificationSagas } from "./ducks/notifications";
 
 let store: Store;
+
+console.log("reducer", notificationsReducer);
+console.log("sagas", notificationSagas);
 
 export default function* rootSaga() {
   yield all([...notificationSagas]);
 }
 
 const rootReducer = combineReducers({
-  notifications,
+  notifications: notificationsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -22,7 +25,7 @@ const composeEnhancers = composeWithDevTools({
   name: "Notifications",
 });
 
-// FIXME check it might be a problem for prod
+// TODO check it might be a problem for prod
 
 if (process.env.NODE_ENV === "development") {
   store = createStore(

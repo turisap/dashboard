@@ -12,7 +12,7 @@ import { actionPrefixer, asyncActionPrefixer } from "utils/";
 import { get, post } from "requestBuilder";
 
 import { ioTSLogger } from "../../utils";
-import { enqueueNotification } from "./notifications";
+import { sendNotification } from "./notifications";
 
 const DUCK_PREFIX = "lists";
 
@@ -179,7 +179,7 @@ function* getIncomings() {
 }
 
 function* toggleButtonUpdate(payload: ToggleButtonPayload) {
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i <= 2; i++) {
     try {
       const success = yield call(post, `/lists/${payload.item}`, payload);
 
@@ -198,8 +198,8 @@ function* retryButton(payload: ToggleButtonPayload) {
     yield put(toggleModalButton.success(payload));
   } catch (err) {
     yield put(toggleModalButton.failure(payload));
-    yield put(
-      enqueueNotification({
+    yield call(
+      sendNotification({
         text: `Entry hasn't been updated`,
         type: "failure",
       })

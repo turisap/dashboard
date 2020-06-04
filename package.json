@@ -96,6 +96,7 @@
     "regenerator-runtime": "^0.13.5",
     "reselect": "^4.0.0",
     "typesafe-actions": "^5.1.0",
+    "uuid": "^8.1.0",
     "whatwg-fetch": "^3.0.0"
   }
 }
