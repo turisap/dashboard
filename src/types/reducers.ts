@@ -14,9 +14,7 @@ interface CommonState {
   test?: boolean;
 }
 
-type NotificationState = {
-  notifications: Array<Notification>;
-};
+type NotificationState = Array<Notification>;
 
 // EXPENSES AND INCOMINGS PAGE STATE
 interface ListsState extends CommonState {

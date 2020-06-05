@@ -5,15 +5,17 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import "regenerator-runtime/runtime";
 
 import lists, { listsSagas } from "./ducks/lists";
+import notifications, { notificationSagas } from "./ducks/notifications";
 
 let store: Store;
 
 export default function* rootSaga() {
-  yield all([...listsSagas]);
+  yield all([...listsSagas, ...notificationSagas]);
 }
 
 const rootReducer = combineReducers({
   lists,
+  notifications,
 });
 
 const sagaMiddleware = createSagaMiddleware();

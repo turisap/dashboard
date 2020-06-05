@@ -15,7 +15,6 @@ const resolveModule = (relPath) => path.resolve(process.cwd(), relPath);
 const ROUTES = {
   appEntry: {
     main: resolveModule("src/index.tsx"),
-    notifications: resolveModule("src/notifications/index.tsx"),
   },
   appBuilt: resolveModule("build"),
   appPublic: resolveModule("public"),
