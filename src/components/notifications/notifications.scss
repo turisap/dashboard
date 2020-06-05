@@ -1,8 +1,9 @@
 // wrapper
 .container {
-  position: absolute;
+  position: fixed;
   top: 30px;
   right: 30px;
+  z-index: 100;
 }
 
 .notificationWrapper {
@@ -13,7 +14,7 @@
   background: #131414;
   border-radius: 6px;
   padding: 20px;
-  z-index: 100000;
+
   position: relative;
   color: #9a9a9a;
   font-weight: 300;
