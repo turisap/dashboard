@@ -185,7 +185,7 @@ function* toggleButtonUpdate(payload: ToggleButtonPayload) {
 
       return success;
     } catch (err) {
-      yield delay(1500);
+      yield delay(300);
     }
   }
 

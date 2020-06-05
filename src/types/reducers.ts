@@ -3,9 +3,6 @@ import { LoadingStatus, BasicLoadingStatus, Notification } from "./index";
 
 type RootState = {
   lists: ListsState;
-};
-
-type NotificationRootState = {
   notifications: NotificationState;
 };
 
@@ -34,4 +31,4 @@ interface ListsState extends CommonState {
   expensesStatus: LoadingStatus;
 }
 
-export { RootState, NotificationRootState, ListsState, NotificationState };
+export { RootState, ListsState, NotificationState };
