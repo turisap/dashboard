@@ -13,9 +13,11 @@ const cx = classnames.bind(styles as any);
 type MessageProps = Notification & { dismiss: any };
 
 const Message: React.FC<MessageProps> = ({ id, type, text, dismiss }) => (
-  <div className={cx({ notificationWrapper: true, type })}>
+  <div
+    className={cx({ notificationWrapper: true, failure: type === "failure" })}
+  >
     {type === "failure" ? (
-      <GoAlert size="25" color="#d92929" />
+      <GoAlert size="25" color="rgb(177, 41, 41)" />
     ) : (
       <GoSync size="25" color="rgb(29, 66, 29)" />
     )}
