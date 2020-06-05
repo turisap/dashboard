@@ -16,6 +16,7 @@
 
 .expenseRow {
   @include table-row;
+  z-index: -1;
 }
 
 .iconContainer {

@@ -21,6 +21,7 @@
 
 .messages {
   position: relative;
+  z-index: -1;
 
   &::after {
     content: none;

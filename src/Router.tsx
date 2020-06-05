@@ -21,27 +21,29 @@ const routes = [
 
 const Router: React.FC = () => {
   return (
-    <Suspense fallback={<h1>...loading</h1>}>
-      <BrowserRouter>
-        <Menu />
-        <Nav />
-        {routes.map(({ path, Component }) => (
-          <Route key={path} exact path={path}>
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="route"
-                unmountOnExit
-              >
-                <Component />
-              </CSSTransition>
-            )}
-          </Route>
-        ))}
-        {/* <Redirect from="/" to="/dashboard" /> */}
-      </BrowserRouter>
-    </Suspense>
+    <>
+      <Suspense fallback={<h1>...loading</h1>}>
+        <BrowserRouter>
+          <Menu />
+          <Nav />
+          {routes.map(({ path, Component }) => (
+            <Route key={path} exact path={path}>
+              {({ match }) => (
+                <CSSTransition
+                  in={match != null}
+                  timeout={300}
+                  classNames="route"
+                  unmountOnExit
+                >
+                  <Component />
+                </CSSTransition>
+              )}
+            </Route>
+          ))}
+          {/* <Redirect from="/" to="/dashboard" /> */}
+        </BrowserRouter>
+      </Suspense>
+    </>
   );
 };
 

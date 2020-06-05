@@ -52,4 +52,5 @@ export {
   BasicLoadingStatus,
   IconsContainerProps,
   Notification,
+  NotificationTypes,
 };

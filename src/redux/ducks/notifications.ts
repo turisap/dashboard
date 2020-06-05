@@ -19,7 +19,7 @@ import { Notification, REDUCERS } from "types/";
 type NotificationData = Pick<Notification, "text" | "type">;
 
 const DUCK_PREFIX = "notifications";
-const PERSIST_FOR = 17000;
+const PERSIST_FOR = 57000;
 
 const prs = actionPrefixer(DUCK_PREFIX);
 
@@ -27,6 +27,7 @@ const enqueueNotification = createAction(prs("enqueueNotification"))<
   NotificationData
 >();
 const setRemaining = createAction(prs("setRemaining"))<Array<Notification>>();
+const dismissNotification = createAction(prs("dismissNotification"))<number>();
 
 const DEFAULT: REDUCERS.NotificationState = [];
 
@@ -43,7 +44,10 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
         });
       })
   )
-  .handleAction(setRemaining, (_, { payload }) => payload);
+  .handleAction(setRemaining, (_, { payload }) => payload)
+  .handleAction(dismissNotification, (state, { payload }) =>
+    [...state].filter((n) => n.id !== payload)
+  );
 
 function timer(list: Array<Notification>) {
   return eventChannel((emitter) => {
@@ -55,7 +59,7 @@ function timer(list: Array<Notification>) {
       emitter(filtered);
 
       if (!filtered.length) emitter(END);
-    }, 1000);
+    }, 3000);
 
     return () => {
       clearInterval(iv);
@@ -80,10 +84,13 @@ function* dequeueNotifications() {
 }
 
 function* watchNotificationQueue() {
-  yield takeLatest(getType(enqueueNotification), dequeueNotifications);
+  yield takeLatest(
+    [getType(enqueueNotification), getType(dismissNotification)],
+    dequeueNotifications
+  );
 }
 
 const notificationSagas = [fork(watchNotificationQueue)];
 
 export default notificationsReducer;
-export { notificationSagas, enqueueNotification };
+export { notificationSagas, enqueueNotification, dismissNotification };

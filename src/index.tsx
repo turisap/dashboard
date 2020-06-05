@@ -1,10 +1,21 @@
 import React from "react";
 import { render } from "react-dom";
+import { Provider } from "react-redux";
 
-import App from "./App";
+import Notifications from "components/notifications";
+
+import { store } from "./redux/store";
+import AppRouter from "./Router";
 
 import "./styles/index.scss";
 
-// TODO upgrade to webpack 5
+const App = () => (
+  <Provider store={store}>
+    <Notifications />
+    <div id="main">
+      <AppRouter />
+    </div>
+  </Provider>
+);
 
 render(<App />, document.getElementById("app"));
