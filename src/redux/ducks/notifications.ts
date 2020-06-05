@@ -1,7 +1,15 @@
 import "regenerator-runtime/runtime";
 import { createReducer, createAction, getType } from "typesafe-actions";
 import { eventChannel, END } from "redux-saga";
-import { fork, select, put, take, call, takeLatest } from "redux-saga/effects";
+import {
+  fork,
+  select,
+  put,
+  take,
+  call,
+  takeLatest,
+  cancelled,
+} from "redux-saga/effects";
 import produce from "immer";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,7 +19,7 @@ import { Notification, REDUCERS } from "types/";
 type NotificationData = Pick<Notification, "text" | "type">;
 
 const DUCK_PREFIX = "notifications";
-const PERSIST_FOR = 7000;
+const PERSIST_FOR = 17000;
 
 const prs = actionPrefixer(DUCK_PREFIX);
 
@@ -37,13 +45,12 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
   )
   .handleAction(setRemaining, (_, { payload }) => payload);
 
-function timer(list) {
+function timer(list: Array<Notification>) {
   return eventChannel((emitter) => {
     const iv = setInterval(() => {
       const filtered = list.filter(
         (notification) => Date.now() - notification.time < PERSIST_FOR
       );
-      console.log(filtered);
 
       emitter(filtered);
 
@@ -66,7 +73,9 @@ function* dequeueNotifications() {
       yield put(setRemaining(remainingMsg));
     }
   } finally {
-    console.log("countdown terminated");
+    if (yield cancelled()) {
+      chan.close();
+    }
   }
 }
 
