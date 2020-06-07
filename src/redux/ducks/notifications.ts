@@ -1,6 +1,9 @@
 import "regenerator-runtime/runtime";
 import { createReducer, createAction, getType } from "typesafe-actions";
 import { eventChannel, END } from "redux-saga";
+import socketIOClient from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
+import produce from "immer";
 import {
   fork,
   select,
@@ -10,8 +13,6 @@ import {
   takeLatest,
   cancelled,
 } from "redux-saga/effects";
-import produce from "immer";
-import { v4 as uuidv4 } from "uuid";
 
 import { actionPrefixer } from "utils/";
 import { Notification, REDUCERS } from "types/";
@@ -19,7 +20,7 @@ import { Notification, REDUCERS } from "types/";
 type NotificationData = Pick<Notification, "text" | "type">;
 
 const DUCK_PREFIX = "notifications";
-const PERSIST_FOR = 2000;
+const PERSIST_FOR = 5000;
 
 const prs = actionPrefixer(DUCK_PREFIX);
 
@@ -28,6 +29,8 @@ const enqueueNotification = createAction(prs("enqueueNotification"))<
 >();
 const setRemaining = createAction(prs("setRemaining"))<Array<Notification>>();
 const dismissNotification = createAction(prs("dismissNotification"))<number>();
+
+const createWS = (): WebSocket => socketIOClient(process.env.WS_ENDPOINT);
 
 const DEFAULT: REDUCERS.NotificationState = [];
 
@@ -47,7 +50,13 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
   )
   .handleAction(setRemaining, (_, { payload }) => payload)
   .handleAction(dismissNotification, (state, { payload }) =>
-    [...state].filter((n) => n.id !== payload)
+    [...state].map((n) => {
+      if (n.id === payload) {
+        return { ...n, in: false };
+      }
+
+      return n;
+    })
   );
 
 function timer(list: Array<Notification>) {
@@ -68,6 +77,27 @@ function timer(list: Array<Notification>) {
     return () => {
       clearInterval(iv);
     };
+  });
+}
+
+function createSocketChannel(socket) {
+  return eventChannel((emit) => {
+    const notificationHanlder = (event) => {
+      emit(event);
+    };
+
+    const errorHandler = (errorEvent) => {
+      emit(new Error(errorEvent.reason));
+    };
+
+    socket.on("notification", notificationHanlder);
+    socket.on("error", errorHandler);
+
+    const unsubscribe = () => {
+      socket.off("notification", notificationHanlder);
+    };
+
+    return unsubscribe;
   });
 }
 
@@ -94,7 +124,25 @@ function* watchNotificationQueue() {
   );
 }
 
-const notificationSagas = [fork(watchNotificationQueue)];
+function* watchNotificationsWS() {
+  const socket = yield call(createWS);
+  const socketChannel = yield call(createSocketChannel, socket);
+
+  while (true) {
+    try {
+      const payload = yield take(socketChannel);
+      yield put(enqueueNotification(payload));
+    } catch (err) {
+      console.error("socket error:", err);
+      socketChannel.close();
+    }
+  }
+}
+
+const notificationSagas = [
+  fork(watchNotificationQueue),
+  fork(watchNotificationsWS),
+];
 
 export default notificationsReducer;
 export { notificationSagas, enqueueNotification, dismissNotification };

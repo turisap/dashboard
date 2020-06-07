@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import classnames from "classnames/bind";
 import { GoAlert, GoX, GoSync } from "react-icons/go";
-import socketIOClient from "socket.io-client";
 
 import { REDUCERS, Notification } from "types/";
 import { dismissNotification } from "ducks/notifications";
@@ -13,7 +12,7 @@ import transitionStyles from "./transitions.scss";
 
 const cx = classnames.bind(styles as any);
 
-type MessageProps = Notification & { dismiss: any };
+type MessageProps = Notification & { dismiss: (id: number) => () => void };
 
 const Message: React.FC<MessageProps> = ({ id, type, text, dismiss }) => (
   <div
@@ -36,12 +35,6 @@ const App: React.FC = () => {
   );
 
   const dismiss = (id: number) => () => dispatch(dismissNotification(id));
-
-  useEffect(() => {
-    const socket = socketIOClient(process.env.WS_ENDPOINT);
-
-    socket.on("notification", (message) => console.log(message));
-  }, []);
 
   return (
     <div className={styles.container}>

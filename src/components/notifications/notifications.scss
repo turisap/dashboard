@@ -8,7 +8,7 @@
 
 .notificationWrapper {
   display: grid;
-  grid-template-columns: 40px auto 40px;
+  grid-template-columns: 40px minmax(140px, max-content) 40px;
   justify-items: center;
   align-items: center;
   background: #419ef9;
