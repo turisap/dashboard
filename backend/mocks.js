@@ -72,7 +72,13 @@ const fakeIncomings = (n) => {
   }, n);
 };
 
+const fakeNotification = () => ({
+  text: faker.lorem.word(2),
+  type: faker.random.boolean() ? "success" : "failure",
+});
+
 module.exports = {
   fakeIncomings,
   fakeExpenses,
+  fakeNotification,
 };

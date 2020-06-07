@@ -53,14 +53,16 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
 function timer(list: Array<Notification>) {
   return eventChannel((emitter) => {
     const iv = setInterval(() => {
-      const filtered = list.map((notification) => ({
+      const persisted = list.map((notification) => ({
         ...notification,
         in: Date.now() - notification.time < PERSIST_FOR,
       }));
 
-      emitter(filtered);
+      const proceed = persisted.find((notification) => notification.in);
 
-      if (!filtered.length) emitter(END);
+      emitter(persisted);
+
+      if (!proceed) emitter(END);
     }, 3000);
 
     return () => {

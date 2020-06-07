@@ -1,10 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const routes = require("./routes.js");
-const app = express();
 const cors = require("cors");
 const http = require("http");
-const socketIo = require("socket.io");
+
+const io = require("./ws");
+const routes = require("./routes.js");
+
+const app = express();
 
 const port = process.env.PORT || 3000;
 
@@ -16,21 +18,7 @@ routes(app);
 
 const server = http.createServer(app);
 
-const io = socketIo(server);
-
-let interval;
-
-io.on("connection", socket => {
-  console.log("New client connected");
-  if (interval) {
-    clearInterval(interval);
-  }
-  interval = setInterval(() => socket.emit("notification", "testy"), 1000);
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-    clearInterval(interval);
-  });
-});
+io(server);
 
 server.listen(port, function() {
   console.log("app running on port.", server.address().port);
