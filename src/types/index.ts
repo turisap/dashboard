@@ -29,6 +29,7 @@ type NotificationTypes = "success" | "failure";
 
 type Notification = {
   id: number;
+  in: boolean;
   time: number;
   type: NotificationTypes;
   text: string;

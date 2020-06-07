@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import classnames from "classnames/bind";
 import { GoAlert, GoX, GoSync } from "react-icons/go";
 
@@ -7,6 +8,7 @@ import { REDUCERS, Notification } from "types/";
 import { dismissNotification } from "ducks/notifications";
 
 import styles from "./notifications.scss";
+import transitionStyles from "./transitions.scss";
 
 const cx = classnames.bind(styles as any);
 
@@ -37,7 +39,17 @@ const App: React.FC = () => {
   return (
     <div className={styles.container}>
       {notifications.map((msg) => (
-        <Message key={msg.id} {...msg} dismiss={dismiss} />
+        <CSSTransition
+          key={msg.id}
+          timeout={{ appear: 300, exit: 300 }}
+          classNames={{ ...transitionStyles }}
+          in={msg.in}
+          appear
+          unmountOnExit
+          onExit={() => console.log("exit")}
+        >
+          <Message {...msg} dismiss={dismiss} />
+        </CSSTransition>
       ))}
     </div>
   );

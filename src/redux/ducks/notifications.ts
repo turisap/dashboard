@@ -19,7 +19,7 @@ import { Notification, REDUCERS } from "types/";
 type NotificationData = Pick<Notification, "text" | "type">;
 
 const DUCK_PREFIX = "notifications";
-const PERSIST_FOR = 57000;
+const PERSIST_FOR = 2000;
 
 const prs = actionPrefixer(DUCK_PREFIX);
 
@@ -38,6 +38,7 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
       produce(state, (draftState) => {
         draftState.push({
           id: uuidv4(),
+          in: true,
           time: Date.now(),
           text: payload.text,
           type: payload.type,
@@ -52,9 +53,10 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
 function timer(list: Array<Notification>) {
   return eventChannel((emitter) => {
     const iv = setInterval(() => {
-      const filtered = list.filter(
-        (notification) => Date.now() - notification.time < PERSIST_FOR
-      );
+      const filtered = list.map((notification) => ({
+        ...notification,
+        in: Date.now() - notification.time < PERSIST_FOR,
+      }));
 
       emitter(filtered);
 
