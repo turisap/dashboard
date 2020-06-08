@@ -1,10 +1,12 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const series = [
+import { API } from "types/";
+
+const series = (data) => [
   {
     name: "Last 7 days",
-    data: [2, 5, 10, 7, 5, 8, 3],
+    data,
   },
 ];
 
@@ -54,7 +56,7 @@ const options = {
   dataLabels: {
     enabled: true,
     offsetY: -30,
-    formatter: function (val: number) {
+    formatter: function(val: number) {
       return val + "K";
     },
     style: {
@@ -73,7 +75,7 @@ const options = {
     min: 1,
     max: 12,
     labels: {
-      formatter: function (value: number) {
+      formatter: function(value: number) {
         return Math.floor(value) + "K";
       },
       show: true,
@@ -107,8 +109,8 @@ const options = {
   },
 };
 
-const LastWeekGraph: React.FC = () => (
-  <Chart options={options} series={series} type="bar" height={250} />
+const LastWeekGraph: React.FC<{ data: API.GraphSeries }> = ({ data }) => (
+  <Chart options={options} series={series(data)} type="bar" height={250} />
 );
 
 export { LastWeekGraph };

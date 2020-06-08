@@ -7,16 +7,18 @@ import "regenerator-runtime/runtime";
 
 import lists, { listsSagas } from "./ducks/lists";
 import notifications, { notificationSagas } from "./ducks/notifications";
+import graphs, { graphSagas } from "./ducks/graphs";
 
 let store: Store;
 
 export default function* rootSaga() {
-  yield all([...listsSagas, ...notificationSagas]);
+  yield all([...listsSagas, ...notificationSagas, ...graphSagas]);
 }
 
 const rootReducer = combineReducers({
   lists,
   notifications,
+  graphs,
 });
 
 const sagaMiddleware = createSagaMiddleware();

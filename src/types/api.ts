@@ -1,5 +1,16 @@
 import * as t from "io-ts";
 
+const GraphSeries = t.array(t.number);
+
+const GraphData = t.type({
+  expenses: GraphSeries,
+  leisure: GraphSeries,
+  thisMonth: GraphSeries,
+  monthlyBills: GraphSeries,
+  lastWeek: GraphSeries,
+  overbudget: GraphSeries,
+});
+
 const ButtonFields = t.type({
   starred: t.boolean,
   flagged: t.boolean,
@@ -47,6 +58,10 @@ type ExpensesList = t.TypeOf<typeof ExpensesList>;
 
 type IncomingsList = t.TypeOf<typeof IncomingsList>;
 
+type GraphData = t.TypeOf<typeof GraphData>;
+
+type GraphSeries = t.TypeOf<typeof GraphSeries>;
+
 export {
   ButtonFields,
   CommonRowFields,
@@ -54,4 +69,6 @@ export {
   Expense,
   ExpensesList,
   IncomingsList,
+  GraphData,
+  GraphSeries,
 };

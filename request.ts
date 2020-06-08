@@ -53,6 +53,7 @@ const requestBuilder = async <T>(url: URL, body?: any): Promise<T> => {
     LogRocket.captureException(err, {
       tags: {
         place: "Fetch wrapper",
+        path: url.href,
       },
       extra: {},
     });

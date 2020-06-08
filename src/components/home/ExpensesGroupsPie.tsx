@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const series = [28, 56, 35, 105, 50, 70, 44];
+import { API } from "types/";
 
 const options = {
   chart: {
@@ -101,8 +101,8 @@ const options = {
   },
 };
 
-const ExpenseGroupsPie: React.FC = () => (
-  <Chart options={options} series={series} type="donut" />
+const ExpenseGroupsPie: React.FC<{ data: API.GraphSeries }> = ({ data }) => (
+  <Chart options={options} series={data} type="donut" />
 );
 
 export { ExpenseGroupsPie };

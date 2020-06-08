@@ -1,10 +1,12 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const series = [
+import { API } from "types/";
+
+const series = (data) => [
   {
     name: "Basic needs",
-    data: [28, 40, 45, 65, 35],
+    data,
   },
 ];
 
@@ -94,7 +96,7 @@ const options = {
       enabled: false,
     },
     labels: {
-      formatter: function (value: number) {
+      formatter: function(value: number) {
         return value + "K";
       },
       show: true,
@@ -110,8 +112,8 @@ const options = {
   },
 };
 
-const BillsGraph: React.FC = () => (
-  <Chart options={options} series={series} type="area" height={250} />
+const BillsGraph: React.FC<{ data: API.GraphSeries }> = ({ data }) => (
+  <Chart options={options} series={series(data)} type="area" height={250} />
 );
 
 export { BillsGraph };

@@ -1,9 +1,10 @@
-import { Expense, Incoming } from "./api";
+import { Expense, Incoming, GraphData } from "./api";
 import { LoadingStatus, BasicLoadingStatus, Notification } from "./index";
 
 type RootState = {
   lists: ListsState;
   notifications: NotificationState;
+  graphs: GraphData;
 };
 
 // TODO remove or refactor this into real common state

@@ -28,6 +28,11 @@ const appRouter = function(app) {
       }
     }
   );
+
+  app.get("/graph_data", function(req, res) {
+    const data = mocks.fakeGraphData();
+    repsonseWithTimeout(res, 200, data, 1000);
+  });
 };
 
 module.exports = appRouter;

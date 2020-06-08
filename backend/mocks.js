@@ -77,8 +77,18 @@ const fakeNotification = () => ({
   type: faker.random.boolean() ? "success" : "failure",
 });
 
+const fakeGraphData = () => ({
+  expenses: [28, 56, 35, 105, 50, 70, 44, 70, 89, 110, 80, 65],
+  leisure: [35, 43, 3, 5, 7],
+  thisMonth: [28, 56, 35, 105, 50, 70, 44],
+  monthlyBills: [28, 40, 45, 65, 35],
+  lastWeek: [2, 5, 10, 7, 5, 8, 3],
+  overbudget: [1, 0, 2, 4, 5, 0, 7],
+});
+
 module.exports = {
   fakeIncomings,
   fakeExpenses,
   fakeNotification,
+  fakeGraphData,
 };
