@@ -1,5 +1,6 @@
 // fetch polyfill
 import "whatwg-fetch";
+import LogRocket from "logrocket";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type QueryParams = {
@@ -49,6 +50,13 @@ const requestBuilder = async <T>(url: URL, body?: any): Promise<T> => {
 
     return res.json();
   } catch (err) {
+    LogRocket.captureException(err, {
+      tags: {
+        place: "Fetch wrapper",
+      },
+      extra: {},
+    });
+
     if (err.name === "AbortError") {
       throw Error("Fetch aborted. Timeout exceeded");
     }

@@ -6,6 +6,7 @@ import {
 } from "typesafe-actions";
 import { takeLatest, call, put, fork, take, delay } from "redux-saga/effects";
 import produce from "immer";
+import LogRocket from "logrocket";
 
 import { REDUCERS, API } from "types/";
 import { actionPrefixer, asyncActionPrefixer } from "utils/";
@@ -163,6 +164,7 @@ function* getExpenses() {
 
     yield put(fetchAllExpenses.success(result));
   } catch (error) {
+    LogRocket.captureException(error);
     yield put(fetchAllExpenses.failure("fetching expenses failed"));
   }
 }
@@ -174,6 +176,7 @@ function* getIncomings() {
 
     yield put(fetchAllIncomings.success(result));
   } catch (error) {
+    LogRocket.captureException(error);
     yield put(fetchAllIncomings.failure("fetching incomings failed"));
   }
 }

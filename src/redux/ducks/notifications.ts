@@ -4,6 +4,7 @@ import { eventChannel, END } from "redux-saga";
 import socketIOClient from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import produce from "immer";
+import LogRocket from "logrocket";
 import {
   fork,
   select,
@@ -67,7 +68,7 @@ function timer(list: Array<Notification>) {
         in: Date.now() - notification.time < PERSIST_FOR,
       }));
 
-      const proceed = persisted.find((notification) => notification.in);
+      const proceed = persisted.some((notification) => notification.in);
 
       emitter(persisted);
 
@@ -82,16 +83,24 @@ function timer(list: Array<Notification>) {
 
 function createSocketChannel(socket) {
   return eventChannel((emit) => {
-    const notificationHanlder = (event) => {
-      emit(event);
-    };
+    const notificationHanlder = (event) => emit(event);
 
-    const errorHandler = (errorEvent) => {
-      emit(new Error(errorEvent.reason));
+    const errorHandler = (error) => {
+      console.log(error);
+      LogRocket.captureException(error, {
+        tags: {
+          place: "Notifications WS",
+        },
+        extra: {
+          pageName: "Error connecting to WS",
+        },
+      });
+      emit(new Error(error));
     };
 
     socket.on("notification", notificationHanlder);
     socket.on("error", errorHandler);
+    socket.on("connect_error", errorHandler);
 
     const unsubscribe = () => {
       socket.off("notification", notificationHanlder);
@@ -133,7 +142,14 @@ function* watchNotificationsWS() {
       const payload = yield take(socketChannel);
       yield put(enqueueNotification(payload));
     } catch (err) {
-      console.error("socket error:", err);
+      LogRocket.captureMessage("Error connecting to WS", {
+        tags: {
+          place: "Notifications WS",
+        },
+        extra: {
+          pageName: "Error connecting to WS",
+        },
+      });
       socketChannel.close();
     }
   }

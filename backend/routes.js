@@ -10,12 +10,12 @@ const randomBool = () => Math.random() > 0.5;
 const appRouter = function(app) {
   app.get("/expenses", function(req, res) {
     const data = mocks.fakeExpenses(500);
-    setTimeout(() => res.status(200).json(data), 0);
+    setTimeout(() => res.status(200).json(data), 1000);
   });
 
   app.get("/incomings", function(req, res) {
     const data = mocks.fakeIncomings(500);
-    setTimeout(() => res.status(200).json(data), 0);
+    setTimeout(() => res.status(200).json(data), 1000);
   });
 
   app.post(

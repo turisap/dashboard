@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 
 import Notifications from "components/notifications";
 
+import "./logrocket";
 import { store } from "./redux/store";
 import AppRouter from "./Router";
 
