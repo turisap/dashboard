@@ -27,6 +27,8 @@ type BasicLoadingStatus = "loading" | "idle";
 
 type NotificationTypes = "success" | "failure";
 
+type DocumentStatus = "visible" | "hidden";
+
 type Notification = {
   id: number;
   in: boolean;
@@ -54,4 +56,5 @@ export {
   IconsContainerProps,
   Notification,
   NotificationTypes,
+  DocumentStatus,
 };

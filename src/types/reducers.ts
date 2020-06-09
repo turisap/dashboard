@@ -1,7 +1,13 @@
 import { Expense, Incoming, GraphData } from "./api";
-import { LoadingStatus, BasicLoadingStatus, Notification } from "./index";
+import {
+  LoadingStatus,
+  BasicLoadingStatus,
+  Notification,
+  DocumentStatus,
+} from "./index";
 
 type RootState = {
+  system: SystemState;
   lists: ListsState;
   notifications: NotificationState;
   graphs: GraphData;
@@ -11,6 +17,10 @@ type RootState = {
 interface CommonState {
   test?: boolean;
 }
+
+type SystemState = {
+  documentStatus: DocumentStatus;
+};
 
 type NotificationState = Array<Notification>;
 
@@ -32,4 +42,4 @@ interface ListsState extends CommonState {
   expensesStatus: LoadingStatus;
 }
 
-export { RootState, ListsState, NotificationState };
+export { RootState, ListsState, NotificationState, SystemState };

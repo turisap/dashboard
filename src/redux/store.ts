@@ -8,6 +8,7 @@ import "regenerator-runtime/runtime";
 import lists, { listsSagas } from "./ducks/lists";
 import notifications, { notificationSagas } from "./ducks/notifications";
 import graphs, { graphSagas } from "./ducks/graphs";
+import system from "./ducks/system";
 
 let store: Store;
 
@@ -16,6 +17,7 @@ export default function* rootSaga() {
 }
 
 const rootReducer = combineReducers({
+  system,
   lists,
   notifications,
   graphs,

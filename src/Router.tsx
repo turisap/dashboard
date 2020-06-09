@@ -13,6 +13,7 @@ import { ErrorBoundary } from "components/boundary";
 // TODO Error boundaries for the whole app and each route
 // TODO 404 page
 // TODO add scrollTo top on route change to rescue the animation
+// TODO get back redirect
 
 const routes = [
   { path: "/dashboard", Component: Home },

@@ -16,7 +16,7 @@ import {
 } from "redux-saga/effects";
 
 import { actionPrefixer } from "utils/";
-import { Notification, REDUCERS } from "types/";
+import { Notification, DocumentStatus, REDUCERS } from "types/";
 
 type NotificationData = Pick<Notification, "text" | "type">;
 
@@ -60,13 +60,17 @@ const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
     })
   );
 
-function timer(list: Array<Notification>) {
+function timer(list: Array<Notification>, docStatus: DocumentStatus) {
   return eventChannel((emitter) => {
     const iv = setInterval(() => {
-      const persisted = list.map((notification) => ({
-        ...notification,
-        in: Date.now() - notification.time < PERSIST_FOR,
-      }));
+      let persisted = list;
+
+      if (docStatus === "visible") {
+        persisted = list.map((notification) => ({
+          ...notification,
+          in: Date.now() - notification.time < PERSIST_FOR,
+        }));
+      }
 
       const proceed = persisted.some((notification) => notification.in);
 
@@ -86,7 +90,6 @@ function createSocketChannel(socket) {
     const notificationHanlder = (event) => emit(event);
 
     const errorHandler = (error) => {
-      console.log(error);
       LogRocket.captureException(error, {
         tags: {
           place: "Notifications WS",
@@ -112,8 +115,11 @@ function createSocketChannel(socket) {
 
 function* dequeueNotifications() {
   const list = yield select((state: REDUCERS.RootState) => state.notifications);
+  const docStatus = yield select(
+    (state: REDUCERS.RootState) => state.system.documentStatus
+  );
 
-  const chan = yield call(timer, list);
+  const chan = yield call(timer, list, docStatus);
   try {
     while (true) {
       const remainingMsg = yield take(chan);
