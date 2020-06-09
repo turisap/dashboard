@@ -5,9 +5,11 @@ import { Provider } from "react-redux";
 import Notifications from "components/notifications";
 import { ErrorBoundary } from "components/boundary";
 
-import "./logrocket";
 import { store } from "./redux/store";
 import AppRouter from "./Router";
+
+import "./logrocket";
+import "./INIT";
 
 import "./styles/index.scss";
 

@@ -69,6 +69,7 @@
     "@types/faker": "^4.1.12",
     "@types/loadable__component": "^5.10.0",
     "@types/material-ui": "^0.21.7",
+    "@types/navigation": "^5.1.0",
     "@types/ramda": "^0.27.5",
     "@types/react-dom": "^16.9.7",
     "@types/react-redux": "^7.1.9",
