@@ -58,6 +58,8 @@ const Home: React.FC = () => {
     }
   }, []);
 
+  // TODO add current months
+
   return (
     <div className={styles.homeGrid}>
       <GraphGroup

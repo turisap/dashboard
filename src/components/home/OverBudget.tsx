@@ -3,6 +3,8 @@ import Chart from "react-apexcharts";
 
 import { API } from "types/";
 
+import { getCurrentMonths } from "../../utils";
+
 const series = (data) => [
   {
     name: "Overbudget",
@@ -98,7 +100,7 @@ const options = {
     axisTicks: {
       show: false,
     },
-    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    categories: getCurrentMonths(7),
     labels: {
       style: {
         colors: "#868689",

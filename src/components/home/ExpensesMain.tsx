@@ -3,6 +3,8 @@ import Chart from "react-apexcharts";
 
 import { API } from "types/";
 
+import { getCurrentMonths } from "../../utils";
+
 const series = (data) => [
   {
     name: "Total expenses",
@@ -65,20 +67,7 @@ const options = {
     crosshairs: {
       show: false,
     },
-    categories: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    categories: getCurrentMonths(12),
     axisBorder: {
       show: false,
     },

@@ -53,6 +53,7 @@ const News: React.FC = () => {
   const row = expenseOpen ? expense : incoming;
   const showModal = expenseOpen || incomeOpen;
 
+  // TODO add forbidding refetch
   useEffect(() => {
     batch(() => {
       dispatch(fetchAllExpenses.request());

@@ -1,6 +1,7 @@
 import { PathReporter } from "io-ts/lib/PathReporter";
 import { Decoder } from "io-ts";
 import LogRocket from "logrocket";
+import moment from "moment";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // prefixers for typesafe actions
@@ -16,7 +17,7 @@ export const asyncActionPrefixer = (prefix: string) => (
 ];
 
 // logger for io-ts decoder
-// FIXME remove for prod
+// FIXME remove console.log for prod
 export const ioTSLogger = (
   codec: Decoder<any, any>,
   data: any,
@@ -34,3 +35,10 @@ export const ioTSLogger = (
     });
   }
 };
+
+export const getCurrentMonths = (n: number): Array<string> =>
+  new Array(n)
+    .fill(1)
+    .map(() => moment())
+    .map((moment, idx) => moment.subtract(idx, "M").format("MMM"))
+    .reverse();

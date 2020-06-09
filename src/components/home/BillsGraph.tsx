@@ -2,6 +2,7 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 import { API } from "types/";
+import { getCurrentMonths } from "../../utils";
 
 const series = (data) => [
   {
@@ -73,7 +74,7 @@ const options = {
     tooltip: {
       enabled: false,
     },
-    categories: ["Mar", "Apr", "May", "Jun", "Jul"],
+    categories: getCurrentMonths(5),
     axisBorder: {
       show: false,
     },
@@ -112,8 +113,10 @@ const options = {
   },
 };
 
-const BillsGraph: React.FC<{ data: API.GraphSeries }> = ({ data }) => (
-  <Chart options={options} series={series(data)} type="area" height={250} />
-);
+const BillsGraph: React.FC<{ data: API.GraphSeries }> = ({ data }) => {
+  return (
+    <Chart options={options} series={series(data)} type="area" height={250} />
+  );
+};
 
 export { BillsGraph };
