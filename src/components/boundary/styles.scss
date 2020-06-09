@@ -1,0 +1,20 @@
+.wrapper {
+  @include card;
+  width: 100%;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    color: $text_offwhite;
+    flex-basis: 100%;
+    font-weight: 100;
+  }
+
+  svg {
+    flex-basis: 100%;
+    transform: rotate(30deg);
+  }
+}

@@ -1,8 +1,15 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   background: $main_background;
   font-family: "Open Sans", sans-serif;
   height: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 ::-webkit-scrollbar-track {
@@ -40,9 +47,13 @@ p {
 
 :global(#app) {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 :global(#main) {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 70px 1fr;
