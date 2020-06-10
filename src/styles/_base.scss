@@ -56,7 +56,7 @@ p {
   flex: 1;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 70px 1fr;
+  grid-template-rows: 70px calc(100vh - 70px);
   justify-content: center;
   grid-template-areas:
     "top top"

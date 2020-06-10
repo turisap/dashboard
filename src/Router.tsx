@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 
 import Home from "routes/home";
 import News from "routes/news";
-import RealTime from "routes/realTime";
+import RealTime from "routes/purchases";
 
 import Menu from "components/menu";
 import Nav from "components/nav";
@@ -18,7 +18,7 @@ import { ErrorBoundary } from "components/boundary";
 const routes = [
   { path: "/dashboard", Component: Home },
   { path: "/feed", Component: News },
-  { path: "/real_time", Component: RealTime },
+  { path: "/purchases", Component: RealTime }
 ];
 
 const Router: React.FC = () => (

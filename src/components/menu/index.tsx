@@ -33,8 +33,8 @@ const links: Array<LinkShape> = [
     icon: <AiOutlineExperiment color="#ffffff" size="25px" />,
   },
   {
-    path: "/real_time",
-    text: "Real Time stuff",
+    path: "/purchases",
+    text: "Purchases",
     icon: <AiFillThunderbolt color="#ffffff" size="25px" />,
   },
 ];

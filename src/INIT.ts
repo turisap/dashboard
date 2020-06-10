@@ -42,5 +42,6 @@ if (typeof navigator !== "undefined") {
   const effectiveType = (window.navigator as any)?.connection?.effectiveType;
 
   // TODO add GA
+  // TODO add requestIdleCallback
   console.log("Save data %s, type %s", saveData, effectiveType);
 }

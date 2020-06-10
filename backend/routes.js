@@ -33,6 +33,11 @@ const appRouter = function(app) {
     const data = mocks.fakeGraphData();
     repsonseWithTimeout(res, 200, data, 1000);
   });
+
+  app.get("/goods", function(req, res) {
+    const data = mocks.fakeGoods(50);
+    repsonseWithTimeout(res, 200, data, 500);
+  });
 };
 
 module.exports = appRouter;

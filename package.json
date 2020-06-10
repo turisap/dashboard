@@ -78,6 +78,7 @@
     "apexcharts": "^3.19.0",
     "babel-plugin-add-react-displayname": "^0.0.5",
     "classnames": "^2.2.6",
+    "cloudinary-react": "^1.5.0",
     "fp-ts": "^2.6.2",
     "immer": "^6.0.9",
     "io-ts": "^2.2.4",

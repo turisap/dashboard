@@ -1,0 +1,27 @@
+.wrapper {
+  @include card;
+
+  padding: 20px 10px 20px 20px;
+  align-self: stretch;
+  margin-bottom: 24px;
+
+  grid-area: page;
+}
+
+.wrapperInner {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-gap: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  padding-right: 10px;
+}
+
+.purchaseWrapper {
+  border: 1px solid #419ef9;
+  border-radius: 8px;
+
+  // FIXME
+  height: 300px;
+}
