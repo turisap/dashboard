@@ -87,7 +87,16 @@ const fakeGraphData = () => ({
 });
 
 const getRandomImage = () => {
-  const urls = ["one", "two", "three", "four"];
+  const urls = [
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825303/dshbrd/you-are-not-alone-6068_te3xob.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825303/dshbrd/selective-focus-photography-of-person-holding-ice-cream-1625235_kbhasc.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825303/dshbrd/shallow-focus-of-white-icing-covered-cake-on-white-ceramic-1721934_iekayd.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825303/dshbrd/close-up-of-coffee-cup-on-table-312418_eimko5.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825303/dshbrd/hanged-pair-of-white-leather-figure-skates-914996_cfy5g4.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825302/dshbrd/clear-glass-teapot-set-1362537_zttzrm.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825302/dshbrd/laptop-macbook-pro-office-computer-18105_x2hrcf.jpg",
+    "https://res.cloudinary.com/dshboard/image/upload/v1591825302/dshbrd/cap_q0tesh.jpg"
+  ];
 
   return urls[Math.floor(Math.random() * urls.length)];
 };

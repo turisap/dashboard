@@ -4,9 +4,9 @@ import { timeout } from "promise-timeout";
 
 // TODO delay for flashing loader
 const RealTimeComponent = loadable(
-  () => timeout(import(/* webpackPrefetch: true */ "./lazyRealTime"), 7000),
+  () => timeout(import(/* webpackPrefetch: true */ "./lazyPurchases"), 7000),
   {
-    fallback: <div>...realtime loading</div>
+    fallback: <div>...realtime loading</div>,
   }
 );
 

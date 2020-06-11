@@ -42,10 +42,20 @@ const Expense = t.intersection([
   }),
 ]);
 
+const Purchase = t.type({
+  id: t.number,
+  title: t.string,
+  description: t.string,
+  image: t.string,
+});
+
+const PurchasesList = t.array(Purchase);
+
 const ExpensesList = t.array(Expense);
 
 const IncomingsList = t.array(Incoming);
 
+// types
 type ButtonFields = t.TypeOf<typeof ButtonFields>;
 
 type CommonRowFields = t.TypeOf<typeof CommonRowFields>;
@@ -62,6 +72,10 @@ type GraphData = t.TypeOf<typeof GraphData>;
 
 type GraphSeries = t.TypeOf<typeof GraphSeries>;
 
+type Purchase = t.TypeOf<typeof Purchase>;
+
+type PurchasesList = t.TypeOf<typeof PurchasesList>;
+
 export {
   ButtonFields,
   CommonRowFields,
@@ -71,4 +85,6 @@ export {
   IncomingsList,
   GraphData,
   GraphSeries,
+  Purchase,
+  PurchasesList,
 };

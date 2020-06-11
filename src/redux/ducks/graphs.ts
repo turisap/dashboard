@@ -11,11 +11,10 @@ import { enqueueNotification } from "./notifications";
 
 const DUCK_PREFIX = "graphs";
 
-const prs = actionPrefixer(DUCK_PREFIX);
 const pra = asyncActionPrefixer(DUCK_PREFIX);
 
 // data fetching
-const fetchGraphData = createAsyncAction(...pra("fetchExpenses"))<
+const fetchGraphData = createAsyncAction(...pra("fetchGraphData"))<
   void,
   API.GraphData,
   string

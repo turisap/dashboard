@@ -57,6 +57,7 @@ const DEFAULT: REDUCERS.ListsState = {
   incomingModalOpen: false,
   incomingsStatus: "prestine",
   expensesStatus: "prestine",
+  pageStatus: "prestine",
   selectedExpenseId: 0,
   selectedIncomeId: 0,
   modalUpdatingState: {

@@ -9,11 +9,17 @@ import lists, { listsSagas } from "./ducks/lists";
 import notifications, { notificationSagas } from "./ducks/notifications";
 import graphs, { graphSagas } from "./ducks/graphs";
 import system from "./ducks/system";
+import purchases, { purchasesSagas } from "./ducks/purchases";
 
 let store: Store;
 
 export default function* rootSaga() {
-  yield all([...listsSagas, ...notificationSagas, ...graphSagas]);
+  yield all([
+    ...listsSagas,
+    ...notificationSagas,
+    ...graphSagas,
+    ...purchasesSagas,
+  ]);
 }
 
 const rootReducer = combineReducers({
@@ -21,6 +27,7 @@ const rootReducer = combineReducers({
   lists,
   notifications,
   graphs,
+  purchases,
 });
 
 const sagaMiddleware = createSagaMiddleware();

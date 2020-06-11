@@ -1,4 +1,4 @@
-import { Expense, Incoming, GraphData } from "./api";
+import { Expense, Incoming, GraphData, Purchase } from "./api";
 import {
   LoadingStatus,
   BasicLoadingStatus,
@@ -11,16 +11,22 @@ type RootState = {
   lists: ListsState;
   notifications: NotificationState;
   graphs: GraphData;
+  purchases: PurchasesState;
 };
 
-// TODO remove or refactor this into real common state
+// TODO add refetch prohibition to other pages on recurring visits
+// TODO add status to other pages
 interface CommonState {
-  test?: boolean;
+  pageStatus: LoadingStatus;
 }
 
 type SystemState = {
   documentStatus: DocumentStatus;
 };
+
+interface PurchasesState extends CommonState {
+  purchases: Array<Purchase>;
+}
 
 type NotificationState = Array<Notification>;
 
@@ -42,4 +48,10 @@ interface ListsState extends CommonState {
   expensesStatus: LoadingStatus;
 }
 
-export { RootState, ListsState, NotificationState, SystemState };
+export {
+  RootState,
+  ListsState,
+  NotificationState,
+  SystemState,
+  PurchasesState,
+};
