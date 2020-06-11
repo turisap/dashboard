@@ -10,16 +10,17 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
-const resolveModule = relPath => path.resolve(process.cwd(), relPath);
+const resolveModule = (relPath) => path.resolve(process.cwd(), relPath);
 
+// TODO get back hot reload
 const ROUTES = {
   appEntry: {
-    main: resolveModule("src/index.tsx")
+    main: resolveModule("src/index.tsx"),
   },
   appBuilt: resolveModule("build"),
   appPublic: resolveModule("public"),
   appTsConfig: resolveModule("tsconfig.json"),
-  appTsReportFiles: ["src/**/*.{ts,tsx}", "!src/skip.ts"]
+  appTsReportFiles: ["src/**/*.{ts,tsx}", "!src/skip.ts"],
 };
 
 const cssRegex = /\.css$/;
@@ -38,7 +39,7 @@ const stats = {
   moduleTrace: false,
   outputPath: false,
   reasons: false,
-  source: true
+  source: true,
 };
 
 module.exports = function({ mode, preset }) {
@@ -53,15 +54,15 @@ module.exports = function({ mode, preset }) {
 
         options: {
           hmr: DEV_MODE,
-          reloadAll: true
-        }
+          reloadAll: true,
+        },
       },
 
       {
         loader: "@teamsupercell/typings-for-css-modules-loader",
         options: {
-          formatter: "prettier"
-        }
+          formatter: "prettier",
+        },
       },
 
       {
@@ -70,9 +71,9 @@ module.exports = function({ mode, preset }) {
           sourceMap,
           modules: {
             mode: "local",
-            localIdentName: "[local]--[hash:base64:18]"
-          }
-        }
+            localIdentName: "[local]--[hash:base64:18]",
+          },
+        },
       },
 
       {
@@ -84,13 +85,13 @@ module.exports = function({ mode, preset }) {
             require("postcss-preset-env")({
               stage: 3,
               autoprefixer: {
-                flex: true
-              }
-            })
+                flex: true,
+              },
+            }),
           ],
-          sourceMap
-        }
-      }
+          sourceMap,
+        },
+      },
     ].filter(Boolean);
 
     if (preProcessor) {
@@ -99,14 +100,14 @@ module.exports = function({ mode, preset }) {
         {
           loader: require.resolve("resolve-url-loader"),
           options: {
-            sourceMap
-          }
+            sourceMap,
+          },
         },
         {
           loader: require.resolve(preProcessor),
           options: {
-            sourceMap
-          }
+            sourceMap,
+          },
         }
       );
     }
@@ -117,9 +118,9 @@ module.exports = function({ mode, preset }) {
       options: {
         resources: [
           resolveModule("src/styles/_mixins.scss"),
-          resolveModule("src/styles/_variables.scss")
-        ]
-      }
+          resolveModule("src/styles/_variables.scss"),
+        ],
+      },
     });
 
     return loaders;
@@ -145,7 +146,7 @@ module.exports = function({ mode, preset }) {
         : DEV_MODE && "js/[name].chunk.js",
 
       //substitution of 'this' for web workers
-      globalObject: "this"
+      globalObject: "this",
     },
 
     optimization: {
@@ -159,21 +160,21 @@ module.exports = function({ mode, preset }) {
           extractComments: false,
           terserOptions: {
             parse: {
-              ecma: 8
-            }
+              ecma: 8,
+            },
           },
 
           parallel: true,
 
-          sourceMap: true
+          sourceMap: true,
         }),
 
         new OptimizeCssAssetsPlugin({
           cssProcessor: require("cssnano"),
           cssProcessorPluginOptions: {
-            preset: ["default", { discardComments: { removeAll: false } }]
-          }
-        })
+            preset: ["default", { discardComments: { removeAll: false } }],
+          },
+        }),
       ],
 
       splitChunks: {
@@ -183,21 +184,21 @@ module.exports = function({ mode, preset }) {
           react: {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: "react",
-            chunks: "all"
+            chunks: "all",
           },
           charts: {
             test: /[\\/]node_modules[\\/](apexcharts)[\\/]/,
             name: "charts",
-            chunks: "all"
+            chunks: "all",
           },
           // Split code common to all chunks to its own chunk
           commons: {
             name: "commons", // The name of the chunk containing all common code
             chunks: "initial",
-            minChunks: 2
-          }
-        }
-      }
+            minChunks: 2,
+          },
+        },
+      },
     },
 
     plugins: [
@@ -209,7 +210,7 @@ module.exports = function({ mode, preset }) {
       new MiniCssExtractPlugin({
         filename: PROD_MODE
           ? "css/[name].[contenthash:8].css"
-          : DEV_MODE && "css/main.css"
+          : DEV_MODE && "css/main.css",
       }),
 
       new HtmlWebpackPlugin(
@@ -222,7 +223,7 @@ module.exports = function({ mode, preset }) {
             // to  add a favicon comment out the next line
             // favicon: "",
             title: "My app",
-            template: "src/index.html"
+            template: "src/index.html",
           },
           PROD_MODE && {
             minify: {
@@ -237,8 +238,8 @@ module.exports = function({ mode, preset }) {
               // everything which comes in as  <style> or <script> ...code </script>
               minifyJS: true,
               minifyCSS: true,
-              minifyURLs: true
-            }
+              minifyURLs: true,
+            },
           }
         )
       ),
@@ -249,13 +250,13 @@ module.exports = function({ mode, preset }) {
         async: DEV_MODE,
         tsconfig: ROUTES.appTsConfig,
         // files to process and and example of a file to exclude
-        reportFiles: ROUTES.appTsReportFiles
+        reportFiles: ROUTES.appTsReportFiles,
       }),
 
       // load vars from .env
       new DotENVPlugin(),
 
-      new ManifestPlugin()
+      new ManifestPlugin(),
     ].filter(Boolean),
 
     module: {
@@ -266,7 +267,7 @@ module.exports = function({ mode, preset }) {
           test: scriptsRegex,
           enforce: "pre",
           exclude: [/node_modules/],
-          loader: "eslint-loader"
+          loader: "eslint-loader",
         },
         {
           test: scriptsRegex,
@@ -280,10 +281,10 @@ module.exports = function({ mode, preset }) {
                 plugins: [
                   "add-react-displayname",
                   "@babel/plugin-proposal-object-rest-spread",
-                  "@loadable/babel-plugin"
+                  "@loadable/babel-plugin",
                 ],
-                comments: true
-              }
+                comments: true,
+              },
             },
             {
               loader: "ts-loader",
@@ -291,19 +292,19 @@ module.exports = function({ mode, preset }) {
                 reportFiles: ROUTES.appTsReportFiles,
                 compilerOptions: {
                   noUnusedLocals: PROD_MODE,
-                  noUnusedParameters: PROD_MODE
-                }
-              }
-            }
-          ]
+                  noUnusedParameters: PROD_MODE,
+                },
+              },
+            },
+          ],
         },
         {
           test: cssRegex,
-          use: getStyleLoaders()
+          use: getStyleLoaders(),
         },
         {
           test: sassRegex,
-          use: getStyleLoaders("sass-loader")
+          use: getStyleLoaders("sass-loader"),
         },
         {
           test: imagesRegex,
@@ -311,16 +312,16 @@ module.exports = function({ mode, preset }) {
             {
               loader: "url-loader",
               options: {
-                limit: 8192
-              }
-            }
-          ]
+                limit: 8192,
+              },
+            },
+          ],
         },
         {
           test: fontRegex,
-          use: "file-loader"
-        }
-      ]
+          use: "file-loader",
+        },
+      ],
     },
 
     // stats for prod builds
@@ -332,13 +333,13 @@ module.exports = function({ mode, preset }) {
 
       overlay: {
         warnings: false,
-        errors: true
+        errors: true,
       },
 
       historyApiFallback: true,
 
       // enables HMR
-      hot: true
+      hot: true,
     },
 
     resolve: {
@@ -352,14 +353,14 @@ module.exports = function({ mode, preset }) {
         types: path.resolve(__dirname, "src/types/"),
         ducks: path.resolve(__dirname, "src/redux/ducks/"),
         utils: path.resolve(__dirname, "src/utils"),
-        requestBuilder: path.resolve(__dirname, "./request")
-      }
+        requestBuilder: path.resolve(__dirname, "./request"),
+      },
     },
 
     node: {
       fs: "empty",
       net: "empty",
-      tls: "empty"
+      tls: "empty",
     },
 
     // gives performace hints during build
@@ -369,7 +370,7 @@ module.exports = function({ mode, preset }) {
       // filter out all source maps files from assesment
       assetFilter: function(assetFilename) {
         return !/\.map$/.test(assetFilename);
-      }
-    }
+      },
+    },
   };
 };

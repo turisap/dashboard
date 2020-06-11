@@ -8,12 +8,21 @@ import { fetchPurchases } from "ducks/purchases";
 import styles from "./styles.scss";
 import { REDUCERS, LoadingStatus, API } from "types/*";
 
-const PurchaseItem: React.FC<API.Purchase> = ({ image }) => (
+const PurchaseItem: React.FC<API.Purchase> = ({
+  title,
+  description,
+  image,
+}) => (
   <div className={styles.purchaseWrapper}>
-    <Image publicId={image} />
+    <Image publicId={image} className={styles.purchaseImage} />
+    <div className={styles.title}>{title}</div>
+    <div className={styles.description}>{description}</div>
   </div>
 );
 
+// TODO move all selectors to the respective folder
+// TODO rename all reselect selectors to end with memo
+// TODO check how selectors work
 const getPageStatus = (state: REDUCERS.RootState) => state.purchases.pageStatus;
 const getPurchaseList = (state: REDUCERS.RootState) =>
   state.purchases.purchases;
@@ -39,8 +48,8 @@ const PurchasesPage: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapperInner}>
-        {purchases.map((purchase, idx) => (
-          <PurchaseItem key={idx} {...purchase} />
+        {purchases.map((purchase) => (
+          <PurchaseItem key={purchase.id} {...purchase} />
         ))}
       </div>
     </div>
