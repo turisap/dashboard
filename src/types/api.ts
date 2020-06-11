@@ -47,6 +47,7 @@ const Purchase = t.type({
   title: t.string,
   description: t.string,
   image: t.string,
+  lquip: t.string,
 });
 
 const PurchasesList = t.array(Purchase);

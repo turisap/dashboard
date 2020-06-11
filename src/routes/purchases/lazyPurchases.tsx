@@ -12,9 +12,10 @@ const PurchaseItem: React.FC<API.Purchase> = ({
   title,
   description,
   image,
+  lquip,
 }) => (
   <div className={styles.purchaseWrapper}>
-    <Image publicId={image} className={styles.purchaseImage} />
+    <Image publicId={lquip} className={styles.purchaseImage} />
     <div className={styles.title}>{title}</div>
     <div className={styles.description}>{description}</div>
   </div>
