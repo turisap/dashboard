@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { CloudinaryContext } from "cloudinary-react";
 
 import Notifications from "components/notifications";
 import { ErrorBoundary } from "components/boundary";
@@ -32,17 +31,12 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <CloudinaryContext
-        cloudName={process.env.CLOUDINARY_NAME}
-        uploadPreset={process.env.CLOUDINARY_PRESET}
-      >
-        <Provider store={store}>
-          <Notifications />
-          <div id="main">
-            <AppRouter />
-          </div>
-        </Provider>
-      </CloudinaryContext>
+      <Provider store={store}>
+        <Notifications />
+        <div id="main">
+          <AppRouter />
+        </div>
+      </Provider>
     </ErrorBoundary>
   );
 };

@@ -1,96 +1,96 @@
 const urls = [
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/you_lyhm5t.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911040/lquips/you_xlxuvm.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/white_k9ce7h.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911040/lquips/white_hltmqu.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/selective_ffks9y.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911037/lquips/selective_zrzw37.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/top_iknpbb.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911040/lquips/top_ggq4c6.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/shallow_qyotw6.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911040/lquips/shallow_eeqppn.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/flatlay_brtwwp.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911036/lquips/flatlay_vsxfpm.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/laptop_ec6fj6.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911036/lquips/laptop_ziuwba.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910983/dshbrd/forest_oxlkz9.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911036/lquips/forest_b7e1sd.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/hanged_vvkoea.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911036/lquips/hanged_pxdoam.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/clear_yvlo6j.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911032/lquips/clear_w6oqcr.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/close_tecv6c.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911036/lquips/close_dc1vsj.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/brick_e01tmp.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911032/lquips/brick_cmcb3m.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/cake_gxlo1u.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911032/lquips/cake_i3cfbn.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/book_n6kicn.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911032/lquips/book_rbzmqd.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/cap_p6bxg6.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911032/lquips/cap_bfmqk3.svg",
   },
   {
-    img:
+    image:
       "https://res.cloudinary.com/dshboard/image/upload/v1591910982/dshbrd/bulb_vcrzzi.jpg",
     lquip:
       "https://res.cloudinary.com/dshboard/image/upload/v1591911032/lquips/bulb_cbliia.svg",
