@@ -30,21 +30,21 @@ const getExpenseClickedId = (state: REDUCERS.RootState) =>
 const getExpenses = (state: REDUCERS.RootState) => state.lists.expenses;
 const getIncomings = (state: REDUCERS.RootState) => state.lists.incomings;
 
-const getClickedExpense = createSelector(
+const getClickedExpenseMemo = createSelector(
   [getExpenses, getExpenseClickedId],
   (expenses, clickedId) =>
     expenses.find((expense) => expense.id === clickedId) as API.Expense
 );
 
-const getClickedIncoming = createSelector(
+const getClickedIncomingMemo = createSelector(
   [getIncomings, getIncomeClickedId],
   (incomings, clickedId) =>
     incomings.find((incoming) => incoming.id === clickedId) as API.Incoming
 );
 
 const News: React.FC = () => {
-  const expense = useSelector(getClickedExpense);
-  const incoming = useSelector(getClickedIncoming);
+  const expense = useSelector(getClickedExpenseMemo);
+  const incoming = useSelector(getClickedIncomingMemo);
   const expenseOpen = useSelector(getExpenseModalOpen);
   const incomeOpen = useSelector(getIncomeModalOpen);
   const dispatch = useDispatch();
@@ -60,6 +60,10 @@ const News: React.FC = () => {
       dispatch(fetchAllIncomings.request());
     });
   }, []);
+
+  useEffect(() => {
+    console.log("render!!!");
+  });
 
   return (
     <div className={styles.newsPage}>

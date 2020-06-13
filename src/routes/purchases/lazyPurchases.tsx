@@ -13,9 +13,6 @@ type PurchaseItem = API.Purchase & {
   ref: RefObject<HTMLImageElement>;
 };
 
-// TODO move all selectors to the respective folder
-// TODO rename all reselect selectors to end with memo
-// TODO check how selectors work
 const getPageStatus = (state: REDUCERS.RootState) => state.purchases.pageStatus;
 const getPurchaseList = (state: REDUCERS.RootState) =>
   state.purchases.purchases;
@@ -109,7 +106,7 @@ const PurchasesPage: React.FC = () => {
           ? items.map((purchase: PurchaseItem) => (
               <PurchaseItem key={purchase.id} {...purchase} />
             ))
-          : times(() => <SkeletonPurchase />, 10)}
+          : times((idx) => <SkeletonPurchase key={idx} />, 10)}
       </div>
     </div>
   );
