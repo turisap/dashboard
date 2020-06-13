@@ -34,6 +34,8 @@ const graphsReducer = createReducer<API.GraphData>(DEFAULT).handleAction(
   (_: API.GraphData, { payload }) => payload
 );
 
+// TODO retry API calls
+
 function* getGraphData() {
   try {
     const result = yield call(get, "/graph_data");

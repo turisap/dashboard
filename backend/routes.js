@@ -3,8 +3,6 @@ const mocks = require("./mocks.js");
 const repsonseWithTimeout = (res, status = 200, data = {}, delay = 1000) =>
   setTimeout(() => res.status(status).json(data), delay);
 
-const randomBool = () => Math.random() > 0.5;
-
 // expensese and incomings
 // TODO remove delays
 const appRouter = function(app) {
@@ -36,7 +34,7 @@ const appRouter = function(app) {
 
   app.get("/goods", function(req, res) {
     const data = mocks.fakeGoods(50);
-    repsonseWithTimeout(res, 200, data, 500);
+    repsonseWithTimeout(res, 200, data, 2200);
   });
 };
 
