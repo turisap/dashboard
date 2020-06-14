@@ -14,8 +14,6 @@ type RootState = {
   purchases: PurchasesState;
 };
 
-// TODO add refetch prohibition to other pages on recurring visits
-// TODO add status to other pages
 interface CommonState {
   pageStatus: LoadingStatus;
 }
