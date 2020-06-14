@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import * as UTILS from "./utils";
 import * as REDUCERS from "./reducers";
 import * as API from "./api";
@@ -6,6 +7,10 @@ type VirtualRowProps<T> = {
   index: number;
   style: React.CSSProperties;
   data: T[];
+};
+
+type PurchaseItem = API.Purchase & {
+  ref: RefObject<HTMLImageElement>;
 };
 
 interface CommonRowInnerProps extends API.CommonRowFields {
@@ -57,4 +62,5 @@ export {
   Notification,
   NotificationTypes,
   DocumentStatus,
+  PurchaseItem,
 };
