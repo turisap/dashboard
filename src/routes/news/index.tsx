@@ -1,12 +1,18 @@
 import React from "react";
 import loadable from "@loadable/component";
 import { timeout } from "promise-timeout";
+import pMinDelay from "p-min-delay";
 
-// TODO delay for flashing loader
+import { Loader } from "../home";
+
 const NewsComponent = loadable(
-  () => timeout(import(/* webpackPreload: true */ "./lazyNews"), 7000),
+  () =>
+    pMinDelay(
+      timeout(import("./lazyNews"), process.env.ABORT_PAGE_TIMEOUT),
+      parseInt(process.env.LOADER_DELAY as string)
+    ),
   {
-    fallback: <div>...news loading hey</div>,
+    fallback: <Loader />,
   }
 );
 

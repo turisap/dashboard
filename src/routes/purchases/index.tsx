@@ -1,16 +1,21 @@
 import React from "react";
 import loadable from "@loadable/component";
 import { timeout } from "promise-timeout";
+import pMinDelay from "p-min-delay";
 
-// TODO delay for flashing loader
+import { Loader } from "../home";
+
 const RealTimeComponent = loadable(
-  () => timeout(import(/* webpackPrefetch: true */ "./lazyPurchases"), 7000),
+  () =>
+    pMinDelay(
+      timeout(import("./lazyPurchases"), process.env.ABORT_PAGE_TIMEOUT),
+      parseInt(process.env.LOADER_DELAY as string)
+    ),
   {
-    fallback: <div>...realtime loading</div>,
+    fallback: <Loader />,
   }
 );
 
-// TODO delay for flashing loader
 const RealTime: React.FC = () => <RealTimeComponent />;
 
 export default RealTime;
