@@ -5,7 +5,7 @@ import pMinDelay from "p-min-delay";
 
 import { Loader } from "../home";
 
-const NewsComponent = loadable(
+export const NewsComponent = loadable(
   () =>
     pMinDelay(
       timeout(import("./lazyNews"), process.env.ABORT_PAGE_TIMEOUT),

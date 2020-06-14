@@ -11,6 +11,10 @@ import classNames from "classnames/bind";
 
 import { useClickAway } from "hooks/";
 
+import { HomeComponent } from "routes/home";
+import { NewsComponent } from "routes/news";
+import { PurchasesComponent } from "routes/purchases";
+
 import styles from "./menu.scss";
 
 const cx = classNames.bind((styles as unknown) as Record<string, string>);
@@ -19,6 +23,7 @@ type LinkShape = {
   path: string;
   text: string;
   icon: JSX.Element;
+  preloadComponent: () => void;
 };
 
 const links: Array<LinkShape> = [
@@ -26,16 +31,19 @@ const links: Array<LinkShape> = [
     path: "/dashboard",
     text: "Dashboard",
     icon: <AiOutlineDashboard color="#ffffff" size="25px" />,
+    preloadComponent: HomeComponent.preload,
   },
   {
     path: "/feed",
     text: "Expenses Feed",
     icon: <AiOutlineExperiment color="#ffffff" size="25px" />,
+    preloadComponent: NewsComponent.preload,
   },
   {
     path: "/purchases",
     text: "Purchases",
     icon: <AiFillThunderbolt color="#ffffff" size="25px" />,
+    preloadComponent: PurchasesComponent.preload,
   },
 ];
 
@@ -60,10 +68,11 @@ const Menu = () => {
           Expenses
         </div>
         <div className={styles.tabs}>
-          {links.map(({ path, text, icon }) => (
+          {links.map(({ path, text, icon, preloadComponent }) => (
             <div
               className={cx({ tab: true, current: pathname === path })}
               key={path}
+              onMouseEnter={preloadComponent}
             >
               <span className={styles.icon}>{icon}</span>
               <Link to={path} className={styles.link}>

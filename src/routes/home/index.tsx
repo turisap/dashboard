@@ -10,8 +10,7 @@ export const Loader = () => (
   </div>
 );
 
-// TODO delay for flashing loader
-const HomeComponent = loadable(
+export const HomeComponent = loadable(
   () =>
     pMinDelay(
       timeout(import("./lazyHome"), process.env.ABORT_PAGE_TIMEOUT),

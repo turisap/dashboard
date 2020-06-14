@@ -5,7 +5,7 @@ import pMinDelay from "p-min-delay";
 
 import { Loader } from "../home";
 
-const RealTimeComponent = loadable(
+export const PurchasesComponent = loadable(
   () =>
     pMinDelay(
       timeout(import("./lazyPurchases"), process.env.ABORT_PAGE_TIMEOUT),
@@ -16,6 +16,6 @@ const RealTimeComponent = loadable(
   }
 );
 
-const RealTime: React.FC = () => <RealTimeComponent />;
+const RealTime: React.FC = () => <PurchasesComponent />;
 
 export default RealTime;
