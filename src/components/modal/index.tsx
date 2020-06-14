@@ -6,7 +6,6 @@ import { useClickAway } from "hooks/";
 import styles from "./styles.scss";
 
 type ModalProps = {
-  onConfirm: (...args: string[] | number[]) => void;
   showModal: boolean;
   closeModal: () => void;
 };
@@ -27,12 +26,7 @@ const ModalWindow: React.FC<InnerProps> = ({ children, closeModal }) => {
   );
 };
 
-const Modal: React.FC<ModalProps> = ({
-  onConfirm,
-  showModal,
-  closeModal,
-  children,
-}) => {
+const Modal: React.FC<ModalProps> = ({ showModal, closeModal, children }) => {
   const root = document.getElementById("modal-root");
 
   if (!root) return null;
@@ -40,11 +34,7 @@ const Modal: React.FC<ModalProps> = ({
   if (!showModal) return null;
 
   return createPortal(
-    <ModalWindow
-      onConfirm={onConfirm}
-      showModal={showModal}
-      closeModal={closeModal}
-    >
+    <ModalWindow showModal={showModal} closeModal={closeModal}>
       {children}
     </ModalWindow>,
     root

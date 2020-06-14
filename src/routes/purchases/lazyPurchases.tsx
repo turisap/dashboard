@@ -62,6 +62,7 @@ const PurchasesPage: React.FC = () => {
     }
   }, []);
 
+  // TODO extract to a custom hook
   useEffect(() => {
     const withRefs = purchases.map((item) => ({
       ...item,

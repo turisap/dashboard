@@ -15,7 +15,7 @@ const tableHeaders = ["", "title", "category", "type", "total"];
 const getExpenses = (state: REDUCERS.RootState) => state.lists.expenses;
 const getStatus = (state: REDUCERS.RootState) => state.lists.expensesStatus;
 
-const Expenses: React.FC = React.memo(() => {
+const Expenses: React.FC = () => {
   const expenses = useSelector(getExpenses);
   const status = useSelector(getStatus);
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const Expenses: React.FC = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 Expenses.displayName = "Expenses";
 

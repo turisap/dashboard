@@ -11,33 +11,41 @@ import {
 } from "react-icons/ai";
 
 import { Modal } from "components/modal";
-import { RowInfo, REDUCERS } from "types/*";
-import { toggleModalButton, TableTypes, ButtonTypes } from "ducks/lists";
+import { REDUCERS } from "types/*";
+import {
+  toggleModalButton,
+  closeAllModals,
+  TableTypes,
+  ButtonTypes,
+} from "ducks/lists";
 
-import styles from "./additions.scss";
+import {
+  getClickedExpenseMemo,
+  getClickedIncomingMemo,
+  getExpenseModalOpen,
+  getIncomeModalOpen,
+} from "./selectors";
 
-type ModalRowProps = {
-  show: boolean;
-  expense: boolean;
-  row: RowInfo;
-  closeModal: () => void;
-};
+import styles from "../additions/additions.scss";
 
 const cx = classNames.bind((styles as unknown) as Record<string, string>);
 
 const getUpdatingStates = (state: REDUCERS.RootState) =>
   state.lists.modalUpdatingState;
 
-const ModalRow: React.FC<ModalRowProps> = ({
-  show,
-  row,
-  closeModal,
-  expense,
-}) => {
-  if (!row) return null;
-
+const ModalRow: React.FC = () => {
+  const expense = useSelector(getClickedExpenseMemo);
+  const incoming = useSelector(getClickedIncomingMemo);
+  const expenseOpen = useSelector(getExpenseModalOpen);
+  const incomeOpen = useSelector(getIncomeModalOpen);
   const dispatch = useDispatch();
+  const closeModal = () => dispatch(closeAllModals());
   const updatingStates = useSelector(getUpdatingStates, shallowEqual);
+
+  const row = expenseOpen ? expense : incoming;
+  const show = expenseOpen || incomeOpen;
+
+  if (!row) return null;
 
   const {
     category,
@@ -64,11 +72,7 @@ const ModalRow: React.FC<ModalRowProps> = ({
     dispatch(toggleModalButton.request({ ...partialPayload, item }));
 
   return (
-    <Modal
-      onConfirm={() => console.log()}
-      showModal={show}
-      closeModal={closeModal}
-    >
+    <Modal showModal={show} closeModal={closeModal}>
       <div className={styles.modalWrapper}>
         <p className={cx({ modalHead: true, expense })}>
           {icon}

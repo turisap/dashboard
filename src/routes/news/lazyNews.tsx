@@ -1,59 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch, batch } from "react-redux";
-import { createSelector } from "reselect";
+import { useDispatch, batch } from "react-redux";
 
 import Expenses from "components/deductions";
 import Additions from "components/additions";
-import { ModalRow } from "components/additions/ModalRow";
+import { ModalRow } from "components/modalRow";
 
-import { REDUCERS, API } from "types/";
-import {
-  closeAllModals,
-  fetchAllExpenses,
-  fetchAllIncomings,
-} from "ducks/lists";
+import { fetchAllExpenses, fetchAllIncomings } from "ducks/lists";
 
 import styles from "./styles.scss";
 
-const getExpenseModalOpen = (state: REDUCERS.RootState) =>
-  state.lists.expenseModalOpen;
-
-const getIncomeModalOpen = (state: REDUCERS.RootState) =>
-  state.lists.incomingModalOpen;
-
-const getIncomeClickedId = (state: REDUCERS.RootState) =>
-  state.lists.selectedIncomeId;
-
-const getExpenseClickedId = (state: REDUCERS.RootState) =>
-  state.lists.selectedExpenseId;
-
-const getExpenses = (state: REDUCERS.RootState) => state.lists.expenses;
-const getIncomings = (state: REDUCERS.RootState) => state.lists.incomings;
-
-const getClickedExpenseMemo = createSelector(
-  [getExpenses, getExpenseClickedId],
-  (expenses, clickedId) =>
-    expenses.find((expense) => expense.id === clickedId) as API.Expense
-);
-
-const getClickedIncomingMemo = createSelector(
-  [getIncomings, getIncomeClickedId],
-  (incomings, clickedId) =>
-    incomings.find((incoming) => incoming.id === clickedId) as API.Incoming
-);
-
 const News: React.FC = () => {
-  const expense = useSelector(getClickedExpenseMemo);
-  const incoming = useSelector(getClickedIncomingMemo);
-  const expenseOpen = useSelector(getExpenseModalOpen);
-  const incomeOpen = useSelector(getIncomeModalOpen);
-  const dispatch = useDispatch();
-  const closeModal = () => dispatch(closeAllModals());
-
-  const row = expenseOpen ? expense : incoming;
-  const showModal = expenseOpen || incomeOpen;
-
   // TODO add forbidding refetch
+  const dispatch = useDispatch();
+
   useEffect(() => {
     batch(() => {
       dispatch(fetchAllExpenses.request());
@@ -61,20 +20,11 @@ const News: React.FC = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log("render!!!");
-  });
-
   return (
     <div className={styles.newsPage}>
       <Expenses />
       <Additions />
-      <ModalRow
-        show={showModal}
-        row={row}
-        closeModal={closeModal}
-        expense={expenseOpen}
-      />
+      <ModalRow />
     </div>
   );
 };

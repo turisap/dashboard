@@ -17,7 +17,7 @@ const getIncomings = (state: REDUCERS.RootState) => state.lists.incomings;
 
 const getStatus = (state: REDUCERS.RootState) => state.lists.incomingsStatus;
 
-const Incomings: React.FC = React.memo(() => {
+const Incomings: React.FC = () => {
   const incomings = useSelector(getIncomings);
   const status = useSelector(getStatus);
   const dispatch = useDispatch();
@@ -57,8 +57,6 @@ const Incomings: React.FC = React.memo(() => {
       </div>
     </div>
   );
-});
-
-Incomings.displayName = "Incomings";
+};
 
 export default Incomings;
