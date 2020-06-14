@@ -55,7 +55,6 @@ const PurchasesPage: React.FC = () => {
     getPurchasesListMemo
   );
 
-  // TODO add the same requrring request prohibition to other pages
   useEffect(() => {
     if (pageStatus === "prestine") {
       dispatch(fetchPurchases.request());
