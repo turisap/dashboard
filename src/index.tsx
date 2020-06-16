@@ -10,7 +10,7 @@ import AppRouter from "./Router";
 import { docVisibilityChanged } from "./redux/ducks/system";
 
 // TODO uncomment for prod
-//import "./logrocket";
+import "./logrocket";
 import "./INIT";
 
 import "./styles/index.scss";

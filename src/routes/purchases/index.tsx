@@ -5,6 +5,8 @@ import pMinDelay from "p-min-delay";
 
 import { Loader } from "../home";
 
+import { useScrollTop } from "hooks/";
+
 export const PurchasesComponent = loadable(
   () =>
     pMinDelay(
@@ -16,6 +18,10 @@ export const PurchasesComponent = loadable(
   }
 );
 
-const RealTime: React.FC = () => <PurchasesComponent />;
+const RealTime: React.FC = () => {
+  useScrollTop();
+
+  return <PurchasesComponent />;
+};
 
 export default RealTime;

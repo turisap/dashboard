@@ -3,6 +3,8 @@ import loadable from "@loadable/component";
 import { timeout } from "promise-timeout";
 import pMinDelay from "p-min-delay";
 
+import { useScrollTop } from "hooks/";
+
 import { Loader } from "../home";
 
 export const NewsComponent = loadable(
@@ -16,6 +18,10 @@ export const NewsComponent = loadable(
   }
 );
 
-const News: React.FC = () => <NewsComponent />;
+const News: React.FC = () => {
+  useScrollTop();
+
+  return <NewsComponent />;
+};
 
 export default News;

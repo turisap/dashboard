@@ -11,8 +11,6 @@ const series = (data) => [
   },
 ];
 
-// TODO remove hard-coded months and add current 5 ones
-
 const options = {
   chart: {
     height: 350,

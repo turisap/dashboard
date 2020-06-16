@@ -4,6 +4,8 @@ import { timeout } from "promise-timeout";
 import pMinDelay from "p-min-delay";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import { useScrollTop } from "hooks/";
+
 export const Loader = () => (
   <div style={{ justifySelf: "center", alignSelf: "center" }}>
     <CircularProgress color="primary" size="200px" />
@@ -21,6 +23,10 @@ export const HomeComponent = loadable(
   }
 );
 
-const Home: React.FC = () => <HomeComponent />;
+const Home: React.FC = () => {
+  useScrollTop();
+
+  return <HomeComponent />;
+};
 
 export default Home;
