@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import { FiSettings, FiMessageCircle } from "react-icons/fi";
 import classNames from "classnames/bind";
 
 import { useClickAway } from "hooks/";
-import { fakeNotifications } from "../../mocks";
 
 import styles from "./styles.scss";
+import { REDUCERS, Message } from "types/*";
 
 type Notification = {
   id: number;
@@ -34,13 +35,12 @@ const NotificationsPopup: React.FC<MenuProps> = ({ open, notifications }) => (
   </div>
 );
 
-// TODO has messages should reflect redux state
-// FIXME remove mocked notifications
-const FAKE_NOTIFICATIONS = fakeNotifications(5);
+const getMessages = (state) => state.system.messages;
 
 const Nav: React.FC = () => {
   const [notifOpen, setNotifOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const messages = useSelector<REDUCERS.RootState, Message[]>(getMessages);
 
   useClickAway(menuRef, () => setNotifOpen(false));
 
@@ -57,10 +57,7 @@ const Nav: React.FC = () => {
         ref={menuRef}
       >
         <FiMessageCircle color="#ffffff" size="22" />
-        <NotificationsPopup
-          open={notifOpen}
-          notifications={FAKE_NOTIFICATIONS}
-        />
+        <NotificationsPopup open={notifOpen} notifications={messages} />
       </div>
       <FiSettings color="#ffffff" size="22" className={styles.settings} />
       <img src="assets/avatar.png" className={styles.image} />

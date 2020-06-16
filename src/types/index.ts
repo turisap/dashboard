@@ -42,6 +42,11 @@ type Notification = {
   text: string;
 };
 
+type Message = {
+  id: number;
+  text: string;
+};
+
 type IconsContainerProps = {
   status: LoadingStatus;
   id: number;
@@ -63,4 +68,5 @@ export {
   NotificationTypes,
   DocumentStatus,
   PurchaseItem,
+  Message,
 };

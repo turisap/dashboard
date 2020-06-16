@@ -37,7 +37,6 @@ const graphsReducer = createReducer<API.GraphData>(DEFAULT).handleAction(
   (_: API.GraphData, { payload }) => payload
 );
 
-// TODO retry API calls
 function* getGraphData() {
   for (let i = 0; i < FETCH_RETRY_TIMES; i++) {
     try {

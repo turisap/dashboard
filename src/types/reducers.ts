@@ -4,6 +4,7 @@ import {
   BasicLoadingStatus,
   Notification,
   DocumentStatus,
+  Message,
 } from "./index";
 
 type RootState = {
@@ -20,6 +21,7 @@ interface CommonState {
 
 type SystemState = {
   documentStatus: DocumentStatus;
+  messages: Array<Message>;
 };
 
 interface PurchasesState extends CommonState {
