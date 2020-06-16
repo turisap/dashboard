@@ -9,10 +9,7 @@ import RealTime from "routes/purchases";
 import Menu from "components/menu";
 import Nav from "components/nav";
 import { ErrorBoundary } from "components/boundary";
-
-// TODO Error boundaries for the whole app and each route
-// TODO 404 page
-// TODO add scrollTo top on route change to rescue the animation
+import NotFound from "routes/404";
 
 const routes = [
   { path: "/dashboard", Component: Home },
@@ -41,6 +38,7 @@ const Router: React.FC = () => (
           </Route>
         </ErrorBoundary>
       ))}
+      <Route path="*" component={NotFound} />
       {/* <Redirect from="/" to="/dashboard" /> */}
     </BrowserRouter>
   </Suspense>
