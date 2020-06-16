@@ -1,5 +1,5 @@
 import { createAsyncAction, getType, createReducer } from "typesafe-actions";
-import { takeLatest, call, put, fork } from "redux-saga/effects";
+import { take, call, put, fork, delay } from "redux-saga/effects";
 import produce from "immer";
 import LogRocket from "logrocket";
 
@@ -10,9 +10,10 @@ import { get } from "requestBuilder";
 import { ioTSLogger } from "../../utils";
 import { enqueueNotification } from "./notifications";
 
-// TODO add base endpoint for other ducks
 const DUCK_PREFIX = "goods";
 const BASE_ENDPOINT = "/goods";
+const FETCH_RETRY_TIMES = parseInt(process.env.FETCH_RETRY || "1");
+const FETCH_DELAY = parseInt(process.env.FETCH_DELAY || "0");
 
 const pra = asyncActionPrefixer(DUCK_PREFIX);
 
@@ -44,23 +45,40 @@ const purchasesReducer = createReducer<REDUCERS.PurchasesState>(DEFAULT)
   );
 
 function* getPurchases() {
-  try {
-    const result: API.PurchasesList = yield call(get, BASE_ENDPOINT);
+  for (let i = 0; i < FETCH_RETRY_TIMES; i++) {
+    try {
+      const result: API.PurchasesList = yield call(get, BASE_ENDPOINT);
 
-    ioTSLogger(API.PurchasesList, result, "fetch purchases");
+      ioTSLogger(API.PurchasesList, result, "fetch purchases");
 
-    yield put(fetchPurchases.success(result));
-  } catch (error) {
-    LogRocket.captureException(error);
-    yield put(fetchPurchases.failure("fetching purchases failed"));
-    yield put(
-      enqueueNotification({ type: "failure", text: "Error fetching purchases" })
-    );
+      yield put(fetchPurchases.success(result));
+
+      return true;
+    } catch (error) {
+      yield delay(FETCH_DELAY);
+    }
   }
+
+  yield put(fetchPurchases.failure("fetching purchases failed"));
+  yield put(
+    enqueueNotification({
+      type: "failure",
+      text: "Error fetching purchases",
+    })
+  );
+
+  throw new Error("Retry attempts limit exceeded");
 }
 
 function* watchfetchPurchases() {
-  yield takeLatest(getType(fetchPurchases.request), getPurchases);
+  while (true) {
+    try {
+      yield take(getType(fetchPurchases.request));
+      yield call(getPurchases);
+    } catch (err) {
+      LogRocket.captureMessage(err);
+    }
+  }
 }
 
 const purchasesSagas = [fork(watchfetchPurchases)];

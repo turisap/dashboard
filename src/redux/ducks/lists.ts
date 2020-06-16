@@ -4,7 +4,7 @@ import {
   getType,
   createReducer,
 } from "typesafe-actions";
-import { takeLatest, call, put, fork, take, delay } from "redux-saga/effects";
+import { call, put, fork, take, delay } from "redux-saga/effects";
 import produce from "immer";
 import LogRocket from "logrocket";
 
@@ -16,6 +16,8 @@ import { ioTSLogger } from "../../utils";
 import { enqueueNotification } from "./notifications";
 
 const DUCK_PREFIX = "lists";
+const FETCH_RETRY_TIMES = parseInt(process.env.FETCH_RETRY || "1");
+const FETCH_DELAY = parseInt(process.env.FETCH_DELAY || "0");
 
 const prs = actionPrefixer(DUCK_PREFIX);
 const pra = asyncActionPrefixer(DUCK_PREFIX);
@@ -157,31 +159,59 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
 
 // worker sagas
 function* getExpenses() {
-  try {
-    const result: API.ExpensesList = yield call(get, "/expenses");
-    ioTSLogger(API.ExpensesList, result, "fetch expenses");
+  for (let i = 0; i < FETCH_RETRY_TIMES; i++) {
+    try {
+      const result: API.ExpensesList = yield call(get, "/expenses");
+      ioTSLogger(API.ExpensesList, result, "fetch expenses");
 
-    yield put(fetchAllExpenses.success(result));
-  } catch (error) {
-    LogRocket.captureException(error);
-    yield put(fetchAllExpenses.failure("fetching expenses failed"));
+      yield put(fetchAllExpenses.success(result));
+
+      return true;
+    } catch (error) {
+      yield delay(FETCH_DELAY);
+      LogRocket.captureException(error);
+    }
   }
+
+  yield put(fetchAllExpenses.failure("fetching expenses failed"));
+  yield put(
+    enqueueNotification({
+      text: "Error fetching expenses",
+      type: "failure",
+    })
+  );
+
+  throw new Error("Retry attempts limit exceeded");
 }
 
 function* getIncomings() {
-  try {
-    const result: API.IncomingsList = yield call(get, "/incomings");
-    ioTSLogger(API.IncomingsList, result, "fetch incomings");
+  for (let i = 0; i < FETCH_RETRY_TIMES; i++) {
+    try {
+      const result: API.IncomingsList = yield call(get, "/incomings");
+      ioTSLogger(API.IncomingsList, result, "fetch incomings");
 
-    yield put(fetchAllIncomings.success(result));
-  } catch (error) {
-    LogRocket.captureException(error);
-    yield put(fetchAllIncomings.failure("fetching incomings failed"));
+      yield put(fetchAllIncomings.success(result));
+
+      return true;
+    } catch (error) {
+      yield delay(FETCH_DELAY);
+      LogRocket.captureException(error);
+    }
   }
+
+  yield put(fetchAllIncomings.failure("fetching incomings failed"));
+  yield put(
+    enqueueNotification({
+      text: "Error fetching incomings",
+      type: "failure",
+    })
+  );
+
+  throw new Error("Retry attempts limit exceeded");
 }
 
 function* toggleButtonUpdate(payload: ToggleButtonPayload) {
-  for (let i = 0; i <= 2; i++) {
+  for (let i = 0; i <= FETCH_RETRY_TIMES; i++) {
     try {
       const success: boolean = yield call(
         post,
@@ -191,7 +221,7 @@ function* toggleButtonUpdate(payload: ToggleButtonPayload) {
 
       return success;
     } catch (err) {
-      yield delay(300);
+      yield delay(FETCH_DELAY);
     }
   }
 
@@ -215,11 +245,25 @@ function* retryButton(payload: ToggleButtonPayload) {
 
 // watcher sagas
 function* watchFetchExpenses() {
-  yield takeLatest(getType(fetchAllExpenses.request), getExpenses);
+  while (true) {
+    try {
+      yield take(getType(fetchAllExpenses.request));
+      yield call(getExpenses);
+    } catch (err) {
+      LogRocket.captureException(err);
+    }
+  }
 }
 
 function* watchFetchIncomings() {
-  yield takeLatest(getType(fetchAllIncomings.request), getIncomings);
+  while (true) {
+    try {
+      yield take(getType(fetchAllIncomings.request));
+      yield call(getIncomings);
+    } catch (err) {
+      LogRocket.captureException(err);
+    }
+  }
 }
 
 function* watchToggleButton() {
