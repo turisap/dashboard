@@ -38,7 +38,7 @@ const graphsReducer = createReducer<API.GraphData>(DEFAULT).handleAction(
 
 function* getGraphData() {
   try {
-    const result = yield call(get, "/graph_data");
+    const result: API.GraphData = yield call(get, "/graph_data");
 
     ioTSLogger(API.GraphData, result, "fetch graph data");
 

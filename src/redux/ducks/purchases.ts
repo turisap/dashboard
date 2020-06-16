@@ -45,7 +45,7 @@ const purchasesReducer = createReducer<REDUCERS.PurchasesState>(DEFAULT)
 
 function* getPurchases() {
   try {
-    const result = yield call(get, BASE_ENDPOINT);
+    const result: API.PurchasesList = yield call(get, BASE_ENDPOINT);
 
     ioTSLogger(API.PurchasesList, result, "fetch purchases");
 

@@ -43,7 +43,7 @@ const fetchAllExpenses = createAsyncAction(...pra("fetchExpenses"))<
 >();
 const fetchAllIncomings = createAsyncAction(...pra("fetchIncomings"))<
   void,
-  API.Incoming,
+  API.IncomingsList,
   string
 >();
 const toggleModalButton = createAsyncAction(...pra("toggleModalButton"))<
@@ -155,12 +155,10 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
     }
   );
 
-// TODO add typings to sagas
-
 // worker sagas
 function* getExpenses() {
   try {
-    const result = yield call(get, "/expenses");
+    const result: API.ExpensesList = yield call(get, "/expenses");
     ioTSLogger(API.ExpensesList, result, "fetch expenses");
 
     yield put(fetchAllExpenses.success(result));
@@ -172,7 +170,7 @@ function* getExpenses() {
 
 function* getIncomings() {
   try {
-    const result = yield call(get, "/incomings");
+    const result: API.IncomingsList = yield call(get, "/incomings");
     ioTSLogger(API.IncomingsList, result, "fetch incomings");
 
     yield put(fetchAllIncomings.success(result));
@@ -185,7 +183,11 @@ function* getIncomings() {
 function* toggleButtonUpdate(payload: ToggleButtonPayload) {
   for (let i = 0; i <= 2; i++) {
     try {
-      const success = yield call(post, `/lists/${payload.item}`, payload);
+      const success: boolean = yield call(
+        post,
+        `/lists/${payload.item}`,
+        payload
+      );
 
       return success;
     } catch (err) {

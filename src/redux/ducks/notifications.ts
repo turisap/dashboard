@@ -122,7 +122,7 @@ function* dequeueNotifications() {
   const chan = yield call(timer, list, docStatus);
   try {
     while (true) {
-      const remainingMsg = yield take(chan);
+      const remainingMsg: Notification[] = yield take(chan);
       yield put(setRemaining(remainingMsg));
     }
   } finally {
