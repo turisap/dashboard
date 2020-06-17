@@ -9,8 +9,8 @@ import { store } from "./redux/store";
 import AppRouter from "./Router";
 import { docVisibilityChanged } from "./redux/ducks/system";
 
-// TODO uncomment for prod
-import "./logrocket";
+// TODO uncomment
+// import "./logrocket";
 import "./INIT";
 
 import "./styles/index.scss";

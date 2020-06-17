@@ -17,10 +17,10 @@ const appRouter = function(app) {
 
   app.get("/incomings", function(req, res) {
     const data = mocks.fakeIncomings(500);
-    if (Math.random() > 0.7) {
+    if (Math.random() > 0.5) {
       repsonseWithTimeout(res, 200, data);
     } else {
-      repsonseWithTimeout(res, 418, null, 500);
+      repsonseWithTimeout(res, 418, null);
     }
   });
 
@@ -37,7 +37,7 @@ const appRouter = function(app) {
 
   app.get("/graph_data", function(req, res) {
     const data = mocks.fakeGraphData();
-    if (Math.random() > 0.9) {
+    if (Math.random() > 0.5) {
       repsonseWithTimeout(res, 200, data, 0);
     } else {
       repsonseWithTimeout(res, 418, null, 500);
@@ -46,7 +46,7 @@ const appRouter = function(app) {
 
   app.get("/goods", function(req, res) {
     const data = mocks.fakeGoods(50);
-    if (Math.random() > 0.7) {
+    if (Math.random() > 0.5) {
       repsonseWithTimeout(res, 200, data, 100);
     } else {
       repsonseWithTimeout(res, 418, "no way", 100);

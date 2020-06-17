@@ -1,27 +1,24 @@
 import React from "react";
 import loadable from "@loadable/component";
 import { timeout } from "promise-timeout";
-import pMinDelay from "p-min-delay";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useScrollTop } from "hooks/";
 
 export const Loader = () => (
-  <div style={{ justifySelf: "center", alignSelf: "center" }}>
-    <CircularProgress color="primary" size="200px" />
+  <div style={{ gridArea: "page", placeSelf: "center" }}>
+    <CircularProgress color="primary" size="100px" />
   </div>
 );
 
 export const HomeComponent = loadable(
-  () =>
-    pMinDelay(
-      timeout(import("./lazyHome"), process.env.ABORT_PAGE_TIMEOUT),
-      parseInt(process.env.LOADER_DELAY as string)
-    ),
+  () => timeout(import("./lazyHome"), process.env.ABORT_PAGE_TIMEOUT),
   {
     fallback: <Loader />,
   }
 );
+
+console.log(HomeComponent);
 
 const Home: React.FC = () => {
   useScrollTop();
