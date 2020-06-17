@@ -7,6 +7,7 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const DotENVPlugin = require("dotenv-webpack");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const workboxPlugin = require("workbox-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
@@ -141,9 +142,7 @@ module.exports = function({ mode, preset }) {
 
       filename: PROD_MODE ? "js/[name].[contenthash:8].js" : "js/bundle.js",
 
-      chunkFilename: PROD_MODE
-        ? "js/[name].[contenthash:8].chunk.js"
-        : DEV_MODE && "js/[name].chunk.js",
+      chunkFilename: "js/[name].[contenthash:8].chunk.js",
 
       //substitution of 'this' for web workers
       globalObject: "this",
@@ -211,6 +210,12 @@ module.exports = function({ mode, preset }) {
         filename: PROD_MODE
           ? "css/[name].[contenthash:8].css"
           : DEV_MODE && "css/main.css",
+      }),
+
+      new workboxPlugin.GenerateSW({
+        swDest: "sw.js",
+        clientsClaim: true,
+        skipWaiting: true,
       }),
 
       new HtmlWebpackPlugin(
