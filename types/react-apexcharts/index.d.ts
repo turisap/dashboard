@@ -13,6 +13,11 @@ declare global {
     fonts: FontFaceSet;
   }
 
+  interface Window {
+    requestIdleCallback: (cb: Function) => void;
+    cancelIdleCallback: (id: number) => void;
+  }
+
   type CSSOMString = string;
   type FontFaceLoadStatus = "unloaded" | "loading" | "loaded" | "error";
   type FontFaceSetStatus = "loading" | "loaded";
