@@ -212,24 +212,6 @@ module.exports = function({ mode, preset }) {
           : DEV_MODE && "css/main.css",
       }),
 
-      // new workboxPlugin.GenerateSW({
-      //   swDest: "sw.js",
-      //   clientsClaim: true,
-      //   skipWaiting: true,
-      //   // include: [/js$/, /css$/],
-      //   runtimeCaching: [
-      //     {
-      //       urlPattern: new RegExp("http://localhost:3000/goods"),
-      //       handler: "StaleWhileRevalidate",
-      //     },
-      //   ],
-      // }),
-
-      new workboxPlugin.InjectManifest({
-        swSrc: "./src/src-sw.js",
-        swDest: "sw.js",
-      }),
-
       new HtmlWebpackPlugin(
         Object.assign(
           {},
@@ -272,6 +254,19 @@ module.exports = function({ mode, preset }) {
 
       // load vars from .env
       new DotENVPlugin(),
+
+      new workboxPlugin.GenerateSW({
+        swDest: "sw.js",
+        clientsClaim: true,
+        skipWaiting: true,
+        // include: [/js$/, /css$/],
+        // runtimeCaching: [
+        //   {
+        //     urlPattern: new RegExp("http://localhost:3000/goods"),
+        //     handler: "StaleWhileRevalidate",
+        //   },
+        // ],
+      }),
     ].filter(Boolean),
 
     module: {
