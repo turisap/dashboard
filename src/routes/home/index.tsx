@@ -18,8 +18,6 @@ export const HomeComponent = loadable(
   }
 );
 
-console.log(HomeComponent);
-
 const Home: React.FC = () => {
   useScrollTop();
 
