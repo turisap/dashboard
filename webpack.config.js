@@ -140,7 +140,7 @@ module.exports = function({ mode, preset }) {
     output: {
       path: PROD_MODE ? ROUTES.appBuilt : undefined,
 
-      filename: PROD_MODE ? "js/[name].[contenthash:8].js" : "js/bundle.js",
+      filename: PROD_MODE ? "js/[name].[contenthash:8].js" : "js/main.js",
 
       chunkFilename: "js/[name].[contenthash:8].chunk.js",
 
@@ -216,6 +216,13 @@ module.exports = function({ mode, preset }) {
         swDest: "sw.js",
         clientsClaim: true,
         skipWaiting: true,
+        // include: [/js$/, /css$/],
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp("localhost:3000/goods"),
+            handler: "StaleWhileRevalidate",
+          },
+        ],
       }),
 
       new HtmlWebpackPlugin(
@@ -261,7 +268,7 @@ module.exports = function({ mode, preset }) {
       // load vars from .env
       new DotENVPlugin(),
 
-      new ManifestPlugin(),
+      // new ManifestPlugin(),
     ].filter(Boolean),
 
     module: {
