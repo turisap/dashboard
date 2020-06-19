@@ -177,7 +177,8 @@ module.exports = function({ mode, preset }) {
       ],
 
       splitChunks: {
-        minSize: 0,
+        minSize: 30000,
+        maxSize: 200000,
         cacheGroups: {
           // first cache group contains react and react dom (it will be a separate chunk)
           react: {
@@ -295,16 +296,6 @@ module.exports = function({ mode, preset }) {
           use: [
             {
               loader: "babel-loader",
-
-              options: {
-                presets: ["@babel/preset-env", "@babel/preset-react"],
-                plugins: [
-                  "add-react-displayname",
-                  "@babel/plugin-proposal-object-rest-spread",
-                  "@loadable/babel-plugin",
-                ],
-                comments: true,
-              },
             },
 
             {

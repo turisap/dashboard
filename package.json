@@ -1,5 +1,6 @@
 {
   "name": "dashboard",
+  "sideEffects": false,
   "version": "1.0.0",
   "description": "A react dashboard",
   "main": "index.tsx",
