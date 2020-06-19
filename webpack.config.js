@@ -5,9 +5,9 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const DotENVPlugin = require("dotenv-webpack");
-const ManifestPlugin = require("webpack-manifest-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const workboxPlugin = require("workbox-webpack-plugin");
+const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
@@ -185,6 +185,11 @@ module.exports = function({ mode, preset }) {
             name: "react",
             chunks: "all",
           },
+          icons: {
+            test: /[\\/]node_modules[\\/](react-icons)[\\/]/,
+            name: "icons",
+            chunks: "all",
+          },
           charts: {
             test: /[\\/]node_modules[\\/](apexcharts)[\\/]/,
             name: "charts",
@@ -254,6 +259,11 @@ module.exports = function({ mode, preset }) {
 
       // load vars from .env
       new DotENVPlugin(),
+
+      PROD_MODE &&
+        new MomentLocalesPlugin({
+          localesToKeep: ["es-us"],
+        }),
 
       new workboxPlugin.GenerateSW({
         swDest: "sw.js",
