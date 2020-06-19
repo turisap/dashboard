@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, RefObject } from "react";
-import Skeleton from "@material-ui/lab/Skeleton";
+import { Skeleton } from "@material-ui/lab";
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from "reselect";
 import { times } from "ramda";

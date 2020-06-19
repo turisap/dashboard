@@ -1,5 +1,5 @@
 import React from "react";
-import Skeleton from "@material-ui/lab/Skeleton";
+import { Skeleton } from "@material-ui/lab";
 import { AiOutlineDelete, AiFillStar } from "react-icons/ai";
 import classNames from "classnames/bind";
 

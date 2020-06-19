@@ -306,6 +306,7 @@ module.exports = function({ mode, preset }) {
                 comments: true,
               },
             },
+
             {
               loader: "ts-loader",
               options: {

@@ -1,7 +1,7 @@
 import React from "react";
 import loadable from "@loadable/component";
 import { timeout } from "promise-timeout";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { CircularProgress } from "@material-ui/core";
 
 import { useScrollTop } from "hooks/";
 
