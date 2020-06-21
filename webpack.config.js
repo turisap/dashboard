@@ -10,6 +10,7 @@ const workboxPlugin = require("workbox-webpack-plugin");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
 
 const resolveModule = (relPath) => path.resolve(process.cwd(), relPath);
 
@@ -266,15 +267,14 @@ module.exports = function({ mode, preset }) {
           localesToKeep: ["es-us"],
         }),
 
-      // TODO add process.env for backend url
       new workboxPlugin.GenerateSW({
         swDest: "sw.js",
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [
           {
-            urlPattern: new RegExp("http://localhost:3000/graph_data"),
-            handler: "CacheOnly",
+            urlPattern: new RegExp(`${process.env.DEV_HOST}/graph_data`),
+            handler: "StaleWhileRevalidate",
           },
         ],
       }),
