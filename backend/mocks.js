@@ -2,14 +2,25 @@ const faker = require("faker");
 const times = require("ramda").times;
 const urls = require("./data");
 
-const fakeNotifications = (n) =>
-  times(
-    (id) => ({
-      id,
-      text: faker.lorem.sentence(),
-    }),
-    n
-  );
+function shuffle(array) {
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 const getRandomExpenseCategory = () => {
   const categories = {
@@ -79,12 +90,12 @@ const fakeNotification = () => ({
 });
 
 const fakeGraphData = () => ({
-  expenses: [28, 56, 35, 105, 50, 70, 44, 70, 89, 110, 80, 65],
-  leisure: [35, 43, 3, 5, 7],
-  thisMonth: [28, 56, 35, 105, 50, 70, 44],
-  monthlyBills: [28, 40, 45, 65, 35],
-  lastWeek: [2, 5, 10, 7, 5, 8, 3],
-  overbudget: [1, 0, 2, 4, 5, 0, 7],
+  expenses: shuffle([28, 56, 35, 105, 50, 70, 44, 70, 89, 110, 80, 65]),
+  leisure: shuffle([35, 43, 3, 5, 7]),
+  thisMonth: shuffle([28, 56, 35, 105, 50, 70, 44]),
+  monthlyBills: shuffle([28, 40, 45, 65, 35]),
+  lastWeek: shuffle([2, 5, 10, 7, 5, 8, 3]),
+  overbudget: shuffle([1, 0, 2, 4, 5, 0, 7]),
 });
 
 const getRandomImage = (urls, id) => {

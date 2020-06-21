@@ -37,11 +37,7 @@ const appRouter = function(app) {
 
   app.get("/graph_data", function(req, res) {
     const data = mocks.fakeGraphData();
-    if (Math.random() > 0.5) {
-      repsonseWithTimeout(res, 200, data, 0);
-    } else {
-      repsonseWithTimeout(res, 418, null, 500);
-    }
+    repsonseWithTimeout(res, 200, data, 2000);
   });
 
   app.get("/goods", function(req, res) {

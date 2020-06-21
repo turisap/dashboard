@@ -266,17 +266,17 @@ module.exports = function({ mode, preset }) {
           localesToKeep: ["es-us"],
         }),
 
+      // TODO add process.env for backend url
       new workboxPlugin.GenerateSW({
         swDest: "sw.js",
         clientsClaim: true,
         skipWaiting: true,
-        // include: [/js$/, /css$/],
-        // runtimeCaching: [
-        //   {
-        //     urlPattern: new RegExp("http://localhost:3000/goods"),
-        //     handler: "StaleWhileRevalidate",
-        //   },
-        // ],
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp("http://localhost:3000/graph_data"),
+            handler: "CacheOnly",
+          },
+        ],
       }),
     ].filter(Boolean),
 
