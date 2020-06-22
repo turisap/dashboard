@@ -8,7 +8,17 @@ type UseClickAwayHook = (ref: RefObject<any>, handler: Function) => void;
 const useClickAway: UseClickAwayHook = (ref, handler) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
-      if (!ref.current || ref.current.contains(event.target)) {
+      const excludedTargets = document.querySelectorAll(
+        "[data-excluded-target]"
+      );
+      const isExcluded = [...excludedTargets].some((target) =>
+        target.contains(event.target as HTMLElement)
+      );
+
+      const shouldSkipCall =
+        !ref.current || ref.current.contains(event.target) || isExcluded;
+
+      if (shouldSkipCall) {
         return;
       }
 

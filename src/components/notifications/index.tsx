@@ -17,6 +17,7 @@ type MessageProps = Notification & { dismiss: (id: number) => () => void };
 const Message: React.FC<MessageProps> = ({ id, type, text, dismiss }) => (
   <div
     className={cx({ notificationWrapper: true, failure: type === "failure" })}
+    data-excluded-target
   >
     {type === "failure" ? (
       <GoAlert size="25" color="rgb(177, 41, 41)" />

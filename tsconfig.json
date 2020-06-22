@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es6",
-    "lib": ["es2015", "es2020", "dom"],
+    "lib": ["es2015", "es2020", "dom", "DOM.Iterable"],
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
