@@ -6,6 +6,10 @@ const repsonseWithTimeout = (res, status = 200, data = {}, delay = 1000) =>
 // expensese and incomings
 // TODO remove delays
 const appRouter = function(app) {
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+
   app.get("/expenses", function(req, res) {
     const data = mocks.fakeExpenses(500);
     if (Math.random() > 0.7) {

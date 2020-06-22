@@ -89,11 +89,11 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("sw.js")
-      .then((registration) => {
+      .then(() => {
         // uncomment for dev
         // console.log("SW registered: ", registration);
       })
-      .catch((registrationError) => {
+      .catch(() => {
         // uncomment for dev
         // console.log("SW registration failed: ", registrationError);
         LogRocket.captureMessage("SW install failed");

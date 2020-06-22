@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
@@ -16,7 +16,7 @@ const routes = [
   { path: "/purchases", Component: RealTime },
 ];
 
-const Router: React.FC<any> = ({ location }) => (
+const Router: React.FC<any> = () => (
   <Suspense fallback={<h1>...loading</h1>}>
     <BrowserRouter>
       <Menu />
