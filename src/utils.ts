@@ -17,7 +17,6 @@ export const asyncActionPrefixer = (prefix: string) => (
 ];
 
 // logger for io-ts decoder
-// FIXME remove console.log for prod
 export const ioTSLogger = (
   codec: Decoder<any, any>,
   data: any,
@@ -27,7 +26,8 @@ export const ioTSLogger = (
   if (res._tag === "Left") {
     const report = PathReporter.report(res);
 
-    console.error(`${reference} decoding error: ${report}`);
+    // uncomment for dev
+    // console.error(`${reference} decoding error: ${report}`);
     LogRocket.captureMessage(`Wrong API response for ${reference}`, {
       extra: {
         errorMsg: report.toString(),

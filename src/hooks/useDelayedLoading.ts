@@ -10,7 +10,7 @@ const useDelayedLoading: Hook = (delay = 500, status) => {
 
   useEffect(() => {
     switch (status) {
-      case "prestine":
+      case "pristine":
         setShowLoading(true);
 
         return undefined;

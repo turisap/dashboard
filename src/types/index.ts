@@ -26,7 +26,7 @@ type RowInfoInner = (IncomingProps | ExpenseProps) & CommonRowInnerProps;
 
 type RowInfo = API.Incoming | API.Expense;
 
-type LoadingStatus = "prestine" | "success" | "fail" | "loading" | "dirty";
+type LoadingStatus = "pristine" | "success" | "fail" | "loading" | "dirty";
 
 type BasicLoadingStatus = "loading" | "idle";
 

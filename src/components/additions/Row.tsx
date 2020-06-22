@@ -17,7 +17,7 @@ const cx = classNames.bind((styles as unknown) as Record<string, string>);
 const DeleteContainer: React.FC<IconsContainerProps> = ({ status }) => {
   return (
     <div className={styles.iconContainer}>
-      {status === "prestine" && (
+      {status === "pristine" && (
         <div className="row-svg">
           <AiOutlineDelete size="20" />
           <AiOutlineDelete size="20" color="#d92929" />
@@ -61,7 +61,7 @@ const Row: React.FC<VirtualRowProps<RowInfoInner>> = ({
       <p>{category}</p>
       <p>{saved ? `$${saved}` : type}</p>
       <p>${total}</p>
-      <DeleteContainer status="prestine" id={id} />
+      <DeleteContainer status="pristine" id={id} />
     </>
   );
 

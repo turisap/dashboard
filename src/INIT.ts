@@ -1,4 +1,5 @@
 import ReactGA from "react-ga";
+import LogRocket from "logrocket";
 
 ReactGA.initialize(process.env.GA_TRACKING_ID as string);
 ReactGA.pageview(window.location.pathname + window.location.search);
@@ -55,7 +56,8 @@ if (typeof PerformanceObserver !== "undefined") {
     const perfEntries = list.getEntries();
     for (let i = 0; i < perfEntries.length; i++) {
       if (process.env.PERF === "true") {
-        console.log(`Long running task: ${perfEntries[i].toJSON()}`);
+        // uncomment for dev
+        // console.log(`Long running task: ${perfEntries[i].toJSON()}`);
 
         ReactGA.event({
           category: "Performance",
@@ -73,7 +75,8 @@ if (typeof navigator !== "undefined") {
   const saveData = (window.navigator as any)?.connection?.saveData;
   const effectiveType = (window.navigator as any)?.connection?.effectiveType;
 
-  console.log("Save data %s, type %s", saveData, effectiveType);
+  // uncomment for dev
+  // console.log("Save data %s, type %s", saveData, effectiveType);
 
   ReactGA.event({
     category: "Performance",
@@ -87,10 +90,13 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("sw.js")
       .then((registration) => {
-        console.log("SW registered: ", registration);
+        // uncomment for dev
+        // console.log("SW registered: ", registration);
       })
       .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
+        // uncomment for dev
+        // console.log("SW registration failed: ", registrationError);
+        LogRocket.captureMessage("SW install failed");
       });
   });
 }

@@ -9,6 +9,12 @@ const useLazyLQIP = <T = HTMLElement>(
   root: MutableRefObject<HTMLDivElement | null>,
   threshold: number
 ): ItemsWithRefs<T> => {
+  if (typeof IntersectionObserver === "undefined") {
+    throw new Error(
+      "Your browser does not support the Intersection observer API"
+    );
+  }
+
   const [items, setItems] = useState<PurchaseItem[]>([]);
 
   useEffect(() => {

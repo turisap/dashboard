@@ -57,9 +57,9 @@ const toggleModalButton = createAsyncAction(...pra("toggleModalButton"))<
 const DEFAULT: REDUCERS.ListsState = {
   expenseModalOpen: false,
   incomingModalOpen: false,
-  incomingsStatus: "prestine",
-  expensesStatus: "prestine",
-  pageStatus: "prestine",
+  incomingsStatus: "pristine",
+  expensesStatus: "pristine",
+  pageStatus: "pristine",
   selectedExpenseId: 0,
   selectedIncomeId: 0,
   modalUpdatingState: {

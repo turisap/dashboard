@@ -10,11 +10,12 @@ const workboxPlugin = require("workbox-webpack-plugin");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
+
+// load .env vars to use in config
+require("dotenv").config({ path: __dirname + "/.env" });
 
 const resolveModule = (relPath) => path.resolve(process.cwd(), relPath);
 
-// TODO get back hot reload
 const ROUTES = {
   appEntry: {
     main: resolveModule("src/index.tsx"),

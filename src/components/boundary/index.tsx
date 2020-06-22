@@ -15,9 +15,9 @@ class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   }
 
   componentDidCatch(error, errorInfo) {
-    // FIXME remove logs after dev
-    console.log(error);
-    console.log(errorInfo);
+    // uncomment for dev
+    // console.log(error);
+    // console.log(errorInfo);
     LogRocket.captureException(error, {
       tags: {
         stack: errorInfo.componentStack.toString(),

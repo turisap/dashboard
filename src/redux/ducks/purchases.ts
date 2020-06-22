@@ -26,7 +26,7 @@ const fetchPurchases = createAsyncAction(...pra("fetchPurchases"))<
 
 const DEFAULT: REDUCERS.PurchasesState = {
   purchases: [],
-  pageStatus: "prestine",
+  pageStatus: "pristine",
 };
 
 const purchasesReducer = createReducer<REDUCERS.PurchasesState>(DEFAULT)

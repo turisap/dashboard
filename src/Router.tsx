@@ -16,36 +16,30 @@ const routes = [
   { path: "/purchases", Component: RealTime },
 ];
 
-const Router: React.FC<any> = ({ location }) => {
-  useEffect(() => {
-    console.log(location);
-  });
-
-  return (
-    <Suspense fallback={<h1>...loading</h1>}>
-      <BrowserRouter>
-        <Menu />
-        <Nav />
-        {routes.map(({ path, Component }) => (
-          <ErrorBoundary key={path}>
-            <Route exact path={path}>
-              {({ match }) => (
-                <CSSTransition
-                  in={match != null}
-                  timeout={300}
-                  classNames="route"
-                  unmountOnExit
-                >
-                  <Component />
-                </CSSTransition>
-              )}
-            </Route>
-          </ErrorBoundary>
-        ))}
-        <Redirect from="*" to="/dashboard" />
-      </BrowserRouter>
-    </Suspense>
-  );
-};
+const Router: React.FC<any> = ({ location }) => (
+  <Suspense fallback={<h1>...loading</h1>}>
+    <BrowserRouter>
+      <Menu />
+      <Nav />
+      {routes.map(({ path, Component }) => (
+        <ErrorBoundary key={path}>
+          <Route exact path={path}>
+            {({ match }) => (
+              <CSSTransition
+                in={match != null}
+                timeout={300}
+                classNames="route"
+                unmountOnExit
+              >
+                <Component />
+              </CSSTransition>
+            )}
+          </Route>
+        </ErrorBoundary>
+      ))}
+      <Redirect from="*" to="/dashboard" />
+    </BrowserRouter>
+  </Suspense>
+);
 
 export default Router;

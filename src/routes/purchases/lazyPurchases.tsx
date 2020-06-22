@@ -55,7 +55,7 @@ const PurchasesPage: React.FC = () => {
   const items = useLazyLQIP<HTMLImageElement>(purchases, root, 1);
 
   useEffect(() => {
-    if (pageStatus === "prestine") {
+    if (pageStatus === "pristine") {
       dispatch(fetchPurchases.request());
     }
   }, []);
