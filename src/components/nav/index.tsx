@@ -8,6 +8,8 @@ import { useClickAway } from "hooks/";
 import styles from "./styles.scss";
 import { REDUCERS, Message } from "types/*";
 
+import avatar from "assets/avatar.png";
+
 type Notification = {
   id: number;
   text: string;
@@ -60,7 +62,7 @@ const Nav: React.FC = () => {
         <NotificationsPopup open={notifOpen} notifications={messages} />
       </div>
       <FiSettings color="#ffffff" size="22" className={styles.settings} />
-      <img src="assets/avatar.png" className={styles.image} />
+      <img src={avatar} className={styles.image} />
     </div>
   );
 };

@@ -9,12 +9,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --env.mode development  --hot",
-    "typed": "tsm src --watch --ignore ./node_modules/**/*.scss",
-    "dev:typed": "concurrently \"yarn dev\" \"yarn typed\"",
-    "prod": "NODE_ENV=production webpack  --env.mode production",
-    "build:sw": "workbox injectManifest workbox-config.js",
-    "analize:prod": "yarn prod --env.preset analize",
-    "analize:dev": "yarn dev --env.preset analize"
+    "build": "NODE_ENV=production webpack  --env.mode production",
+    "start": "serve -s build",
+    "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -104,6 +101,7 @@
     "redux-saga": "^1.1.3",
     "regenerator-runtime": "^0.13.5",
     "reselect": "^4.0.0",
+    "serve": "^11.3.2",
     "socket.io-client": "^2.3.0",
     "typesafe-actions": "^5.1.0",
     "uuid": "^8.1.0",

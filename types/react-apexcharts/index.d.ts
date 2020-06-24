@@ -14,6 +14,11 @@ declare global {
     export default content;
   }
 
+  declare module "*.png" {
+    const value: any;
+    export default value;
+  }
+
   interface Document {
     fonts: FontFaceSet;
   }

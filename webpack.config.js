@@ -326,7 +326,7 @@ module.exports = function({ mode, preset }) {
             {
               loader: "url-loader",
               options: {
-                limit: 8192,
+                limit: 18192,
               },
             },
           ],
