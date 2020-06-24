@@ -12,8 +12,6 @@ import { docVisibilityChanged } from "./redux/ducks/system";
 import "./logrocket";
 import "./INIT";
 
-import "./styles/index.scss";
-
 const App = () => {
   const handleVisibilityChange = () =>
     store.dispatch(docVisibilityChanged(document.visibilityState));

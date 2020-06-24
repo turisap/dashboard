@@ -122,6 +122,7 @@ module.exports = function({ mode, preset }) {
         resources: [
           resolveModule("src/styles/_mixins.scss"),
           resolveModule("src/styles/_variables.scss"),
+          resolveModule("src/styles/_base.scss"),
         ],
       },
     });
