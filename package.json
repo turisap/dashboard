@@ -4,11 +4,10 @@
   "description": "mock REST API ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./index.js"
   },
   "engines": {
-    "node": "10.21.0"
+    "node": "10.x"
   },
   "author": "turisap",
   "license": "ISC",
