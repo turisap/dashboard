@@ -276,7 +276,9 @@ module.exports = function({ mode, preset }) {
         skipWaiting: true,
         runtimeCaching: [
           {
-            urlPattern: new RegExp(`${process.env.DEV_HOST}/graph_data`),
+            urlPattern: new RegExp(
+              `https://protected-citadel-13977.herokuapp.com/graph_data`
+            ),
             handler: "StaleWhileRevalidate",
           },
         ],
