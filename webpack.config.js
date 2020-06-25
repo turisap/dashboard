@@ -272,6 +272,7 @@ module.exports = function({ mode, preset }) {
       new workboxPlugin.GenerateSW({
         swDest: "sw.js",
         clientsClaim: true,
+        mode: "production",
         skipWaiting: true,
         runtimeCaching: [
           {
