@@ -1,5 +1,4 @@
 import ReactGA from "react-ga";
-import LogRocket from "logrocket";
 
 ReactGA.initialize(process.env.GA_TRACKING_ID as string);
 ReactGA.pageview(window.location.pathname + window.location.search);
@@ -81,22 +80,5 @@ if (typeof navigator !== "undefined") {
   ReactGA.event({
     category: "Performance",
     action: `Save data ${saveData}, connection type ${effectiveType}`,
-  });
-}
-
-// register a SW
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then(() => {
-        // uncomment for dev
-        // console.log("SW registered: ", registration);
-      })
-      .catch(() => {
-        // uncomment for dev
-        // console.log("SW registration failed: ", registrationError);
-        LogRocket.captureMessage("SW install failed");
-      });
   });
 }
