@@ -31,7 +31,8 @@ const enqueueNotification = createAction(prs("enqueueNotification"))<
 const setRemaining = createAction(prs("setRemaining"))<Array<Notification>>();
 const dismissNotification = createAction(prs("dismissNotification"))<number>();
 
-const createWS = (): WebSocket => socketIOClient(process.env.WS_ENDPOINT);
+const createWS = (): WebSocket =>
+  socketIOClient("https://shielded-earth-46088.herokuapp.com");
 
 const DEFAULT: REDUCERS.NotificationState = [];
 
