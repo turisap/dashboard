@@ -8,6 +8,7 @@ import { ErrorBoundary } from "components/boundary";
 import { store } from "./redux/store";
 import AppRouter from "./Router";
 import { docVisibilityChanged } from "./redux/ducks/system";
+import ReselectApp from './reselect'
 
 import "./logrocket";
 import "./INIT";
@@ -39,4 +40,4 @@ const App = () => {
   );
 };
 
-render(<App />, document.getElementById("app"));
+render(<ReselectApp />, document.getElementById("app"));

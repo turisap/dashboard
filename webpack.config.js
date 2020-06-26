@@ -269,17 +269,17 @@ module.exports = function({ mode, preset }) {
           localesToKeep: ["es-us"],
         }),
 
-      new workboxPlugin.GenerateSW({
-        swDest: "sw.js",
-        clientsClaim: true,
-        skipWaiting: true,
-        runtimeCaching: [
-          {
-            urlPattern: new RegExp(`${process.env.DEV_HOST}/graph_data`),
-            handler: "StaleWhileRevalidate",
-          },
-        ],
-      }),
+      // new workboxPlugin.GenerateSW({
+      //   swDest: "sw.js",
+      //   clientsClaim: true,
+      //   skipWaiting: true,
+      //   runtimeCaching: [
+      //     {
+      //       urlPattern: new RegExp(`${process.env.DEV_HOST}/graph_data`),
+      //       handler: "StaleWhileRevalidate",
+      //     },
+      //   ],
+      // }),
     ].filter(Boolean),
 
     module: {
