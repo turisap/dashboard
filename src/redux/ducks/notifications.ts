@@ -20,6 +20,8 @@ import { Notification, DocumentStatus, REDUCERS } from "types/";
 
 type NotificationData = Pick<Notification, "text" | "type">;
 
+type NotificationsState = Readonly<REDUCERS.NotificationState>;
+
 const DUCK_PREFIX = "notifications";
 const PERSIST_FOR = 5000;
 
@@ -33,21 +35,19 @@ const dismissNotification = createAction(prs("dismissNotification"))<number>();
 
 const createWS = (): WebSocket => socketIOClient(process.env.WS_ENDPOINT);
 
-const DEFAULT: REDUCERS.NotificationState = [];
+const DEFAULT: NotificationsState = [];
 
-const notificationsReducer = createReducer<REDUCERS.NotificationState>(DEFAULT)
-  .handleAction(
-    enqueueNotification,
-    (state: REDUCERS.NotificationState, { payload }) =>
-      produce(state, (draftState) => {
-        draftState.push({
-          id: uuidv4(),
-          in: true,
-          time: Date.now(),
-          text: payload.text,
-          type: payload.type,
-        });
-      })
+const notificationsReducer = createReducer<NotificationsState>(DEFAULT)
+  .handleAction(enqueueNotification, (state: NotificationsState, { payload }) =>
+    produce(state, (draftState) => {
+      draftState.push({
+        id: uuidv4(),
+        in: true,
+        time: Date.now(),
+        text: payload.text,
+        type: payload.type,
+      });
+    })
   )
   .handleAction(setRemaining, (_, { payload }) => payload)
   .handleAction(dismissNotification, (state, { payload }) =>

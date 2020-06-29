@@ -23,7 +23,9 @@ const fetchGraphData = createAsyncAction(...pra("fetchGraphData"))<
   string
 >();
 
-const DEFAULT: API.GraphData = {
+type GraphState = Readonly<API.GraphData>;
+
+const DEFAULT: GraphState = {
   expenses: [],
   leisure: [],
   thisMonth: [],
@@ -32,9 +34,9 @@ const DEFAULT: API.GraphData = {
   overbudget: [],
 };
 
-const graphsReducer = createReducer<API.GraphData>(DEFAULT).handleAction(
+const graphsReducer = createReducer<GraphState>(DEFAULT).handleAction(
   fetchGraphData.success,
-  (_: API.GraphData, { payload }) => payload
+  (_: GraphState, { payload }) => payload
 );
 
 function* getGraphData() {

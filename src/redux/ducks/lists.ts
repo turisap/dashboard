@@ -32,6 +32,8 @@ type ToggleButtonPayload = {
   type: TableTypes;
 };
 
+type ListsState = Readonly<REDUCERS.ListsState>;
+
 // app state
 const toggleExpenseModal = createAction(prs("toggleExpenseModal"))<number>();
 const toggleIncomingModal = createAction(prs("toggleIncomingModal"))<number>();
@@ -54,7 +56,7 @@ const toggleModalButton = createAsyncAction(...pra("toggleModalButton"))<
   ToggleButtonPayload
 >();
 
-const DEFAULT: REDUCERS.ListsState = {
+const DEFAULT: ListsState = {
   expenseModalOpen: false,
   incomingModalOpen: false,
   incomingsStatus: "pristine",
@@ -72,22 +74,20 @@ const DEFAULT: REDUCERS.ListsState = {
   incomings: [],
 };
 
-const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
-  .handleAction(toggleExpenseModal, (state: REDUCERS.ListsState, { payload }) =>
+const listsReducer = createReducer<ListsState>(DEFAULT)
+  .handleAction(toggleExpenseModal, (state: ListsState, { payload }) =>
     produce(state, (draftState) => {
       draftState.expenseModalOpen = !state.expenseModalOpen;
       draftState.selectedExpenseId = payload;
     })
   )
-  .handleAction(
-    toggleIncomingModal,
-    (state: REDUCERS.ListsState, { payload }) =>
-      produce(state, (draftState) => {
-        draftState.incomingModalOpen = !state.incomingModalOpen;
-        draftState.selectedIncomeId = payload;
-      })
+  .handleAction(toggleIncomingModal, (state: ListsState, { payload }) =>
+    produce(state, (draftState) => {
+      draftState.incomingModalOpen = !state.incomingModalOpen;
+      draftState.selectedIncomeId = payload;
+    })
   )
-  .handleAction(closeAllModals, (state: REDUCERS.ListsState) =>
+  .handleAction(closeAllModals, (state: ListsState) =>
     produce(state, (draftState) => {
       draftState.incomingModalOpen = false;
       draftState.expenseModalOpen = false;
@@ -95,67 +95,54 @@ const listsReducer = createReducer<REDUCERS.ListsState>(DEFAULT)
       draftState.selectedIncomeId = 0;
     })
   )
-  .handleAction(
-    fetchAllExpenses.success,
-    (state: REDUCERS.ListsState, { payload }) =>
-      produce(state, (draftState) => {
-        draftState.expenses = payload;
-      })
+  .handleAction(fetchAllExpenses.success, (state: ListsState, { payload }) =>
+    produce(state, (draftState) => {
+      draftState.expenses = payload;
+    })
   )
-  .handleAction(
-    fetchAllIncomings.success,
-    (state: REDUCERS.ListsState, { payload }) =>
-      produce(state, (draftState) => {
-        draftState.incomings = payload;
-        draftState.incomingsStatus = "success";
-      })
+  .handleAction(fetchAllIncomings.success, (state: ListsState, { payload }) =>
+    produce(state, (draftState) => {
+      draftState.incomings = payload;
+      draftState.incomingsStatus = "success";
+    })
   )
   // this is an optimistic update
   // consistency is ensured by the next failure handler
-  .handleAction(
-    toggleModalButton.request,
-    (state: REDUCERS.ListsState, { payload }) => {
-      const { id, item, type } = payload;
-      const notPending = state.modalUpdatingState[item] !== "loading";
+  .handleAction(toggleModalButton.request, (state: ListsState, { payload }) => {
+    const { id, item, type } = payload;
+    const notPending = state.modalUpdatingState[item] !== "loading";
 
-      return produce(state, (draftState) => {
-        if (notPending) {
-          draftState[type].forEach((row) => {
-            if (row.id === id) {
-              row[item] = !row[item];
-            }
-          });
-        }
-
-        draftState.modalUpdatingState[item] = "loading";
-      });
-    }
-  )
-  .handleAction(
-    toggleModalButton.success,
-    (state: REDUCERS.ListsState, { payload }) => {
-      const { item } = payload;
-
-      return produce(state, (draftState) => {
-        draftState.modalUpdatingState[item] = "idle";
-      });
-    }
-  )
-  .handleAction(
-    toggleModalButton.failure,
-    (state: REDUCERS.ListsState, { payload }) => {
-      const { id, item, type } = payload;
-
-      return produce(state, (draftState) => {
+    return produce(state, (draftState) => {
+      if (notPending) {
         draftState[type].forEach((row) => {
           if (row.id === id) {
             row[item] = !row[item];
           }
         });
-        draftState.modalUpdatingState[item] = "idle";
+      }
+
+      draftState.modalUpdatingState[item] = "loading";
+    });
+  })
+  .handleAction(toggleModalButton.success, (state: ListsState, { payload }) => {
+    const { item } = payload;
+
+    return produce(state, (draftState) => {
+      draftState.modalUpdatingState[item] = "idle";
+    });
+  })
+  .handleAction(toggleModalButton.failure, (state: ListsState, { payload }) => {
+    const { id, item, type } = payload;
+
+    return produce(state, (draftState) => {
+      draftState[type].forEach((row) => {
+        if (row.id === id) {
+          row[item] = !row[item];
+        }
       });
-    }
-  );
+      draftState.modalUpdatingState[item] = "idle";
+    });
+  });
 
 // worker sagas
 function* getExpenses() {

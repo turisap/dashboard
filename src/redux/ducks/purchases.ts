@@ -10,6 +10,8 @@ import { get } from "requestBuilder";
 import { ioTSLogger } from "../../utils";
 import { enqueueNotification } from "./notifications";
 
+type PurchasesState = Readonly<REDUCERS.PurchasesState>;
+
 const DUCK_PREFIX = "goods";
 const BASE_ENDPOINT = "/goods";
 const FETCH_RETRY_TIMES = parseInt(process.env.FETCH_RETRY || "1");
@@ -24,21 +26,19 @@ const fetchPurchases = createAsyncAction(...pra("fetchPurchases"))<
   string
 >();
 
-const DEFAULT: REDUCERS.PurchasesState = {
+const DEFAULT: PurchasesState = {
   purchases: [],
   pageStatus: "pristine",
 };
 
-const purchasesReducer = createReducer<REDUCERS.PurchasesState>(DEFAULT)
-  .handleAction(
-    fetchPurchases.success,
-    (_: REDUCERS.PurchasesState, { payload }) =>
-      produce(_, (draftState) => {
-        draftState.purchases = payload;
-        draftState.pageStatus = "dirty";
-      })
+const purchasesReducer = createReducer<PurchasesState>(DEFAULT)
+  .handleAction(fetchPurchases.success, (_: PurchasesState, { payload }) =>
+    produce(_, (draftState) => {
+      draftState.purchases = payload;
+      draftState.pageStatus = "dirty";
+    })
   )
-  .handleAction(fetchPurchases.failure, (_: REDUCERS.PurchasesState) =>
+  .handleAction(fetchPurchases.failure, (_: PurchasesState) =>
     produce(_, (draftState) => {
       draftState.pageStatus = "fail";
     })

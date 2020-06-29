@@ -6,6 +6,8 @@ import { REDUCERS, DocumentStatus } from "types/";
 
 import { fakeNotifications } from "../../mocks";
 
+type SystemState = Readonly<REDUCERS.SystemState>;
+
 const DUCK_PREFIX = "system";
 
 const prs = actionPrefixer(DUCK_PREFIX);
@@ -14,14 +16,14 @@ const docVisibilityChanged = createAction(prs("docVisibilityChanged"))<
   DocumentStatus
 >();
 
-const DEFAULT: REDUCERS.SystemState = {
+const DEFAULT: SystemState = {
   documentStatus: "visible",
   messages: fakeNotifications(5),
 };
 
-const systemReducer = createReducer<REDUCERS.SystemState>(DEFAULT).handleAction(
+const systemReducer = createReducer<SystemState>(DEFAULT).handleAction(
   docVisibilityChanged,
-  (state: REDUCERS.SystemState, { payload }) =>
+  (state: SystemState, { payload }) =>
     produce(state, (draftState) => {
       draftState.documentStatus = payload;
     })
