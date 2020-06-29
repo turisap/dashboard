@@ -57,7 +57,7 @@ const ModalRow: React.FC = () => {
     marked,
   } = row;
 
-  const icon = expense ? (
+  const icon = expenseOpen ? (
     <AiFillDownCircle color="#e36f74" size="25" />
   ) : (
     <AiFillUpCircle color="#6fe398" size="25" />
@@ -65,7 +65,7 @@ const ModalRow: React.FC = () => {
 
   const partialPayload = {
     id: row.id,
-    type: (expense ? "expenses" : "incomings") as TableTypes,
+    type: (expenseOpen ? "expenses" : "incomings") as TableTypes,
   };
 
   const toggleItem = (item: ButtonTypes) => () =>
