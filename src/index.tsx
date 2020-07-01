@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
+import ReactGA from "react-ga";
+import LogRocket from "logrocket";
+import setupLogRocketReact from "logrocket-react";
 
 import Notifications from "components/notifications";
 import { ErrorBoundary } from "components/boundary";
@@ -9,8 +12,18 @@ import { store } from "./redux/store";
 import AppRouter from "./Router";
 import { docVisibilityChanged } from "./redux/ducks/system";
 
-import "./logrocket";
+//import "./logrocket";
 import "./INIT";
+
+ReactGA.initialize(process.env.GA_TRACKING_ID as string);
+ReactGA.pageview(window.location.pathname + window.location.search);
+
+setupLogRocketReact(LogRocket);
+
+LogRocket.init(process.env.LOGROCKET_ID as string);
+
+console.log("GA ID", process.env.GA_TRACKING_ID);
+console.log("LOGROCKET ID", process.env.LOGROCKET_ID);
 
 const App = () => {
   const handleVisibilityChange = () =>
