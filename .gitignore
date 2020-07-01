@@ -11,7 +11,7 @@ yarn-error.log
 build/
 
 # ENV
-# .env
+.env
 
 # type annotations for css-modules
 *.scss.d.ts

@@ -22,9 +22,6 @@ setupLogRocketReact(LogRocket);
 
 LogRocket.init(process.env.LOGROCKET_ID as string);
 
-console.log("GA ID", process.env.GA_TRACKING_ID);
-console.log("LOGROCKET ID", process.env.LOGROCKET_ID);
-
 const App = () => {
   const handleVisibilityChange = () =>
     store.dispatch(docVisibilityChanged(document.visibilityState));
