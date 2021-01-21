@@ -81,7 +81,7 @@
     "babel-plugin-add-react-displayname": "^0.0.5",
     "classnames": "^2.2.6",
     "fp-ts": "^2.6.2",
-    "immer": "^6.0.9",
+    "immer": "^8.0.1",
     "io-ts": "^2.2.4",
     "logrocket": "^1.0.7",
     "logrocket-react": "4",
