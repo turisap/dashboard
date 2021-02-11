@@ -77,7 +77,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-transition-group": "^4.2.4",
     "@types/react-window": "^1.8.2",
-    "apexcharts": "^3.19.0",
+    "apexcharts": "^3.24.0",
     "babel-plugin-add-react-displayname": "^0.0.5",
     "classnames": "^2.2.6",
     "fp-ts": "^2.6.2",
